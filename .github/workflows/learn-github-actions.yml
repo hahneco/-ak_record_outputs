@@ -1,13 +1,41 @@
 name: learn-github-actions
 run-name: ${{ github.actor }} is learning GitHub Actions
-on: [push]
+on:
+  # 手動でもWolkflowを利用できるようにしておく
+  workflow_dispatch:
+  schedule:
+    # JSTで8:45に毎日１回実行
+    - cron: '45 23 * * *'
+
 jobs:
-  check-bats-version:
+  output_study_history:
+
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
+    # Pythonスクリプトを利用
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.10"
+    - name: exec aggregate
+      env:
+          # コマンドを実行するための環境変数をセット
+          GIT_USER: ${{ secrets.GIT_USER }}
+          GIT_MAIL: ${{ secrets.GIT_MAIL }}
+          TZ: 'Asia/Tokyo'
+      run: |
+        pip install requests
+        # データ取得・取得したデータを整形してファイルに出力
+        python index.py
+        git config --local user.name ${GIT_USER}
+        git config --local user.email ${GIT_MAIL}
+        git add -N .
+        # 差分があった時だけcommit,pushする
+        if ! git diff --exit-code --quiet
+        then
+          git add .
+          git commit -m 'Update Record Data'
+          git push
+        fi
