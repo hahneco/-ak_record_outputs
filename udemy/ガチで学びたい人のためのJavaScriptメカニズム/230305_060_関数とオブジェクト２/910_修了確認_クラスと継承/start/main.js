@@ -43,12 +43,59 @@
  * login failed <- loginで失敗した場合
  */
 
+// userクラス作成
+class User {
+  constructor(name) { // コンストラクター関数設定
+    this.name = name;
+    this.redirectTo = '/'; // リダイレクトのパスを格納するプロパティを用意する
+  }
+
+  // ログインしたときのメソッドを定義
+/*
+  User: Bob
+  you have normal roll
+  redirect : /
+  login success
+  */
+  login() {
+    console.log(`User: ${this.name}`);
+    return true;
+  }
+
+  checkRoll() {
+    console.log(`you have normal roll`);
+    return true;
+  }
+
+  redirect() {
+    console.log(`redirect: ${this.redirectTo}`);
+    return true;
+  }
+}
+
+// adminユーザークラス作成
+class AdminUser extends User {
+  constructor(name) { // コンストラクター関数設定
+    super(name); // superの実行
+    // superより下の行は独自の設定
+    this.redirectTo = '/admin'; // リダイレクトのパスを格納するプロパティを用意する
+  }
+
+  checkRoll() {
+    console.log(`you have admin roll`);
+    return true;
+  }
+}
+
 function loginController(user) {
   if (user.login()
-    && user.checkRoll()
+    && user.checkRoll() // 「&&」trueが返ってきたら次の処理に移る
     && user.redirect()) {
     console.log('login success');
   } else {
     console.log('login failed');
   }
 }
+
+// loginController(new User('Bob'));
+loginController(new AdminUser('Bob'));

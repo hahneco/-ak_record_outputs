@@ -9,7 +9,7 @@ class Person {
     }
 }
 
-class Japanese extends Person {
+class Japanese extends Person { // superはクラスを継承したクラスまたはコンストラクター内で使用される
     constructor(name, age, gender) {
         super(name, age);
         this.gender = gender;
@@ -29,15 +29,24 @@ const taro = new Japanese('Taro', 23, 'Male');
 console.log(taro);
 taro.bye();
 
-// const american = {
-//     hello() {
-//         console.log('hello ' + this.name);
-//     }
-// }
+// オブジェクト内でsuperキーワードを使用する
+const american = { // オブジェクトリテラル内でのsuper使用
+    hello() {
+        console.log('hello ' + this.name);
+    }
+}
 
-// const bob = {
-//     name: 'Bob',
-//     hello() {
-//         super.hello();
-//     }
-// }
+const bob = {
+    name: 'Bob',
+    hello() {
+        super.hello();
+    }
+}
+
+Object.setPrototypeOf(bob, american);
+bob.hello();
+
+// ################################
+// superとは
+// 関数コンテキスト内で使用できる特別なキーワード
+// 継承元の関数を呼び出すキーワード。
