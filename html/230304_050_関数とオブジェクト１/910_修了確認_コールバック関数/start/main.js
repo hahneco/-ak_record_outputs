@@ -1,3 +1,4 @@
+console.log('コールバック関数演習');
 /**
  * 問題１：
  * setTimeoutの実行から１秒後にブラウザの
@@ -8,11 +9,15 @@
  */
 const person = {
     hello: function () {
+        // console.log('Ken');
         return 'hello Tom';
     }
 }
 
-// setTimeout(/** ここに追記 */, 1000);
+// setTimeout(function() {
+//     const hello = person.hello();
+//     console.log(hello);
+// }, 1000);
 
 /**
  * 問題２：
@@ -24,6 +29,10 @@ const person = {
  * ※alertは第一引数に渡した文字列を画面のダイアログに表
  * 示する関数です。
  */
+// setTimeout(function() {
+//     const hello = person.hello();
+//     alert(hello);
+// }, 1000);
 
 
 /**
@@ -40,19 +49,20 @@ const obj = {};
 obj.greeting = function() {
     console.log('hello');
 }
+console.log(obj.greeting);
 
 function after1s(callack) {
     setTimeout(callack, 1000);
 }
 
 // この時点で実行します。
-// after1s(obj.greeting);
+after1s(obj.greeting);
 
 // この後でgreetingを書き換えます。
 obj.greeting = function() {
     console.log('hey');
 }
-
+after1s(obj.greeting);
 
 /**
  * 問題４：
@@ -63,34 +73,49 @@ obj.greeting = function() {
  * 
  * ※コールバック関数を用いて実装してください。
  */
-function calcFactory(val) {
+function calcFactory(val, callback) {
     return {
         plus: function(target) {
             const newVal = val + target;
-            console.log(`${val} + ${target} = ${newVal}`);
+            callback(`${val} + ${target} = ${newVal}`);
             val = newVal;
+            // return `${val} + ${target} = ${newVal}`;
         },
         minus: function(target) {
             const newVal = val - target;
-            console.log(`${val} - ${target} = ${newVal}`);
+            callback(`${val} - ${target} = ${newVal}`);
             val = newVal;
+            // return `${val} - ${target} = ${newVal}`;
         },
         multiply: function(target) {
             const newVal = val * target;
-            console.log(`${val} x ${target} = ${newVal}`);
+            callback(`${val} x ${target} = ${newVal}`);
             val = newVal;
+            // return `${val} x ${target} = ${newVal}`;
         },
         divide: function(target) {
             const newVal = val / target;
-            console.log(`${val} / ${target} = ${newVal}`);
+            callback(`${val} / ${target} = ${newVal}`);
             val = newVal;
+            // return `${val} / ${target} = ${newVal}`;
         }
     };
 }
 
-const calc = calcFactory(10);
-calc.plus(5); 
-calc.minus(3); 
-calc.multiply(3);
-calc.divide(2);
+// const calc = calcFactory(10, console.log);
+const calc = calcFactory(10, alert);
+// ↑if文などなしに処理を切り替えられる
+calc.plus(5)
+calc.minus(3)
+calc.multiply(3)
+calc.divide(2)
+
+
+// setTimeout(function() {
+//     console.log(calc.plus(5));
+//     console.log(calc.minus(3));
+//     console.log(calc.multiply(3));
+//     console.log(calc.divide(2));
+//     alert(calc.plus(5));
+// }, 1000);
 
