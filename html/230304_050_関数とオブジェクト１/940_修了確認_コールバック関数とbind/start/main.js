@@ -5,25 +5,29 @@
  * ようにcalcFactory関数内の実装を変更してみてください。
  */
 function calcFactory(val, callback) {
+    function callbackAfter1s(str) { // 引数に文字列を受け取る
+        setTimeout(callback.bind(null, str), 1000); // callbackにstrを渡す
+    }
+
     return {
         plus: function(target) {
             const newVal = val + target;
-            callback(`${val} + ${target} = ${newVal}`);
+            callbackAfter1s(`${val} + ${target} = ${newVal}`);
             val = newVal;
         },
         minus: function(target) {
             const newVal = val - target;
-            callback(`${val} - ${target} = ${newVal}`);
+            callbackAfter1s(`${val} - ${target} = ${newVal}`);
             val = newVal;
         },
         multiply: function(target) {
             const newVal = val * target;
-            callback(`${val} x ${target} = ${newVal}`);
+            callbackAfter1s(`${val} x ${target} = ${newVal}`);
             val = newVal;
         },
         divide: function(target) {
             const newVal = val / target;
-            callback(`${val} / ${target} = ${newVal}`);
+            callbackAfter1s(`${val} / ${target} = ${newVal}`);
             val = newVal;
         }
     };
@@ -34,3 +38,12 @@ calc.plus(5);
 calc.minus(3); 
 calc.multiply(3);
 calc.divide(2);
+
+// setTimeout(
+//     function() {
+//         calc.plus(5); 
+//         calc.minus(3); 
+//         calc.multiply(3);
+//         calc.divide(2);
+//     }
+// , 1000)
