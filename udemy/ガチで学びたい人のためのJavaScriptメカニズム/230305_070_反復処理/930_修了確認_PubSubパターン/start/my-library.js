@@ -40,6 +40,34 @@
  * 
  */
 
+// 2つ以上同じ関数を実行する場合、Setを使用する
+
+const events = (function() { // eventsに即時関数をセット
+	const eventsStack = new Map();
+
+	return {
+		on(type, fn) {
+			const fnStack = eventsStack.get(type) || new Set();
+			fnStack.add(fn);
+			eventsStack.set(type, fnStack);
+		},
+		off(type, fn) {
+			const fnStack = eventsStack.get(type);
+			if(fnStack && fnStack.has(fn)) {
+				fnStack.delete(fn);
+			}
+		},
+		emit(type) {
+			const fnStack = eventsStack.get(type);
+			if(fnStack) {
+				for(const fn of fnStack) {
+					fn();
+				}
+			}
+		},
+	}
+})();
+
 class MyLibrary {
 	constructor() {
 		events.emit('beforeInit');
