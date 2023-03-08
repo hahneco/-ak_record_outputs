@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Module Lecture</h1>
+    <script>
+        const span = document.createElement('span');
+        span.textContent = decodeURI(window.location.pathname);
+        document.body.appendChild(span);
+    </script>
+    <h2>編集用ファイル</h2>
+    <a href="../end" style="font-weight: 600; color: red;">
+        完成ファイルへ
+    </a>
+
+    <div>
+        <a href="../../" style="margin-right: 10px;">
+            セクションへ
+        </a>
+
+        <a href="../../../">
+            コースへ
+        </a>
+    </div>
+    <!-- ↓moduleに対応しいいないブラウザの場合 -->
+    <script nomodule>alert</script>
+    <script src="main.js" defer></script>
+    <script src="main.js" defer></script>
+    <!-- ↓ type = "module"を付与した場合、deferが自動的に付与される -->
+    <script type="module" src="moduleB.js"></script>
+    <script type="module" src="moduleB.js"></script>
+</body>
+
+</html>

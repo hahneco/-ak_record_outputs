@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const span = document.createElement('span');
+        span.textContent = decodeURI(window.location.pathname);
+        document.body.appendChild(span);
+    </script>
+    <h1>完成ファイル</h1>
+
+    <a href="../start" style="font-weight: 600; color: green;">
+        編集用ファイルへ
+    </a>
+    <div>
+        <a href="../../" style="margin-right: 10px;">
+            セクションへ
+        </a>
+    
+        <a href="../../../">
+            コースへ
+        </a>
+    </div>
+    <script src="main.js"></script>
+    <script type="module" src="module.js"></script>
+</body>
+</html>
