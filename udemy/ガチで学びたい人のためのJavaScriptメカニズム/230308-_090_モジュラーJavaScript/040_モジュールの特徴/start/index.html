@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <h1>Module Lecture</h1>
     <script>
         const span = document.createElement('span');
         span.textContent = decodeURI(window.location.pathname);
@@ -27,7 +28,12 @@
             コースへ
         </a>
     </div>
+    <!-- ↓moduleに対応しいいないブラウザの場合 -->
+    <script nomodule>alert</script>
     <script src="main.js" defer></script>
+    <script src="main.js" defer></script>
+    <!-- ↓ type = "module"を付与した場合、deferが自動的に付与される -->
+    <script type="module" src="moduleB.js"></script>
     <script type="module" src="moduleB.js"></script>
 </body>
 
