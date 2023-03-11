@@ -1,0 +1,15 @@
+<script type="module">
+    import { queueJob } from './scheduler.js';
+
+    queueJob(() => {
+        console.log('a');
+
+        queueJob(() => {
+            console.log('c');
+        })
+    })
+    queueJob(() => {
+        console.log('b');
+    })
+    console.log('end');
+</script>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div id="app"></div>
+
+    <script type="module">
+        import { createVNode, patch } from './renderer.js';
+        import { nodeOps } from './nodeOps.js';
+
+        const container = nodeOps.qs('#app');
+        const prevVNode = createVNode();
+        const nextVNode = createVNode('div', { class: 'demo'}, 'hello');
+        patch(prevVNode, nextVNode, container);
+    </script>
+</body>
+
+</html>

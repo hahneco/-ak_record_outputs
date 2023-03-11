@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div id="app"></div>
+
+    <script type="module">
+        import { createVNode, patch } from './renderer.js';
+        import { nodeOps } from './nodeOps.js';
+
+        const container = nodeOps.qs('#app');
+        const prevVNode = createVNode();
+        const nextVNode1 = createVNode('div', { class: 'green' }, [
+            createVNode('div', { class: 'green' }, 'hello')
+        ]);
+        const nextVNode2 = createVNode('div', { class: 'green' }, [
+            createVNode('div', { class: 'green' }, 'bye')
+        ]);
+        patch(prevVNode, nextVNode1, container);
+        patch(nextVNode1, nextVNode2, container);
+    </script>
+    <style>
+        .green {
+            color: green;
+        }
+    </style>
+</body>
+
+</html>
