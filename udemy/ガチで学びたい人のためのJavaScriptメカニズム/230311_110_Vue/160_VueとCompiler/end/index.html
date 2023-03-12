@@ -1,0 +1,10 @@
+<script type="module">
+    import { compile } from './vue.esm-browser.js';
+
+    const render = compile(`
+        <div>
+            <span>hello</span>
+        </div>
+    `);
+    console.log(render);
+</script>

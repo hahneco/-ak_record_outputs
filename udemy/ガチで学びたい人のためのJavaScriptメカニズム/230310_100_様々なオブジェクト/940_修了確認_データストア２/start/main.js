@@ -2,12 +2,14 @@
  * 問題：
  * オブジェクトの状態をlocalStorageに登録する処理を
  * 非同期としてください。
- * 
+ *
  * また、複数回同じプロパティーに対して更新が入った場合
  * にも、localStorageへの登録は１回のみとなるように変更してください。
- * 
+ *
  */
 const KEY = 'test-data';
+const p = Promise.resolve();
+let _dirty;
 
 class DataSource {
 	static getLocal(KEY) {
@@ -27,10 +29,18 @@ const targetObj = DataSource.getLocal(KEY) || {};
 
 const pxy = new Proxy(targetObj, {
 	set(target, prop, value, receiver) {
+		_dirty = true; // オブジェクトが変更されたというフラグ
 		const result = Reflect.set(target, prop, value, receiver);
 
-		DataSource.setLocal(KEY, target);
-		
+		p.then(() => { // グローバルコンテキストの最後にthenメソッドが非同期で呼ばれている
+
+			if (_dirty) {
+				console.log('** update data **');
+				_dirty = false
+				DataSource.setLocal(KEY, target);
+			}
+		});
+
 		return result;
 	}
 });

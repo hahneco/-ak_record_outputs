@@ -1,0 +1,11 @@
+<script type="module">
+    import { effect, reactive, computed } from './reactivity.esm-browser.js'
+    const obj = reactive({ a: 0 });
+    const computedValue = computed(() => {
+        return obj.a + 10;
+    });
+    obj.a = 1;
+    console.log(computedValue);
+    obj.a = 2;
+    console.log(computedValue.value);
+</script>

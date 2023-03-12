@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Like App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script type="module">
+        import { createApp, h, nextTick } from './app.js';
+
+        createApp({
+            data: () => ({
+                a: 8,
+                b: 7
+            }),
+            computed: {
+                sum() {
+                    return this.a + this.b;
+                },
+            },
+            methods: {
+                increment(key) {
+                    this[key]++;
+                },
+                decrement(key) {
+                    this[key]--;
+                }
+            },
+            render() {
+                return h('div', { class: 'container' }, [
+                    h('div', { class: 'num' }, [
+                        h('button', { class: 'btn', onClick: () => this.increment('a') }, '+'),
+                        h('div', { class: 'label' }, this.a),
+                        h('button', { class: 'btn', onClick: () => this.decrement('a') }, '-')
+                    ]),
+                    h('div', { class: 'num' }, '+'),
+                    h('div', { class: 'num' }, [
+                        h('button', { class: 'btn', onClick: () => this.increment('b') }, '+'),
+                        h('div', { class: 'label' }, this.b),
+                        h('button', { class: 'btn', onClick: () => this.decrement('b') }, '-')
+                    ]),
+                    h('div', { class: 'num' }, '='),
+                    h('div', { class: 'result' }, this.sum)
+                ]);
+            }
+        })
+        .mount('#app');
+    </script>
+</body>
+
+</html>

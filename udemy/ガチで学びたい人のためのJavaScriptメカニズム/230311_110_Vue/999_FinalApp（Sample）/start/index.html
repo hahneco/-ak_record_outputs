@@ -1,0 +1,77 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Like App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app"></div>
+    <!-- template version
+    
+        <template id="calc">
+        <div class="container">
+            <div class="num">
+                <button class="btn" @click="increment('a')">+</button>
+                <div class="label">{{ a }}</div>
+                <button class="btn" @click="decrement('a')">-</button>
+            </div>
+            <div class="num">+</div>
+            <div class="num">
+                <button class="btn" @click="increment('b')">+</button>
+                <div class="label">{{ b }}</div>
+                <button class="btn" @click="decrement('b')">-</button>
+            </div>
+            <div class="num">=</div>
+            <div class="result">{{ sum }}</div>
+            
+        </div>
+    </template>
+
+    template verson end -->
+    <script type="module">
+        import { createApp, h } from './vue.esm-browser.js';
+
+        createApp({
+            // template: '#calc', // template version
+            data: () => ({
+                a: 8,
+                b: 7
+            }),
+            computed: {
+                sum() {
+                    return this.a + this.b;
+                },
+            },
+            methods: {
+                increment(key) {
+                    this[key]++;
+                },
+                decrement(key) {
+                    this[key]--;
+                }
+            },
+            render() {
+                return h('div', { class: 'container' }, [
+                    h('div', { class: 'num' }, [
+                        h('button', { class: 'btn', onClick: () => { this.a++ } }, '+'),
+                        h('div', { class: 'label' }, this.a),
+                        h('button', { class: 'btn', onClick: () => { this.a-- } }, '-'),
+                    ]),
+                    h('div', { class: 'num' }, '+'),
+                    h('div', { class: 'num' }, [
+                        h('button', { class: 'btn', onClick: () => { this.b++ } }, '+'),
+                        h('div', { class: 'label' }, this.b),
+                        h('button', { class: 'btn', onClick: () => { this.b-- } }, '-'),
+                    ]),
+                    h('div', { class: 'num' }, '='),
+                    h('div', { class: 'result' }, this.sum),
+                ]);
+            }
+        }).mount('#app');
+    </script>
+</body>
+
+</html>
