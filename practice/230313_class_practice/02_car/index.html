@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- <button>Run</button> -->
+
+  <h1 id="target">xxxxxxxxxx</h1>
+
+  <button onclick="faster()">加速</button>
+  <button onclick="slower()">減速</button>
+  <br>
+  <div>
+    距離:<span id="distance-display">km</span>
+  </div>
+  <input type="range" id="distance">
+
+  <button onclick="drive()">ドライブ</button>
+  <button onclick="carCheck()">車チェック</button>
+
+  <p>車の速さは<span id="speed">30km/h</span></p>
+  <p>車の燃料は<span id="gas">100l</span></p>
+
+  <script src="main.js"></script>
+</body>
+
+</html>
