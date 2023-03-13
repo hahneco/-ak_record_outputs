@@ -7,6 +7,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    .info {
+      background-color: aqua;
+      height: 1em;
+      width: 20%;
+    }
+    #board {
+      background-color: brown;
+    }
+    td.cell {
+      /* border: 1px solid brown; */
+      background-color: bisque;
+      width: 3vw;
+      height: 3vw;
+    }
+  </style>
 </head>
 
 <body>
@@ -14,15 +30,9 @@
 
   <h1 id="target">xxxxxxxxxx</h1>
 
-  <button onclick="pickR()">赤を選ぶ</button>
-  <button onclick="pickG()">緑を選ぶ</button>
-  <button onclick="pickB()">青を選ぶ</button>
-  <button onclick="stroke()">書く</button>
+  <table id="board"></table>
 
-  <p>
-    鉛筆の色は<span id="color">カラー</span>、
-    長さは<span id="length"></span>cm
-  </p>
+  <h2 id="info"></h2>
 
   <script src="main.js"></script>
 </body>
