@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Kaisei+Opti:wght@400;500;700&family=Yomogi&display=swap"
+    rel="stylesheet">
+  <title>Document</title>
+  <style>
+    body {
+      font-family: Yomogi;
+      color: indigo;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      margin: 0 auto;
+    }
+    table {
+      background-color: palevioletred;
+      font-size: 3vw;
+      width: 45vw;
+      height: 45vw;
+      margin: 0 auto;
+    }
+    tr {
+      background-color: antiquewhite;
+      border: 2px solid salmon;
+    }
+    td {
+      width: 6vw;
+      height: 6vw;
+    }
+    .cell-disabled {
+      pointer-events: none;
+      vertical-align:middle;
+    }
+  </style>
+</head>
+
+<body onload="init()">
+  <!-- <button>Run</button> -->
+
+  <h1 id="target">まるばつゲーム!!</h1>
+
+  <table id="board"></table>
+
+  <h2 id="info"></h2>
+
+  <script src="main.js"></script>
+</body>
+
+</html>
