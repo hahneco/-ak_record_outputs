@@ -1,0 +1,45 @@
+/* color参考 */
+/* https: //artofslide.blogspot.com/2021/05/nippon-colors.html
+
+/*
+#FEDFE1;
+#D7C4BB;
+#DC9FB4;
+#FFFFFF;
+#A5DEE4; // 瓶除き
+#9E7A7A;
+#F3F9FF;
+
+// font系カラー
+#9E7A7A;
+*/
+
+:root {
+  --main-text-color: #9E7A7A;
+  --main-bg-color: #FEDFE1;
+  --main-font-family: Yomogi;
+}
+
+body {
+  background-color: var(--main-bg-color);
+  font-family: var(--main-font-family);
+  color: var(--main-text-color);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.Button-style {
+  width: 40%;
+  margin: 0 auto;
+  font-size: 18px;
+  display: inline-block;
+  padding: 0.5em 1em 0.3em;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  background-color: #DC9FB4;
+  cursor: pointer;
+}
