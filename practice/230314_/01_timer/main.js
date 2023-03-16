@@ -9,6 +9,7 @@ let timerID = NaN;
 let count = 0;
 
 function startTimer() {
+  clearInterval(timerID); // スタートボタンを押すたびに同時に複ののタイマーが動き始める。
   timerID = setInterval(tick, 1000);
 }
 
