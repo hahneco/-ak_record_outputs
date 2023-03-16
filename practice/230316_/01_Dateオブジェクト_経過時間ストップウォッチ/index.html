@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Googleフォント *Yomogi* -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Kaisei+Opti:wght@400;500;700&family=Yomogi&display=swap"
+    rel="stylesheet">
+  <!-- BootstrapのCSS読み込み -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/87b9f80a9f.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" href="main.css">
+  <title>Document</title>
+  <style>
+  </style>
+</head>
+
+<body onload="update()">
+  <!-- <button>Run</button> -->
+
+  <h1 id="target">
+    <i class="fa-solid fa-hippo"></i> Date オブジェクト <i class="fa-solid fa-hippo"></i>
+  </h1>
+
+  <h3>START時間</h3>
+  <p>
+    <span id="hour"></span>時
+    <span id="min"></span>分
+    <span id="sec"></span>秒
+    <span id="msec"></span>ミリ
+  </p>
+
+  <h3>STOP時間</h3>
+  <p>
+    <span id="stophour">0</span>時
+    <span id="stopmin">0</span>分
+    <span id="stopsec">0</span>秒
+    <span id="stopmsec">0</span>ミリ
+  </p>
+
+  <h3>TIME LAG</h3>
+  <p>
+    <span id="hourlag">0</span>時間
+    <span id="minlag">0</span>分
+    <span id="seclag">0</span>秒
+    <span id="mseclag">0</span>ミリ
+  </p>
+
+  <!-- buttonパーツ -->
+  <button class="Button-style mt-3" onclick="update()">
+    <i class="fa-solid fa-hippo"></i>
+      START
+  </button>
+  <button class="Button-style mt-3" onclick="stoptime()">
+    <i class="fa-solid fa-hippo"></i>
+      STOP
+  </button>
+  <!-- <button class="Button-style mt-3" onclick="stopTimer()">
+    <i class="fa fa-fw fa-envelope" aria-hidden="true"></i>
+      ストップ
+  </button> -->
+
+  <table id="xxx"></table>
+
+  <h2 id="info"></h2>
+
+  <script src="main.js"></script>
+</body>
+
+</html>
