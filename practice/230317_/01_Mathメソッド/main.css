@@ -20,12 +20,26 @@
   --main-font-family: Yomogi;
 }
 
+.icon::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f000";
+}
+
+i {
+  color: #DC9FB4;
+}
+i.-white {
+  color: #F3F9FF;
+}
+
 body {
   /* background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%); */
   background-color: var(--main-bg-color);
   font-family: var(--main-font-family);
   color: var(--main-text-color);
   text-align: center;
+  vertical-align: middle;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;

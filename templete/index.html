@@ -16,29 +16,41 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/87b9f80a9f.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="normalize.css">
   <link rel="stylesheet" href="main.css">
-  <script src="https://kit.fontawesome.com/87b9f80a9f.js" crossorigin="anonymous"></script>
-
   <title>Document</title>
   <style>
   </style>
 </head>
 
-<body onload="init()">
-  <!-- <button>Run</button> -->
+<body onload="update()">
+  <!--###########################################-->
+  <h1 id="target">
+    <i class="fa-solid fa-hippo"></i> Date オブジェクト <i class="fa-solid fa-hippo"></i>
+  </h1>
+  <div>
+    <i class="fa-solid fa-socks"></i>
+    <i class="icon"></i>
+    <i class="fa-brands fa-waze"></i>
+    <i class="fa-brands fa-linux"></i>
+    <i class="fa-solid fa-yin-yang"></i>
+    <i class="fa-solid fa-frog"></i>
+    <i class="fa-solid fa-carrot"></i>
+  </div>
+  <!--###########################################-->
 
-  <h1 id="target"><i class="fa-solid fa-hippo"></i> XXXXXゲーム <i class="fa-solid fa-hippo"></i></h1>
+
 
   <!-- buttonパーツ -->
-  <!-- <button class="Button-style mt-3" onclick="startTimer()">
-    <i class="fa fa-fw fa-envelope" aria-hidden="true"></i>
-      スタート
-  </button> -->
-  <!-- <button class="Button-style mt-3" onclick="stopTimer()">
-    <i class="fa fa-fw fa-envelope" aria-hidden="true"></i>
-      ストップ
-  </button> -->
+  <button class="Button-style mt-3" onclick="update()">
+    <i class="fa-solid fa-hippo -white"></i>
+    START
+  </button>
+  <button class="Button-style mt-3" onclick="stoptime()">
+    <i class="fa-solid fa-hippo -white"></i>
+    STOP
+  </button>
 
   <table id="xxx"></table>
 
