@@ -4,12 +4,31 @@ function update() {
   console.log("update")
 }
 
-function random() {
-  let r = Math.floor(Math.random() * 6); // Math.floor(n)でいっていの整数にマッピング（randoめメソッドで生成される数字が0〜1までの少数のため併せて使用する）
-  if (r >= 2 && r <=5) {
-      console.log("以上")
-      document.getElementById("value").textContent = r;
-  } else {
-    console.log("条件外")
-    }
-  }
+let data = [1, 8, 5, 7, 2, 6, 7, 4, 0]
+
+function push() {
+  let v = Math.floor(Math.random() * 10);
+  let r = data.push(v);
+  update(r);
+}
+function pop() {
+  let r = data.pop;
+  update(r);
+}
+function shift() {
+  let r = data.shift();
+    update(r);
+}
+function splice() {
+  let r = data.splice(3, 2);
+  update(r);
+}
+function update(val) {
+  document.getElementById("data").textContent = data;
+  document.getElementById("length").textContent = data.length;
+  document.getElementById("rval").textContent = rval;
+  let v0 = data.indexOf(7);
+  let v1 = data.lastIndexOf(7);
+  document.getElementById("i0").textContent = v0;
+  document.getElementById("i1").textContent = v1;
+}

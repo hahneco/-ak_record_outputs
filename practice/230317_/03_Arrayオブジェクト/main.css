@@ -13,6 +13,9 @@
 // font系カラー
 #9E7A7A;
 */
+p {
+  margin-bottom: 0;
+}
 
 :root {
   --main-text-color: #9E7A7A;
@@ -46,6 +49,7 @@ body {
   margin: 0 auto;
   width: 100vw;
   height: 100vh;
+  line-height: 1.4;
 }
 
 h3 {

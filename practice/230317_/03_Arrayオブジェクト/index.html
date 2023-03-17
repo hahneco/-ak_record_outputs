@@ -27,7 +27,7 @@
 <body onload="update()">
   <!--###########################################-->
   <h1 id="target">
-    <i class="fa-solid fa-hippo"></i> Math オブジェクト <i class="fa-solid fa-hippo"></i>
+    <i class="fa-solid fa-hippo"></i>Array オブジェクト<i class="fa-solid fa-hippo"></i>
   </h1>
   <div>
     <i class="fa-solid fa-socks"></i>
@@ -40,13 +40,30 @@
   </div>
   <!--###########################################-->
 
-  <!-- 0〜5までの乱数の生成 -->
+<p>JavaScriptで配列を生成した場合、</p>
+<p>それらは必ず<span class="text-primary">Arrayオブジェクト</span>になる。</p>
+
   <span id="value">0</span>
-  <button class="Button-style mt-3" onclick="random()">
-    乱数
+  <button class="Button-style mt-3" onclick="push()">
     <i class="fa-solid fa-hippo -white"></i>
-      START
   </button>
+  <button class="Button-style mt-3" onclick="pop()">
+    <i class="fa-solid fa-hippo -white"></i>
+  </button>
+  <button class="Button-style mt-3" onclick="shift()">
+    <i class="fa-solid fa-hippo -white"></i>
+  </button>
+  <button class="Button-style mt-3" onclick="splice(3, 2)">
+    <i class="fa-solid fa-hippo -white"></i>
+  </button>
+
+  <ul style="font-size: 20px">
+    <li>配列データ：<span id="data"></span></li>
+    <li>lengthプロパティ：<span id="length"></span></li>
+    <li>戻り値：<span id="rval"></span></li>
+    <li>IndexOf(7)：<span id="i0"></span></li>
+    <li>lastIndexOf(7)：<span id="i1"></span></li>
+  </ul>
   <!-- <button class="Button-style mt-3" onclick="stoptime()">
     <i class="fa-solid fa-hippo -white"></i>
       STOP
