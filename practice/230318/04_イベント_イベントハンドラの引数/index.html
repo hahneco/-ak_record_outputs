@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Googleフォント *Yomogi* -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Kaisei+Opti:wght@400;500;700&family=Yomogi&display=swap"
+    rel="stylesheet">
+  <!-- BootstrapのCSS読み込み -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/87b9f80a9f.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" href="main.css">
+  <title>Document</title>
+  <style>
+    dt {
+      color: cornflowerblue;
+      font-size: 0.9em;
+    }
+    dd {
+      font-size: 0.8em;
+    }
+  </style>
+</head>
+
+<body>
+  <!--###########################################-->
+  <h1 id="target">
+    <i class="fa-solid fa-hippo"></i>イベント<i class="fa-solid fa-hippo"></i>
+  </h1>
+  <div>
+    <i class="fa-solid fa-socks"></i>
+    <i class="icon"></i>
+    <i class="fa-brands fa-waze"></i>
+    <i class="fa-brands fa-linux"></i>
+    <i class="fa-solid fa-yin-yang"></i>
+    <i class="fa-solid fa-frog"></i>
+    <i class="fa-solid fa-carrot"></i>
+  </div>
+  <!--###########################################-->
+
+  <h2 style="font-size: 1.2em;">イベントとイベントハンドラ</h2>
+  <dl> <!-- difinition list -->
+    <dt>イベント</dt> <!-- difinition title -->
+    <!-- difinition description -->
+    <dd>
+      なんらかの事象。<br>
+      <small>例：文書が読み込まれた。マウスがclickされた。マウスが移動した。キーが押された。</small>
+    </dd>
+
+    <dt>イベントハンドラ</dt>
+    <dd>
+      イベントが発ししと時に実行される「関数」をい「イベントハンドラ」という。<br>
+      <small>例：イベント発生時に、「プロパティに関数を代入する」という方法でイベントハンドラ設定する。</small>
+    </dd>
+    <dd>
+      イベントハンドラよ呼ばれる時には、ブラウザが引数をセットしてくれる。
+    </dd>
+    <dd>
+      その引数のtargeプロパティを見ると、イベントを発生させた要素がわかる。
+    </dd>
+  </dl>
+
+  <hr>
+
+  <!-- <h3 id="title" style="font-size: 1.1em;">ボタンclickイベント</h3>
+
+  <button class="Button-style mt-3 target" id="">
+    <i class="fa-solid fa-hippo -white"></i> < ボタン
+  </button>
+  <input type="range" class="target input-range">
+  <p class="target">パラグラフ</p>
+  <h3>
+    ディベロッパーツール(デバッガ)を起動して、コンソール出力しくください。
+  </h3> -->
+  <h3 id="title" style="font-size: 1.1em;">マウスカーソルの座標値の取得例</h3>
+
+  <p id="area"class="mouseevent">
+    <span id="s0"></span><br>
+    <span class="span-d">↑clientX/Y:ブラウザ領域の左上を原点とする座標</span><br>
+
+    <span id="s1"></span><br>
+    <span class="span-d">↑pageX/Y:ページの左上を原点とする座標(スクロールなしの状態では「clientX/Y」と同様。)</span><br>
+
+    <span id="s2"></span><br>
+    <span class="span-d">↑screenX/Y:画面の左上を原点とする座標</span><br>
+
+    <span id="s3"></span><br>
+    <span class="span-d">↑offsetX/Y:イベント発生元の要素の左上を原点とする座標</span><br>
+</p>
+
+  <button class="Button-style mt-3 target" id="">
+    <i class="fa-solid fa-hippo -white"></i> < ボタン
+  </button>
+
+
+  <!-- <button class="Button-style mt-3" onclick="stoptime()">
+    <i class="fa-solid fa-hippo -white"></i>
+      STOP
+  </button> -->
+
+  <table id="xxx"></table>
+
+  <h2 id="info"></h2>
+
+  <script src="main.js"></script>
+</body>
+
+</html>
