@@ -24,10 +24,10 @@
   </style>
 </head>
 
-<body onload="update()">
+<body>
   <!--###########################################-->
   <h1 id="target">
-    <i class="fa-solid fa-hippo"></i>Array オブジェクト<i class="fa-solid fa-hippo"></i>
+    <i class="fa-solid fa-hippo"></i>String オブジェクト<i class="fa-solid fa-hippo"></i>
   </h1>
   <div>
     <i class="fa-solid fa-socks"></i>
@@ -40,30 +40,32 @@
   </div>
   <!--###########################################-->
 
-<p>JavaScriptで配列を生成した場合、</p>
-<p>それらは必ず<span class="text-primary">Arrayオブジェクト</span>になる。</p>
+<p>
+  配列がArrayオブジェクトであったように、
+  <u class="text-primary">
+    JavaScriptでの文字列はStringオブジェクトとなる。<br>
+  </u>
+  また、配列よ要素数をlengthプロパティで取得できたのと同様に、文字列の長さもlengthプロパティで取得できる。<br>
+  <small>※厳密には単なる文字列とオブジェクトは異なるが、暗黙な型変換お行われるために文字列もオブジェクトのように扱うことができる。</small>
+</p>
 
-  <span id="value">0</span>
-  <button class="Button-style mt-3" onclick="push()">
-    <i class="fa-solid fa-hippo -white"></i>
-  </button>
-  <button class="Button-style mt-3" onclick="pop()">
-    <i class="fa-solid fa-hippo -white"></i>
-  </button>
-  <button class="Button-style mt-3" onclick="shift()">
-    <i class="fa-solid fa-hippo -white"></i>
-  </button>
-  <button class="Button-style mt-3" onclick="splice(3, 2)">
-    <i class="fa-solid fa-hippo -white"></i>
-  </button>
+<p>Stringオブジェクトの主なメソッド</p>
+<ul style="text-align: left;">
+  <li>charAt(i)：一番目の文字を返す</li>
+  <li>IndexOf(c)：引数の検索対象cを先頭から探し、その番号を返す。ない時は-1</li>
+  <li>lastIndexOf(c)：引数の検索対象cを後ろから探し、その番号を返す。ない時は-1</li>
+  <li>startsWith(str)：引数で指定された文字列で開始されているかを返す</li>
+  <li>substr(start, lentgh)：指定した位置からlenght文字数文返す</li>
+</ul>
 
-  <ul style="font-size: 20px">
-    <li>配列データ：<span id="data"></span></li>
-    <li>lengthプロパティ：<span id="length"></span></li>
-    <li>戻り値：<span id="rval"></span></li>
-    <li>IndexOf(7)：<span id="i0"></span></li>
-    <li>lastIndexOf(7)：<span id="i1"></span></li>
-  </ul>
+
+  <button class="Button-style mt-3" onclick="start()">
+    <i class="fa-solid fa-hippo -white"></i>
+  </button>
+  <h2 id="str"></h2>
+  <h2 id="jpn"></h2>
+
+
   <!-- <button class="Button-style mt-3" onclick="stoptime()">
     <i class="fa-solid fa-hippo -white"></i>
       STOP

@@ -13,9 +13,6 @@
 // font系カラー
 #9E7A7A;
 */
-p {
-  margin-bottom: 0;
-}
 
 :root {
   --main-text-color: #9E7A7A;
@@ -57,7 +54,8 @@ h3 {
 }
 
 p {
-  font-size: 1em;
+  margin-top: 1em;
+  font-size: 0.8em;
 }
 
 .Button-style {

@@ -16,8 +16,15 @@
 
 :root {
   --main-text-color: #9E7A7A;
+  --main-text-color2: #DC9FB4;
   --main-bg-color: #FEDFE1;
   --main-font-family: Yomogi;
+}
+
+.icon::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f000";
 }
 
 hr {
@@ -28,21 +35,6 @@ hr {
   /* 線の種類を指定 */
   border-color: var(--main-text-color2);
   /*線の色を指定 */
-}
-
-dt {
-  color: cornflowerblue;
-  font-size: 0.9em;
-}
-
-dd {
-  font-size: 0.8em;
-}
-
-.icon::before {
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  content: "\f000";
 }
 
 i {
@@ -65,6 +57,7 @@ body {
   margin: 0 auto;
   width: 100vw;
   height: 100vh;
+  line-height: 1.4;
 }
 
 h3 {
@@ -72,7 +65,34 @@ h3 {
 }
 
 p {
-  font-size: 1em;
+  margin-top: 1em;
+  font-size: 0.8em;
+}
+
+.input-range[type="range"] {
+  margin: 2em auto;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #F3F9FF;
+  height: 2px;
+  width: 50%;
+}
+.input-range[type="range"]:focus,
+.input-range[type="range"]:active {
+  outline: none;
+}
+.input-range[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  width: 12px;
+  height: 12px;
+  display: block;
+  background-color: var(--main-text-color);
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
 }
 
 .Button-style {
@@ -86,4 +106,24 @@ p {
   border-radius: 5px;
   background-color: #DC9FB4;
   cursor: pointer;
+}
+
+/* ################################ */
+.mouseevent {
+  margin: 0 auto;
+  background: var(--main-text-color);
+  width: 400px;
+  height: 400px;
+  padding: 50px;
+  font-size: 24px;
+}
+
+.mouseevent span {
+  color: #F3F9FF;
+  font-size: small;
+}
+
+span.span-d {
+  color: aquamarine;
+  font-size: 0.4em;
 }

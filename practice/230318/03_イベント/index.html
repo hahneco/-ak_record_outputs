@@ -21,13 +21,20 @@
   <link rel="stylesheet" href="main.css">
   <title>Document</title>
   <style>
+    dt {
+      color: cornflowerblue;
+      font-size: 0.9em;
+    }
+    dd {
+      font-size: 0.8em;
+    }
   </style>
 </head>
 
-<body onload="update()">
+<body>
   <!--###########################################-->
   <h1 id="target">
-    <i class="fa-solid fa-hippo"></i>Array オブジェクト<i class="fa-solid fa-hippo"></i>
+    <i class="fa-solid fa-hippo"></i>イベント<i class="fa-solid fa-hippo"></i>
   </h1>
   <div>
     <i class="fa-solid fa-socks"></i>
@@ -40,30 +47,33 @@
   </div>
   <!--###########################################-->
 
-<p>JavaScriptで配列を生成した場合、</p>
-<p>それらは必ず<span class="text-primary">Arrayオブジェクト</span>になる。</p>
+  <h2 style="font-size: 1.2em;">イベント と イベントハンドラ</h2>
+  <dl> <!-- difinition list -->
+    <dt>イベント</dt> <!-- difinition title -->
+    <!-- difinition description -->
+    <dd>
+      なんらかの事象。<br>
+      <small>例：文書が読み込まれた。マウスがclickされた。マウスが移動した。キーが押された。</small>
+    </dd>
 
-  <span id="value">0</span>
-  <button class="Button-style mt-3" onclick="push()">
-    <i class="fa-solid fa-hippo -white"></i>
-  </button>
-  <button class="Button-style mt-3" onclick="pop()">
-    <i class="fa-solid fa-hippo -white"></i>
-  </button>
-  <button class="Button-style mt-3" onclick="shift()">
-    <i class="fa-solid fa-hippo -white"></i>
-  </button>
-  <button class="Button-style mt-3" onclick="splice(3, 2)">
-    <i class="fa-solid fa-hippo -white"></i>
-  </button>
+    <dt>イベントハンドラ</dt>
+    <dd>
+      イベントが発ししと時に実行される「関数」をい「イベントハンドラ」という。<br>
+      <small>例：イベント発生時に、「プロパティに関数を代入する」という方法でイベントハンドラ設定する。</small>
+    </dd>
+  </dl>
 
-  <ul style="font-size: 20px">
-    <li>配列データ：<span id="data"></span></li>
-    <li>lengthプロパティ：<span id="length"></span></li>
-    <li>戻り値：<span id="rval"></span></li>
-    <li>IndexOf(7)：<span id="i0"></span></li>
-    <li>lastIndexOf(7)：<span id="i1"></span></li>
-  </ul>
+  <hr>
+
+  <h3 id="title" style="font-size: 1.1em;">文書の読み込みイベント</h3>
+
+  <button class="Button-style mt-3" onclick="">
+    <i class="fa-solid fa-hippo -white"></i> < click!!
+  </button>
+  <p id="result"></p>
+
+
+
   <!-- <button class="Button-style mt-3" onclick="stoptime()">
     <i class="fa-solid fa-hippo -white"></i>
       STOP

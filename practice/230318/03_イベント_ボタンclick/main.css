@@ -13,12 +13,10 @@
 // font系カラー
 #9E7A7A;
 */
-p {
-  margin-bottom: 0;
-}
 
 :root {
   --main-text-color: #9E7A7A;
+  --main-text-color2: #DC9FB4;
   --main-bg-color: #FEDFE1;
   --main-font-family: Yomogi;
 }
@@ -27,6 +25,16 @@ p {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   content: "\f000";
+}
+
+hr {
+  width: 100%;
+  border-width: 1px 0 0 0;
+  /* 線の太さを指定 */
+  border-style: dotted;
+  /* 線の種類を指定 */
+  border-color: var(--main-text-color2);
+  /*線の色を指定 */
 }
 
 i {
@@ -57,7 +65,8 @@ h3 {
 }
 
 p {
-  font-size: 1em;
+  margin-top: 1em;
+  font-size: 0.8em;
 }
 
 .Button-style {

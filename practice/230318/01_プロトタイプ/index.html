@@ -24,10 +24,10 @@
   </style>
 </head>
 
-<body onload="update()">
+<body>
   <!--###########################################-->
   <h1 id="target">
-    <i class="fa-solid fa-hippo"></i>Array オブジェクト<i class="fa-solid fa-hippo"></i>
+    <i class="fa-solid fa-hippo"></i>プロトタイプ<i class="fa-solid fa-hippo"></i>
   </h1>
   <div>
     <i class="fa-solid fa-socks"></i>
@@ -40,30 +40,25 @@
   </div>
   <!--###########################################-->
 
-<p>JavaScriptで配列を生成した場合、</p>
-<p>それらは必ず<span class="text-primary">Arrayオブジェクト</span>になる。</p>
+  <h2 style="font-size: 1.2em;">プロトタイプとは</h2>
+  <p style="text-align: left;">
+    JavaScriptオブジェクトの機能を継承するための仕組み。<br>
+    例）(すでに存在する)animalオブジェクト：eat(), sleep()を持つ<br>
+    　　→(新たに作成)humanオブジェクト：animalオブジェクト「eat(), sleep()」を継ししつつ、<br>
+    　　human独自の機能speak()を持たせる。<br>
+    上記のように、既存の機能け継承することを<strong style="color: seagreen">プロトタイプ継承</strong>という。<br>
+    <strong>プロトタイプを使用した方が、メモリの消費量を少なくすることができる。また、機能に変更が出た場合、修正ヶ所も減らせる。</strong>
+  </p>
 
-  <span id="value">0</span>
-  <button class="Button-style mt-3" onclick="push()">
-    <i class="fa-solid fa-hippo -white"></i>
-  </button>
-  <button class="Button-style mt-3" onclick="pop()">
-    <i class="fa-solid fa-hippo -white"></i>
-  </button>
-  <button class="Button-style mt-3" onclick="shift()">
-    <i class="fa-solid fa-hippo -white"></i>
-  </button>
-  <button class="Button-style mt-3" onclick="splice(3, 2)">
+
+
+
+  <button class="Button-style mt-3" onclick="update()">
     <i class="fa-solid fa-hippo -white"></i>
   </button>
 
-  <ul style="font-size: 20px">
-    <li>配列データ：<span id="data"></span></li>
-    <li>lengthプロパティ：<span id="length"></span></li>
-    <li>戻り値：<span id="rval"></span></li>
-    <li>IndexOf(7)：<span id="i0"></span></li>
-    <li>lastIndexOf(7)：<span id="i1"></span></li>
-  </ul>
+
+
   <!-- <button class="Button-style mt-3" onclick="stoptime()">
     <i class="fa-solid fa-hippo -white"></i>
       STOP
