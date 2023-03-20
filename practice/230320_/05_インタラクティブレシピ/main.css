@@ -119,30 +119,26 @@ dd {
 }
 
 /* ################################ */
-.deck-inner {
-  width: 50vw;
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
+h3, h4 {
+  color: cadetblue;
+}
+h4 {
+  text-align: left;
+  font-size: 0.9em;
+}
+ul, ol {
+  text-align: left;
+}
+li {
+  font-size: 0.75em;
 }
 table {
-  /* border-spacing: 0;
-  border-collapse: collapse; */
-  /* margin-right: auto;
-  margin-left: auto; */
-  width: 100%;
-  border-radius: 10px;
-}
-.card-item {
-  width: 50px;
-  height: 70px;
-  border-radius: 10px;
-  border: 2px solid var(--main-color-blue);
-  text-align: center;
-  font-size: 16px;
-  background-color: white;
-  box-shadow: rgb(185, 146, 146) 5px 5px;
-  writing-mode: vertical-rl;
   margin: 0 auto;
-  cursor: pointer;
+  width: 90%;;
+}
+td {
+  padding: 0.5em;
+}
+img {
+  border-radius: 1em;
 }
