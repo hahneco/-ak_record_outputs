@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Googleフォント *Yomogi* -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Kaisei+Opti:wght@400;500;700&family=Yomogi&display=swap"
+    rel="stylesheet">
+  <!-- BootstrapのCSS読み込み -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/87b9f80a9f.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" href="main.css">
+  <title>Document</title>
+  <style>
+  </style>
+</head>
+
+<body>
+  <!--###########################################-->
+  <h1 id="target">
+    <i class="fa-solid fa-hippo"></i>ゲーム制作準備運動<i class="fa-solid fa-hippo"></i>
+  </h1>
+  <div>
+    <i class="fa-solid fa-socks"></i>
+    <i class="icon"></i>
+    <i class="fa-brands fa-waze"></i>
+    <i class="fa-brands fa-linux"></i>
+    <i class="fa-solid fa-yin-yang"></i>
+    <i class="fa-solid fa-frog"></i>
+    <i class="fa-solid fa-carrot"></i>
+  </div>
+  <!--###########################################-->
+
+  <h2 style="font-size: 1.2em;">暗記アプリ</h2>
+  <dl> <!-- difinition list -->
+    <dt>コンテンツ説明</dt> <!-- difinition title -->
+    <!-- difinition description -->
+    <dd>
+      ブラウザ上に表示された赤色の下線部分をクリックすると、正解が表示される。<br>
+      <small>
+        spanで囲んだ部分すべてが暗記対象部分になる。<br>
+        「let years = document.querySelectorAll("span.year")」で、その部分すべてを選択し、文字列を下線に置き換え、イベントハンドラを登録する。
+      </small>
+    </dd>
+  </dl>
+
+  <hr>
+
+  <div class="container">
+    <h3 id="title" style="font-size: 1.1em;">安土桃山時代</h3>
+    <h4><i class="fa-solid fa-book"></i> 年表</h4>
+    <table id="history">
+      <tr>
+        <td><span class="year">1573</span>年</td>
+        <td>室町幕府が事実上の滅亡</td>
+      </tr>
+      <tr>
+        <td><span class="year">1590</span>年</td>
+        <td>豊臣秀吉が日本を統一</td>
+      </tr>
+      <tr>
+        <td><span class="year">1592</span>年</td>
+        <td>文禄・慶長の役</td>
+      </tr>
+      <tr>
+        <td><span class="year">1600</span>年</td>
+        <td>関ヶ原の戦いで徳川家康が勝利</td>
+      </tr>
+    </table>
+
+    <h4><i class="fa-solid fa-book"></i> 概要</h4>
+    <p>
+      元禄4年(<span class="year">1573</span>年)に信長が<span class="name">足利義昭</span>を京から放逐すると、室町幕府は事実上崩壊し、
+      織田政権が確立する。
+      信長はその後も勢力を拡大し、天下統一は目前と思われた。しかし<span class="name">明智光秀</span>による謀反によって
+      天正10年(<span class="year">1582</span>年)の本能寺の変で自害に至った。
+    </p>
+    <p>
+      <span class="name">羽柴秀吉</span>は、
+      いち早く京に駆けつけ首謀である<span class="name">明智光秀</span>を破った。
+      天正14年(<span class="year">1586</span>年)には関白・太政大臣に任ぜられ豊臣姓を賜り
+      天正18年(<span class="year">1590</span>年)に日本を統一し、
+      全国で検地・刀狩りを実施させ政権の安定に力を注いだ。
+    </p>
+  </div>
+
+
+
+
+  <!-- <button class="Button-style mt-3 target" id="person">
+    <i class="fa-solid fa-hippo -white"></i>
+    &#9758; person
+  </button> -->
+
+  <!-- <button class="Button-style mt-3" onclick="">
+    <i class="fa-solid fa-hippo -white"></i>
+      STOP
+  </button> -->
+
+
+  <script src="main.js"></script>
+</body>
+
+</html>
