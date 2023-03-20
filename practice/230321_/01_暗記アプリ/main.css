@@ -120,8 +120,9 @@ dd {
 
 /* ################################ */
 h3, h4 {
-  margin-top: 1em;
-  color: cadetblue;
+  margin-top: 2em;
+  font-weight: 600;
+  /* color: cadetblue; */
 }
 h4 {
   text-align: left;
@@ -135,15 +136,29 @@ li {
 }
 table {
   margin: 0 auto;
-  width: 100%;;
+  width: 100%;
+}
+#history {
+  border: 1px solid #9E7A7A;
+}
+tr:nth-child(2n) {
+  background-color: #F3F9FF;
 }
 td {
   padding: 0.5em;
 }
-img {
-  border-radius: 1em;
+span.year {
+  color: royalblue;
+  font-weight: 800;
+}
+span.name {
+  color: tomato;
+  font-weight: 800;
+}
+p {
+  text-align: left;
 }
 /* ################################ */
 .container {
-  width: 60%;
+  width: 50%;
 }
