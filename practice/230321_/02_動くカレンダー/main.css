@@ -119,6 +119,11 @@ dd {
 }
 
 /* ################################ */
+.main-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
 h3, h4 {
   margin-top: 2em;
   font-weight: 600;
@@ -135,30 +140,42 @@ li {
   font-size: 0.75em;
 }
 table {
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  margin: 20px;
   width: 100%;
-}
-#history {
-  border: 1px solid #9E7A7A;
-}
-tr:nth-child(2n) {
-  background-color: #F3F9FF;
+  border-collapse: initial;
 }
 td {
   padding: 0.5em;
-}
-span.year {
-  color: royalblue;
-  font-weight: 800;
-}
-span.name {
-  color: tomato;
-  font-weight: 800;
 }
 p {
   text-align: left;
 }
 /* ################################ */
-.container {
-  width: 50%;
+video {
+  width: 600px;
+  border-radius: 1.5em;
+}
+
+td {
+  font-size: 28px;
+  text-align: center;
+  border: 1px solid #9E7A7A;
+  border-radius: 5px;
+  background-color: #F3F9FF;
+}
+
+.red {
+  color: tomato;
+}
+
+tr:nth-child(2) {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: lightblue;
+  text-underline-offset: 10px;
+}
+
+td:first-child {
+  color: tomato;
 }
