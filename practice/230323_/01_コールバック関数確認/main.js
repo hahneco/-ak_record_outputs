@@ -72,13 +72,23 @@ function confirmed(fn) {
     fn();
   }
 }
+// 確認処理2
+function confirmed2(fn) {
+  const input = window.prompt("実行しますか?");
+  fn(input);
+}
 
-/*
-confirmed(function() {
-  console.log("フォローを外しました。");
-});
+// ############################
 
-confirmed(function() {
-  console.log("ツイートをキャンセルしました。");
-});
-*/
+document.getElementById("deleteRepository").onclick = deletehandler;
+
+function deletehandler(e) {
+
+  confirmed2(function (input) {
+    if (input === "実行") {
+      // fn();
+      console.log("リポジトリを削除します!");
+      document.getElementById("status").textContent = e.target.textContent + "を実行しました"
+    }
+  })
+}
