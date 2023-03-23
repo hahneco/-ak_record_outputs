@@ -125,28 +125,22 @@ dd {
   margin: 0 auto;
 }
 
-tr:nth-child(2) {
-  font-weight: 600;
-  text-decoration: underline;
-  text-decoration-color: lightblue;
-  text-underline-offset: 10px;
+#table {
+  border-collapse: initial;
+  margin:  0 auto;
 }
 
-dd {
-  width: 50%;
-  font-size: 0.8em;
-  text-align: left;
-  margin: 0 auto;
+td {
+  height: 60px;
+  width: 60px;
+  box-shadow: 3px 5px cornsilk;
+  background-color: #F3F9FF;
+  border: 1px solid #9E7A7A;
+  border-radius: 5px;
+  cursor: pointer;
 }
-
-#canvas, #canvas2 {
-  border: 1px solid var(--main-text-color2);
-  background-color: aliceblue;
-}
-
-#clock {
-  /* border: 1px solid var(--main-text-color2); */
-  /* background-color: aliceblue; */
-  width: 300;
-  height: 300;
+td:hover {
+  background-color: tomato;
+  color: antiquewhite;
+  transition: 0.3s;
 }

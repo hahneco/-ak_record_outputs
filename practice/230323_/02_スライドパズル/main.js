@@ -1,90 +1,65 @@
 'use strict'
 
-// let ctx;
-
-// function init() {
-//   let canvas = document.getElementById("canvas");
-//   ctx = canvas.getContext("2d"); // 描画コンテキスト取得
-
-//   for (let i = 0; i < 12; i++) {
-//     ctx.save(); // コンテキスト保存
-
-//     let r = (Math.PI / 6) * i;
-//     ctx.translate(100, 100); // 座標系の中心を移動
-//     ctx.rotate(r); // 回転
-
-//     ctx.beginPath(); // パスの開始
-//     ctx.moveTo(0, -60);
-//     ctx.lineTo(0, -50);
-//     ctx.stroke(); // 線の描画
-
-//     ctx.restore(); // コンテキスト復元
-//   }
-// }
-
-let ctx, h, m, s; // 各変数の初期化
-
-function gobj(id) {
-  return document.getElementById(id); // 指定されたidの要素を返す
-}
+const titles = [];
 
 function init() {
-  console.log("#clockでコンテキスト取得")
+  console.log("init読み込み");
 
-  ctx = gobj("clock").getContext("2d"); // 描画コンテキスト取得
-  setInterval(tick, 1000); // タイマー開始
-}
+  let table = document.getElementById("table"); // make table
 
-// メインループ
-function tick() {
-  let now = new Date(); // 現在時刻から時h,　分m, 秒s　を取得
-  h = now.getHours() % 12;
-  m = now.getMinutes();
-  s = now.getSeconds();
+  for (let i = 0; i < 4; i++) {
+    let tr = document.createElement("tr");
+    // console.log("foo" + i);
 
-  gobj("time").textContent = now.toTimeString();
-  paint();
-}
+    for (let j = 0; j < 4; j++) {
+      // console.log("td" + j);
+      let td = document.createElement("td");
+      let index = i * 4 + j;
+      console.log(index)
+      td.className = "title";
+      td.index = index;
+      td.value = index;
+      td.textContent = index == 0 ? "" : index;
+      td.onclick = click; // click時のハンドラ登録
 
-// 針の描画(rotation:角度、 length;長さ、　width:幅、　color:色)
-function drawHand(rotation, length, width, color) {
-  ctx.save();
-  ctx.lineWidth = width;
-  ctx.strokeStyle = color;
-  ctx.translate(150, 150);
-  ctx.rotate(rotation);
-  ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.lineTo(0, -length);
-  ctx.stroke();
-  ctx.restore(); // コンテキスト復元
-}
-
-function paint() {
-  ctx.clearRect(0, 0, 300, 300) // クリア
-
-  ctx.save();
-  ctx.translate(150, 150);
-  ctx.strokeStyle = "skyblue";
-  let pitch = (Math.PI * 2) / 60; // 1分の角度
-
-  for (let i = 0; i < 60; i++) {
-    // 時計の周囲のメモリを描画
-    ctx.beginPath();
-    ctx.lineWidth = i % 5 == 0 ? 3 : 1
-    ctx.moveTo(0, -120);
-    ctx.lineTo(0, -140);
-    ctx.stroke();
-    ctx.rotate(pitch); // 座標系の回転
+      tr.appendChild(td);
+      titles.push(td);
+      console.log(titles);
+    }
+    table.appendChild(tr);
   }
-  ctx.restore();
 
-  // 時分秒から回転角度を計算
-  let radH = ((Math.PI * 2) / 12) * h + (Math.PI * 2) / 12 * (m / 60);
-  let radM = ((Math.PI * 2) / 60) * m;
-  let radS = ((Math.PI * 2) / 60) * s;
+  for (let i = 0; i < 1000; i++) { // １０００回擬似的にランダムにclickして並べ替え
+    click({
+      target: {
+        index: Math.floor(Math.random() * 16)
+      }
+    });
+  }
+  console.log(table);
+}
 
-  drawHand(radH, 80, 6, "skyblue");
-  drawHand(radH, 120, 4, "skyblue");
-  drawHand(radH, 140, 2, "tomato");
+function click(e) {
+  let i = e.target.index;
+  // console.log(i);
+
+  if (i - 4 >= 0 && titles[i - 4].value == 0) {
+    swap(i, i - 4);
+  } else if (i + 4 < 16 && titles[i + 4].value == 0) {
+    swap(i, i + 4);
+  } else if (i % 4 != 0 && titles[i - 1].value == 0) {
+    swap(i, i - 1);
+  } else if (i % 4 != 3 && titles[i + 1].value == 0) {
+    swap(i, i + 1);
+  }
+}
+
+function swap(i, j) {
+  let temp = titles[i].value;
+  console.log(temp);
+
+  titles[i].textContent = titles[j].textContent;
+  titles[i].value = titles[j].value;
+  titles[j].textContent = temp;
+  titles[j].value = temp;
 }
