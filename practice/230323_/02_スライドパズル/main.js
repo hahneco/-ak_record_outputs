@@ -1,6 +1,6 @@
 'use strict'
 
-const titles = [];
+const tiles = [];
 
 function init() {
   console.log("init読み込み");
@@ -23,8 +23,8 @@ function init() {
       td.onclick = click; // click時のハンドラ登録
 
       tr.appendChild(td);
-      titles.push(td);
-      // console.log(titles);
+      tiles.push(td);
+      // console.log(tiles);
     }
     table.appendChild(tr);
   }
@@ -39,26 +39,27 @@ function init() {
 function click(e) {
   let i = e.target.index; // clickされた要素
 
-  if (i - 4 >= 0 && titles[i - 4].value == 0) {
+  if (i - 4 >= 0 && tiles[i - 4].value == 0) { // clickしたtileが、２段目以降且つ、上のtileは0か？
     swap(i, i - 4);
-  } else if (i + 4 < 16 && titles[i + 4].value == 0) {
+  } else if (i + 4 < 16 && tiles[i + 4].value == 0) { // clickしたtileが、2,3行目且つ、下のtileは0か？
     swap(i, i + 4);
-  } else if (i % 4 != 0 && titles[i - 1].value == 0) {
+  } else if (i % 4 != 0 && tiles[i - 1].value == 0) { // clickしたtileが、一番左列のtileではない。且つ左隣のtileが0か？
     swap(i, i - 1);
-  } else if (i % 4 != 3 && titles[i + 1].value == 0) {
+  } else if (i % 4 != 3 && tiles[i + 1].value == 0) { // clickしたtileが、一番右列のtileではない。且つ右隣のtileが0か？
     swap(i, i + 1);
   }
+
   colorChange();
 }
 
 function swap(i, j) {
-  let temp = titles[i].value;
-  // console.log(temp);
+  let temp = tiles[i].value; // e.targetのvalue
+  console.log(temp);
 
-  titles[i].textContent = titles[j].textContent;
-  titles[i].value = titles[j].value;
-  titles[j].textContent = temp;
-  titles[j].value = temp;
+  tiles[i].textContent = tiles[j].textContent;
+  tiles[i].value = tiles[j].value;
+  tiles[j].textContent = temp;
+  tiles[j].value = temp;
 }
 
 function colorChange(e) {
@@ -70,7 +71,7 @@ function colorChange(e) {
     // console.log(elements[0]);
 
     let v = elements.item(i).value;
-    console.log(v);
+    // console.log(v);
 
     if (v === 0) {
       console.log("0のやつ")
