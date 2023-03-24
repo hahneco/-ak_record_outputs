@@ -144,3 +144,6 @@ td:hover {
   color: antiquewhite;
   transition: 0.3s;
 }
+.blank-item {
+  background-color: yellow;
+}
