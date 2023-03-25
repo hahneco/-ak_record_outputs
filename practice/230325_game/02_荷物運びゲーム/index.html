@@ -27,7 +27,7 @@
 <body onload="init()">
   <!--###########################################-->
   <h1 id="target">
-    <i class="fa-solid fa-hippo"></i>荷物運びゲーム<i class="fa-solid fa-hippo"></i>
+    <i class="tiger"></i>荷物運びゲーム<i class="tiger"></i>
   </h1>
   <p>
     # 荷物運びプログラムをつくる<br>
@@ -59,7 +59,7 @@
   <main class="main-container">
     <canvas id="soko" width="800" height="440"></canvas>
 
-    <table>
+    <table id="table" style="margin: 0 auto">
       <tr>
         <td></td>
         <td>
@@ -68,18 +68,13 @@
         <td></td>
       </tr>
       <tr>
-        <td></td>
         <td>
           <button onclick="mykeydown({ keyCode: 37 })">L</button>
         </td>
         <td></td>
-      </tr>
-      <tr>
-        <td></td>
         <td>
           <button onclick="mykeydown({ keyCode: 39 })">R</button>
         </td>
-        <td></td>
       </tr>
       <tr>
         <td></td>

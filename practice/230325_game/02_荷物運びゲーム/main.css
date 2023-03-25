@@ -14,18 +14,36 @@
 #9E7A7A;
 */
 
+/* Webフォント読み込み */
+@font-face {
+  font-family: PixelMplus10-Regular;
+  src: url('https://kuneoresearch.com/wp-content/themes/stinger5verkuneo/font/PixelMplus10-Regular.ttf') format("truetype");
+}
+
 :root {
   --main-text-color: #9E7A7A;
   --main-text-color2: #DC9FB4;
   --main-bg-color: #FEDFE1;
   --main-color-blue: #A5DEE4;
-  --main-font-family: Yomogi;
+  /* --main-font-family: Yomogi; */
+  --main-font-family: PixelMplus10-Regular;
 }
 
 .icon::before {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   content: "\f000";
+}
+
+i.tiger {
+  content: '';
+  display: inline-block;
+  width: 2.5em;
+  height: 1em;
+  background-image: url(img/tiger-2.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
 }
 
 hr {
