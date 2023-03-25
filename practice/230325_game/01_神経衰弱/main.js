@@ -15,6 +15,8 @@ let score = 0; // スコア
 let prevCard = null; // 一枚目に裏返したカード
 let startTime = null; // ゲーム開始時刻
 
+
+// ################################################## イベント
 function init() {  // 初期化関数
   console.log("init読み込み");
 
@@ -26,7 +28,9 @@ function init() {  // 初期化関数
     cards.push(i + 1);
     cards.push(i + 1);
   }
-  // console.log(cards);
+  console.log(cards);
+  cards.shuffle();
+  console.log(cards);
 
   // カードを作成
   for (let i = 0; i < 4; i++) { // 行
@@ -42,7 +46,7 @@ function init() {  // 初期化関数
     }
   }
 
-  table.addEventListener(
+  table.addEventListener( // 初回table押下でタイマーすスタートする
     'click',
     function () {
       // alert('clicked');
@@ -53,17 +57,38 @@ function init() {  // 初期化関数
   );
 }
 
+// ################################################## 関数
+// shuffle関数
+// Fisher-Yatesというアルゴリズムを使った方法でshuffle関数を作ってみる
+Array.prototype.shuffle = function () { // Array(配が型コンストラクタ)のprototypeプロパティにshuffle関数をセット
+  let i = this.length;
+  while (i) {
+    let j = Math.floor(Math.random() * i);
+    let t = this[--i];
+    this[i] = this[j];
+    this[j] = t;
+  }
+  return this;
+}
+
+// タイマー関数
 function tick(e) {
   let now = new Date();
   let elapsed = Math.floor((now.getTime() - startTime.getTime()) / 1000);
   document.getElementById("time").textContent = elapsed; // 経過時間の表示
 }
 
+function scoreShow() {
+  let scoreShow = document.getElementById("score-show");
+  scoreShow.textContent = score;
+  // console.log(score);
+}
+
 // flip関数
 function flip(e) {
   let src = e.target;
-  console.log(src.textContent);
-  console.log(flipTimer);
+  // console.log(src.textContent);
+  // console.log(flipTimer);
 
   if (flipTimer || src.textContent != "") { // すでに2枚反転or反転済の場合のclick時はなにもしない
     return; // 何も行わずに関数を抜ける
@@ -93,6 +118,7 @@ function flip(e) {
       prevCard.textContent = "";
       prevCard = null;
       flipTimer = NaN;
-    }, 1000);
+    }, 1000); // １秒後に無名関数実行
   }
+  scoreShow();
 }
