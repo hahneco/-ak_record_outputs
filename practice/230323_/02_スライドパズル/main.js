@@ -1,6 +1,6 @@
 'use strict'
 
-const titles = [];
+const tiles = [];
 
 function init() {
   console.log("init読み込み");
@@ -9,56 +9,55 @@ function init() {
 
   for (let i = 0; i < 4; i++) {
     let tr = document.createElement("tr");
-    // console.log("foo" + i);
 
     for (let j = 0; j < 4; j++) {
-      // console.log("td" + j);
       let td = document.createElement("td");
       let index = i * 4 + j;
-      // console.log(index)
-      td.className = "title";
+      td.className = index == 15 ? "title blank-item" : "title";
       td.index = index;
       td.value = index;
-      td.textContent = index == 0 ? "" : index;
+      // td.textContent = index == 0 ? "" : index;
+      td.textContent = index == 15 ? "" : index + 1;
       td.onclick = click; // click時のハンドラ登録
 
       tr.appendChild(td);
-      titles.push(td);
-      // console.log(titles);
+      tiles.push(td);
     }
     table.appendChild(tr);
   }
 
-  for (let i = 0; i < 10; i++) { // １０００回擬似的にランダムにclickして並べ替え
-    click({ target: { index: Math.floor(Math.random() * 16) } });
-  }
+  // for (let i = 0; i < 1000; i++) { // 1000回擬似的にランダムにclickして並べ替え
+  //   click({ target: { index: Math.floor(Math.random() * 16) } });
+  // }
   colorChange();
-  // console.log(table);
 }
 
 function click(e) {
   let i = e.target.index; // clickされた要素
 
-  if (i - 4 >= 0 && titles[i - 4].value == 0) {
+  if (i - 4 >= 0 && tiles[i - 4].value == 15) { // clickしたtileが、２段目以降且つ、上のtileは15か？
     swap(i, i - 4);
-  } else if (i + 4 < 16 && titles[i + 4].value == 0) {
+  } else if (i + 4 < 16 && tiles[i + 4].value == 15) { // clickしたtileが、2,3行目且つ、下のtileは15か？
     swap(i, i + 4);
-  } else if (i % 4 != 0 && titles[i - 1].value == 0) {
+  } else if (i % 4 != 0 && tiles[i - 1].value == 15) { // clickしたtileが、一番左列のtileではない。且つ左隣のtileが15か？
     swap(i, i - 1);
-  } else if (i % 4 != 3 && titles[i + 1].value == 0) {
+  } else if (i % 4 != 3 && tiles[i + 1].value == 15) { // clickしたtileが、一番右列のtileではない。且つ右隣のtileが15か？
     swap(i, i + 1);
   }
+
   colorChange();
 }
 
 function swap(i, j) {
-  let temp = titles[i].value;
-  // console.log(temp);
+  let temp = tiles[i].value; // e.targetのvalue
+  let x = tiles[i].value == 15 ? "" : tiles[i].value + 1;
+  let y = tiles[j].value == 15 ? "" : tiles[j].value + 1;
+  console.log(temp);
 
-  titles[i].textContent = titles[j].textContent;
-  titles[i].value = titles[j].value;
-  titles[j].textContent = temp;
-  titles[j].value = temp;
+  tiles[i].textContent = y;
+  tiles[i].value = tiles[j].value;
+  tiles[j].textContent = x;
+  tiles[j].value = temp;
 }
 
 function colorChange(e) {
@@ -66,13 +65,10 @@ function colorChange(e) {
   let len = elements.length;
 
   for (let i = 0; i < elements.length; i++) {
-    // console.log(elements.item(i).value);
-    // console.log(elements[0]);
 
     let v = elements.item(i).value;
-    console.log(v);
 
-    if (v === 0) {
+    if (v === 15) {
       console.log("0のやつ")
       elements.item(i).classList.add("blank-item");
     } else {
