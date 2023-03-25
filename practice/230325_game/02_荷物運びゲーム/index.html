@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Googleフォント *Yomogi* -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Kaisei+Opti:wght@400;500;700&family=Yomogi&display=swap"
+    rel="stylesheet">
+  <!-- BootstrapのCSS読み込み -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/87b9f80a9f.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" href="main.css">
+  <title>Document</title>
+  <style>
+  </style>
+</head>
+
+<body onload="init()">
+  <!--###########################################-->
+  <h1 id="target">
+    <i class="fa-solid fa-hippo"></i>荷物運びゲーム<i class="fa-solid fa-hippo"></i>
+  </h1>
+  <p>
+    # 荷物運びプログラムをつくる<br>
+    ## プログラム<br>
+    * 人が荷物を所定の位置に移動させる。<br>
+    * 人は荷物を引っ張ることはできない。<br>押すことはできる。<br>
+    * 人は複数の荷物を同時に押すことはできない。<br>
+    * 全ての荷物を所定の場所に移動したらクリア。<br>
+  </p>
+  <p>
+    ## 目標<br>
+    * 仮想マップを使ってみる。<br>
+    * JavaScriptから、画像をcanvas(canvas要素)に描すする。
+    * ビット演算を使用してみる。
+  </p>
+
+  <div>
+    <i class="fa-solid fa-socks"></i>
+    <i class="icon"></i>
+    <i class="fa-brands fa-waze"></i>
+    <i class="fa-brands fa-linux"></i>
+    <i class="fa-solid fa-yin-yang"></i>
+    <i class="fa-solid fa-frog"></i>
+    <i class="fa-solid fa-carrot"></i>
+  </div>
+  <!--###########################################-->
+  <hr>
+
+  <main class="main-container">
+    <canvas id="soko" width="800" height="440"></canvas>
+
+    <table>
+      <tr>
+        <td></td>
+        <td>
+          <button onclick="mykeydown({ keyCode: 38 })">U</button>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <button onclick="mykeydown({ keyCode: 37 })">L</button>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <button onclick="mykeydown({ keyCode: 39 })">R</button>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <button onclick="mykeydown({ keyCode: 40 })">D</button>
+        </td>
+        <td></td>
+      </tr>
+    </table>
+    <img id="imgWall" src="img/imgWall.png" style="display: none">
+    <img id="imgGoal" src="img/imgGoal.png" style="display: none">
+    <img id="imgWorker" src="img/imgWorker.svg" style="display: none">
+    <img id="imgLuggage" src="img/imgLuggage.svg" style="display: none">
+
+  </main>
+
+
+
+
+
+  <!-- <button class="Button-style mt-3 target" id="person">
+    <i class="fa-solid fa-hippo -white"></i>
+    &#9758; person
+  </button> -->
+
+  <!-- <button class="Button-style mt-3" onclick="">
+    <i class="fa-solid fa-hippo -white"></i>
+      STOP
+  </button> -->
+
+
+  <script src="main.js"></script>
+</body>
+
+</html>
