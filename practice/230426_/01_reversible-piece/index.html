@@ -9,8 +9,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Googleフォント *Yomogi* -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Kaisei+Opti:wght@400;500;700&family=Yomogi&display=swap"
+    href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Hachi+Maru+Pop&family=Kaisei+Opti:wght@400;500;700&family=Yomogi&display=swap"
     rel="stylesheet">
   <!-- BootstrapのCSS読み込み -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -27,21 +29,12 @@
 <body onload="init()">
   <!--###########################################-->
   <h1 id="target">
-    <i class="tiger"></i>荷物運びゲーム<i class="tiger"></i>
+    <i class="tiger"></i>リバーシ<i class="tiger"></i>
   </h1>
   <p>
-    # 荷物運びプログラムをつくる<br>
+    # リバーシプログラムをつくる<br>
     ## プログラム<br>
-    * 人が荷物を所定の位置に移動させる。<br>
-    * 人は荷物を引っ張ることはできない。<br>押すことはできる。<br>
-    * 人は複数の荷物を同時に押すことはできない。<br>
-    * 全ての荷物を所定の場所に移動したらクリア。<br>
-  </p>
-  <p>
-    ## 目標<br>
-    * 仮想マップを使ってみる。<br>
-    * JavaScriptから、画像をcanvas(canvas要素)に描すする。
-    * ビット演算を使用してみる。
+    * コンピュータの思考を実装する<br>
   </p>
 
   <div>
@@ -57,37 +50,11 @@
   <hr>
 
   <main class="main-container">
-    <canvas id="soko" width="800" height="440"></canvas>
-
-    <table id="table" style="margin: 0 auto">
-      <tr>
-        <td></td>
-        <td>
-          <button onclick="mykeydown({ keyCode: 38 })">U</button>
-        </td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>
-          <button onclick="mykeydown({ keyCode: 37 })">L</button>
-        </td>
-        <td></td>
-        <td>
-          <button onclick="mykeydown({ keyCode: 39 })">R</button>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <button onclick="mykeydown({ keyCode: 40 })">D</button>
-        </td>
-        <td></td>
-      </tr>
-    </table>
-    <img id="imgWall" src="img/imgWall.png" style="display: none">
-    <img id="imgGoal" src="img/imgGoal.png" style="display: none">
-    <img id="imgWorker" src="img/imgWorker.svg" style="display: none">
-    <img id="imgLuggage" src="img/imgLuggage.svg" style="display: none">
+    <h2>
+      黒(あなた)：<span id="numBlack"></span>枚　白(PC)：<span id="numWhite"></span>枚
+    </h2>
+    <table id="board"></table>
+    <h2 id="message"></h2>
 
   </main>
 
