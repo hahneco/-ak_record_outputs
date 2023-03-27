@@ -153,14 +153,47 @@ td.cell {
   cursor: pointer;
   text-align: center;
   font-size: 10px;
-  background-color: #ffb27f;
+  /* background-color: #ffb27f; */
+  background-color: #FF9366;
   display: table-cell
 }
 
 td.black {
   color: black;
+  position: relative;
+}
+td.black::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-image: url(img/black.png);
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: center;
 }
 
 td.white {
   color: white;
+  position: relative;
+}
+td.white::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-image: url(img/white.png);
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: center;
+}
+
+h2 {
+  font-size: 1rem;
 }
