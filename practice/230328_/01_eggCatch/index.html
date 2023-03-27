@@ -26,7 +26,7 @@
   </style>
 </head>
 
-<body onload="init()">
+<body>
   <!--###########################################-->
   <h1 id="target">
     <i class="tiger"></i>EGG CATCH<i class="tiger"></i>
@@ -52,12 +52,13 @@
   <hr>
 
   <main class="main-container">
-    <h2>
-      黒(あなた)：<span id="numBlack"></span>枚　白(PC)：<span id="numWhite"></span>枚
-    </h2>
-    <h>メッセージ：<span id="message"></span></h>
-    <table id="board"></table>
-
+    <canvas id="field" width="600" height="600"></canvas>
+    <img id="basket" src="img/basket.png" style="display: none" alt="">
+    <!-- <img id="chick" src="img/tiger.png" style="display: none" alt=""> -->
+    <img id="chick" src="img/chick.png" style="display: none" alt="">
+    <img id="egg1" src="img/egg1.png" style="display: none" alt="">
+    <img id="egg2" src="img/egg2.png" style="display: none" alt="">
+    <img id="back" src="img/back.png" style="display: none" alt="">
   </main>
 
 
