@@ -23,14 +23,13 @@ onload = function () {
   egg2 = document.getElementById("egg2");
   back = document.getElementById("back");
 
-  timerId = setInterval(tick, 50);
+  timerId = setInterval(tick, 50); // tick関数を50ミリ秒ごとに実行する
   window.onmousemove = (e) => {
     let rect = e.target.getBoundingClientRect();
     rectLeft = rect.left;
     rectTop = rect.top;
 
     basketX = e.clientX - rectLeft; // マウスのX座標をカゴの座標に反映 //clientX = クライアント領域での座標値
-    // console.log(basketX)
   };
 };
 
@@ -38,7 +37,7 @@ function tick() {
   ctx.drawImage(back, 0, 0); // 背景画像を描画
   ctx.drawImage(basket, basketX - 50, 500); // カゴ描画
   if (Math.random() > prob) {
-    eggs.push({ x: Math.random() * 500, y: 1 });
+    eggs.push({ x: Math.random() * 500, y: 1 }); // 卵ついか(Arrayのpushメソッド)
   }
   let prev = eggs.length; // 現在の卵の数
   eggs = eggs.filter((e) => {
