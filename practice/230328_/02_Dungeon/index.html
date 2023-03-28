@@ -26,7 +26,7 @@
   </style>
 </head>
 
-<body onload="init">
+<body onload="init()">
   <!--###########################################-->
   <h1 id="target">
     <i class="tiger"></i>DUNGEON<i class="tiger"></i>
@@ -55,17 +55,17 @@
     <!-- Thanks to http://takao-suenobu.com/ & http://dova-s.jp -->
     <canvas id="maze" width="900" height="600"></canvas>
     <audio id="bgm" src="img/Emergency.mp3" loop="loop"></audio>
-    <img id="START" src="img/start.png" alt="" style="" onclick="go()"><br>
-    <img id="arrows" src="img/arrows.png" alt="" style="display: none;">
+    <img id="START" src="img/start.png" onclick="go()"><br>
+    <img id="arrows" src="img/arrows.png" style="display: none;">
 
-    <img id="hiro0" src="img/hero0.png" alt="" style="display: none">
-    <img id="hiro1" src="img/hero1.png" alt="" style="display: none">
-    <img id="hiro2" src="img/hero2.png" alt="" style="display: none">
-    <img id="hiro3" src="img/hero3.png" alt="" style="display: none">
-    <img id="alien0" src="img/alien0.png" alt="" style="display: none">
-    <img id="alien1" src="img/alien1.png" alt="" style="display: none">
-    <img id="alien2" src="img/alien2.png" alt="" style="display: none">
-    <img id="alien3" src="img/alien3.png" alt="" style="display: none">
+    <img id="hero0" src="img/hero0.svg" style="display: none">
+    <img id="hero1" src="img/hero1.svg" style="display: none">
+    <img id="hero2" src="img/hero2.svg" style="display: none">
+    <img id="hero3" src="img/hero3.svg" style="display: none">
+    <img id="alien0" src="img/alien0.png" style="display: none">
+    <img id="alien1" src="img/alien1.png" style="display: none">
+    <img id="alien2" src="img/alien2.png" style="display: none">
+    <img id="alien3" src="img/alien3.png" style="display: none">
   </main>
 
 
