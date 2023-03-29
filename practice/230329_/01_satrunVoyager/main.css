@@ -136,19 +136,17 @@ dd {
 .main-container {
   width: 80%;
   margin: 0 auto;
+  position: relative;
 }
 /* ################################ */
-#maze {
-  width: 900px;
-  height: 600px;
+#space {
+  width: 800px;
+  height: 800px;
   touch-action: none;
 }
 
 #START {
   position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
+  left: 200px;
+  height: 200px;
 }
