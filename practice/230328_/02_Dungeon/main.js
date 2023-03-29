@@ -211,6 +211,7 @@ function createMaze(w, h) {
 
       let dir = random(y == 2 ? 4 : 3); // 最上段(y=2)は上下左右、それ以外は下左右
       let px = x; // 今のx座標
+      // console.log(px)
       let py = y; // 今のy座標
       switch (dir) {
         case 0:
@@ -227,6 +228,7 @@ function createMaze(w, h) {
           break;
       }
       maze[py][px] = 1; // 倒れた場所も柱にする
+      // console.log(maze)
     }
   }
 }
@@ -243,11 +245,13 @@ function repaint() {
   lineargradient.addColorStop(0, '#496298');
   lineargradient.addColorStop(1, '#499893');
 
-  ctx.fillStyle = lineargradient;
-  ctx.fillRect(0, 0, 900, 600);
+  // ctx.fillStyle = lineargradient;
+  ctx.drawImage(bg, 0, 0, 900, 600)
+  // ctx.fillRect(0, 0, 900, 600);
 
   ctx.save();
   ctx.beginPath();
+  // arc構文（中心x座標, 中心y座標, 半径, 円弧開始角(ラジアン), 描画の方向(false:反時計回り）
   ctx.arc(300, 300, 300, 0, Math.PI * 2);
   ctx.clip();
 
@@ -258,7 +262,8 @@ function repaint() {
   for (let x = 0; x < W; x++) {
     for (let y = 0; y < H; y++) {
       if (maze[y][x] == 1) {
-        ctx.fillRect(x * 50, y * 50, 50, 50);
+        ctx.drawImage(maguma, x * 50, y * 50, 50, 50);
+        // ctx.fillRect(x * 50, y * 50, 50, 50);
       }
     }
   }
@@ -274,7 +279,8 @@ function repaint() {
   for (let x = 0; x < W; x++) {
     for (let y = 0; y < H; y++) {
       if (maze[y][x] == 1) {
-        ctx.fillRect(x * 7, y * 7, 7, 7);
+        ctx.drawImage(maguma, x * 7, y * 7, 7, 7);
+        // ctx.fillRect(x * 7, y * 7, 7, 7);
       }
     }
   }
