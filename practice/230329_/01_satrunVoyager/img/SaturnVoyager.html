@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>SaturnVoyager</title>
+    <style>
+      #space {
+        width: 800px;
+        height: 800px;
+        touch-action: none;
+      }
+      #START {
+        position: absolute;
+        left: 200px;
+        top: 200px;
+      }
+    </style>
+    <script>
+      "use strict";
+      const stars = []; // 星のリスト
+      let keymap = []; // どのキーが押されているか
+      let ctx; // 描画コンテキスト
+      let ship; // 自機
+      let score = 0; // スコア
+      let speed = 25; // スピード
+      let timer = NaN; // タイマー
+
+      function Ship(x, y) {
+        this.x = x; // 自機x座標
+        this.y = y; // 自機y座標
+        this.keydown = function (e) {
+          keymap[e.keyCode] = true; // 押されたキーのコードをtrueに設定
+        };
+        this.keyup = function (e) {
+          keymap[e.keyCode] = false; // 離したキーのコードをfalseに設定
+        };
+        this.move = function () {
+          if (keymap[37]) {
+            this.x -= 30; // 左
+          } else if (keymap[39]) {
+            this.x += 30; // 右
+          }
+
+          if (keymap[38]) {
+            this.y -= 30; // 上
+          } else if (keymap[40]) {
+            this.y += 30; // 下
+          }
+          this.x = Math.max(-800, Math.min(800, this.x)); // x方向移動範囲を-800～800へ制限
+          this.y = Math.max(-800, Math.min(800, this.y)); // y方向移動範囲を-800～800へ制限
+        };
+      }
+
+      function random(v) {
+        return Math.floor(Math.random() * v); // 0～v未満の乱数（整数）を返す
+      }
+
+      function init() {
+        // 星を200個リストに追加
+        for (let i = 0; i < 200; i++) {
+          stars.push({
+            x: random(800 * 4) - 1600,
+            y: random(800 * 4) - 1600,
+            z: random(4095),
+            r: random(360),
+            w: random(10) - 5,
+          });
+        }
+
+        ship = new Ship(200, 200); // 自機作成
+        onkeydown = ship.keydown; // キー押下時のイベントハンドラ登録
+        onkeyup = ship.keyup; // キーリリース時のイベントハンドラ登録
+
+        let space = document.getElementById("space");
+        ctx = space.getContext("2d");
+        ctx.font = "40pt Arial";
+        repaint();
+      }
+
+      function go() {
+        let space = document.getElementById("space");
+        space.onmousedown = mymousedown; // マウス押下時イベントハンドラ登録
+        space.onmouseup = mymouseup; // マウスリリース時イベントハンドラ登録
+        space.oncontextmenu = function (e) {
+          e.preventDefault(); // コンテキストメニュー非表示に
+        };
+        space.addEventListener("touchstart", mymousedown);
+        space.addEventListener("touchend", mymouseup);
+
+        document.body.addEventListener(
+          "touchmove",
+          function (event) {
+            event.preventDefault(); // 画面タッチによるコンテキストメニューを非表示に
+          },
+          false
+        );
+        document.getElementById("START").style.display = "none";
+        document.getElementById("bgm").play(); // BGM再生開始
+        timer = setInterval(tick, 50);
+      }
+
+      function mymousedown(e) {
+        // マウスとタッチのイベント処理 -> 座標に応じて上下左右キーのkeymapを更新
+        let mouseX =
+          (!isNaN(e.offsetX) ? e.offsetX : e.touches[0].clientX) - 400;
+        let mouseY =
+          (!isNaN(e.offsetY) ? e.offsetY : e.touches[0].clientY) - 400;
+        if (Math.abs(mouseX) > Math.abs(mouseY)) {
+          keymap[mouseX > 0 ? 37 : 39] = true;
+        } else {
+          keymap[mouseY > 0 ? 38 : 40] = true;
+        }
+      }
+
+      function mymouseup(e) {
+        keymap = [];
+      }
+
+      function tick() {
+        stars.forEach((s) => {
+          s.z -= speed;
+          s.r += s.w;
+          if (s.z < 64) {
+            if (Math.abs(s.x - ship.x) < 50 && Math.abs(s.y - ship.y) < 50) {
+              // 衝突→ゲームオーバー
+              clearInterval(timer);
+              timer = NaN;
+              document.getElementById("bgm").pause();
+              return;
+            }
+            // 通過→奥へ再配置
+            s.x = random(800 * 4) - 1600;
+            s.y = random(800 * 4) - 1600;
+            s.z = 4095;
+          }
+        });
+
+        if (score++ % 10 == 0) {
+          speed++;
+        }
+        ship.move();
+        repaint();
+      }
+
+      function repaint() {
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, 800, 800); // 背景クリア
+        stars.sort((a, b) => b.z - a.z);  // 隕石を距離順にソート
+
+        // 隕石の描画
+        stars.forEach((s) => {
+          let z = s.z;
+          let x = ((s.x - ship.x) * 512) / z + 400;
+          let y = ((s.y - ship.y) * 512) / z + 400;
+          let size = (50 * 512) / z; // 距離に応じてサイズを設定
+          ctx.save(); // コンテキスト保存
+          ctx.translate(x, y);  // x,yへ座標系を並行移動
+          ctx.globalAlpha = 1 - z / 4096; // 透明度設定（遠くを暗く）
+          ctx.rotate((s.r * Math.PI) / 180);  // 座標系を回転
+          ctx.drawImage(rockImg, -size / 2, -size / 2, size, size);
+          ctx.restore();  // コンテキスト復元
+        });
+
+        // スコア
+        ctx.drawImage(scope, 0, 0, 800, 800);
+        ctx.fillStyle = "#5aFFFF";
+        ctx.fillText(("0000000" + score).slice(-7), 550, 60);
+        if (isNaN(timer)) {
+          ctx.fillText("GAME OVER", 250, 350);
+        }
+      }
+    </script>
+  </head>
+  <body onload="init()">
+    <!-- Thanks to http://takao-suenobu.com/  & http://dova-s.jp/ -->
+    <audio src="Escape.mp3" id="bgm" loop="loop"></audio>
+    <canvas id="space" width="800" height="800"></canvas>
+    <img id="START" src="start.png" onclick="go()"><br>
+    <img id="rockImg" src="rock.png" style="display: none">
+    <img id="scope" src="scope.png" style="display: none">
+  </body>
+</html>
