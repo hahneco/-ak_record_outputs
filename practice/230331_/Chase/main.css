@@ -1,0 +1,142 @@
+/* color参考 */
+/* https: //artofslide.blogspot.com/2021/05/nippon-colors.html
+
+/*
+#FEDFE1;
+#D7C4BB;
+#DC9FB4;
+#FFFFFF;
+#A5DEE4; // 瓶除き
+#9E7A7A;
+#F3F9FF;
+
+// font系カラー
+#9E7A7A;
+*/
+
+/* Webフォント読み込み */
+:root {
+  --main-text-color: #9E7A7A;
+  --main-text-color2: #DC9FB4;
+  --main-bg-color: #FEDFE1;
+  --main-color-blue: #A5DEE4;
+  /* --main-font-family: Yomogi; */
+  /* --main-font-family: 'DotGothic16'; */
+  --main-font-family: 'Hachi Maru Pop';
+}
+
+.icon::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f000";
+}
+
+i.tiger {
+  content: '';
+  display: inline-block;
+  width: 2.5em;
+  height: 1em;
+  background-image: url(img/tiger-2.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+}
+
+hr {
+  width: 100%;
+  border-width: 1px 0 0 0;
+  /* 線の太さを指定 */
+  border-style: dotted;
+  /* 線の種類を指定 */
+  border-color: var(--main-text-color2);
+  /*線の色を指定 */
+}
+
+i {
+  color: #DC9FB4;
+}
+i.-white {
+  color: #F3F9FF;
+}
+
+body {
+  /* background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%); */
+  background-color: var(--main-bg-color);
+  font-family: var(--main-font-family);
+  color: var(--main-text-color);
+  text-align: center;
+  vertical-align: middle;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 100vw;
+  height: 100vh;
+  line-height: 1.4;
+}
+
+h3 {
+  font-size: .8em;
+}
+
+p {
+  margin-top: 1em;
+  font-size: 0.8em;
+}
+
+dt {
+  color: cornflowerblue;
+  font-size: 0.9em;
+}
+
+dd {
+  font-size: 0.8em;
+  text-align: left;
+}
+
+.input-range[type="range"] {
+  margin: 2em auto;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #F3F9FF;
+  height: 2px;
+  width: 25%;
+}
+.input-range[type="range"]:focus,
+.input-range[type="range"]:active {
+  outline: none;
+}
+.input-range[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  width: 12px;
+  height: 12px;
+  display: block;
+  background-color: var(--main-text-color);
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+}
+
+.Button-style {
+  width: 40%;
+  margin: 0 auto;
+  font-size: 18px;
+  display: inline-block;
+  padding: 0.5em 1em 0.3em;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  background-color: #DC9FB4;
+  cursor: pointer;
+}
+
+/* ################################ */
+.main-container {
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+}
+/* ################################ */
