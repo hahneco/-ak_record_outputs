@@ -76,7 +76,7 @@ function init() {
 
   let space = document.getElementById("space");
   ctx = space.getContext("2d");
-  ctx.font = "40pt Arial";
+  ctx.font = "40pt Hachi Maru Pop";
   repaint();
 }
 

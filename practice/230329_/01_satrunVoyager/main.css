@@ -21,7 +21,8 @@
   --main-bg-color: #FEDFE1;
   --main-color-blue: #A5DEE4;
   /* --main-font-family: Yomogi; */
-  --main-font-family: 'DotGothic16';
+  /* --main-font-family: 'DotGothic16'; */
+  --main-font-family: 'Hachi Maru Pop';
 }
 
 .icon::before {
