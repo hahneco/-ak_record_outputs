@@ -1,0 +1,67 @@
+body {
+  background: url(../images/board.png);
+}
+
+.field {
+  --drop-shadow: 0 10px 25px 0 rgb(0 0 0 / 50%);
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: clamp(300px, 100%, 540px);
+  border-spacing: 5px;
+}
+
+.field td {
+  position: relative;
+}
+
+.card {
+  transition: 0.3s linear;
+  max-width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.card.stock {
+  box-shadow: var(--drop-shadow);
+  filter: hue-rotate(135deg);
+}
+
+.card.stock:nth-child(1) {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+}
+
+.card.stock:nth-child(2) {
+  position: relative;
+}
+
+.card.stock:nth-child(3) {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.card.selected {
+  transform: translateY(var(--shiftY));
+  box-shadow: var(--drop-shadow);
+}
+
+.card.com.selected {
+  --shiftY: -20%;
+}
+
+.card.you.selected {
+  --shiftY: 20%;
+}
+
+.button {
+  width: 100%;
+  height: 3em;
+  box-shadow: var(--drop-shadow);
+}
+
+.button + .button {
+  margin-top: 5px;
+}
