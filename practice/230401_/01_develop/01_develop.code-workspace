@@ -2,9 +2,16 @@
   "folders": [
     {
       "path": "../01_"
+    },
+    {
+      "path": "../02_"
+    },
+    {
+      "path": "../03_"
     }
   ],
   "settings": {
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "liveServer.settings.multiRootWorkspaceName": "02_"
   }
 }

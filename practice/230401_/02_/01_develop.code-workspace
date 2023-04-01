@@ -1,0 +1,17 @@
+{
+  "folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../../references/図解!JavaScriptのツボとコツが絶対わかる本_実践編/sample/release"
+		},
+		{
+			"path": "../01_"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "01_develop",
+		"liveServer.settings.port": 5501
+	}
+}
