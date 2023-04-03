@@ -24,7 +24,7 @@
   --main-color-blue: #A5DEE4;
   /* --main-font-family: Yomogi; */
   /* --main-font-family: 'DotGothic16'; */
-  --main-font-family: 'Hachi Maru Pop';
+  --main-font-family: 'Delicious Handrawn', 'Kaisei HarunoUmi', 'Hachi Maru Pop';
 }
 
 .icon::before {
@@ -61,8 +61,8 @@ i.-white {
   color: #F3F9FF;
 }
 
+/*
 body {
-  /* background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%); */
   background-color: var(--main-bg-color);
   font-family: var(--main-font-family);
   color: var(--main-text-color);
@@ -134,11 +134,105 @@ dd {
   background-color: #DC9FB4;
   cursor: pointer;
 }
+*/
 
 /* ################################ */
-.main-container {
+body {
+  background: url(../images/board.png);
+  color: white;
+}
+
+main {
+  width: 100vw;
+  height: 100vh;
+}
+
+.field {
+  /* filter: drop-shadow(0 10px 25px rgba(0 0 0 / 0.5)); */
+  --drop-shadow: 0 10px 25px rgba(0 0 0 / 0.5);
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: clamp(300px, 100%, 540px); /* 最は幅, 推奨幅, 最大幅 */
+  border-spacing: 5px;
+  display: none;
+  opacity: 0;
+  transition-duration: 0.8s;
+  transition: ease-in-out;
+  transition-property: opacity;
+}
+
+.field td {
+  position: relative;
+  padding: 0.5em 0;
+  text-align: center;
+}
+
+.card {
+  transition: 0.3s linear;
+  width: 85%;
+  max-width: 100%;
+  position: relative;
+  z-index: 1;
+  border-radius: 0.4em;
+  /* box-shadow: var(--drop-shadow); */
+}
+
+.stock-container {
+  padding: 10%;
+}
+
+.card.stock {
+  box-shadow: var(--drop-shadow);
+  filter: hue-rotate(135deg);
+}
+
+.card.stock:nth-child(1) {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+}
+
+.card.stock:nth-child(2) {
+  position: relative;
+}
+
+.card.stock:nth-child(3) {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.card.selected {
+  transform: translateY(var(--shiftY));
+  box-shadow: var(--drop-shadow);
+}
+
+.card.com.selected {
+  --shiftY: -20px;
+}
+
+.card.you.selected {
+  --shiftY: 20%;
+}
+
+.button-contianer {
+  margin: 2em 0;
+}
+
+.button {
+  width: 100%;
+  height: 3em;
+  box-shadow: var(--drop-shadow);
+}
+
+.button+.button {
+  margin-top: 5px;
+}
+
+/* .main-container {
   width: 80%;
   margin: 0 auto;
   position: relative;
-}
+} */
 /* ################################ */
