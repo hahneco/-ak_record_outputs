@@ -15,7 +15,8 @@ export default class Pair {
   static #rank = 0; // クラス内のみで使用するのでprivateとする。
 
 
-  // メソッド =================================
+  // 各メソッド =================================
+
   // ロイヤルストレートフラッシュ の成否を判定する
   static isRoyalStraightFlush = (cards) => { // 引数のcardsはrankの低い順にsortして渡すこと
     // 役の判定フラグ(true:成立, false:不成立)
@@ -296,52 +297,103 @@ export default class Pair {
     return isPair;
   };
 
-  // 成立条件を満たす最も強い役を判定する
+  /*
+  成立条件を満たす最も強い役を判定する
+  */
   static judge = (cards) => {
     // 判定結果
     let result = null;
 
-    // 役つ強い順にsort
+    // カードの配列のコピー作成（sortメソッドが破壊的メソッドのため）
+    const _cards = [...cards]; // スプレッド構文（プロパティの個数に関係なく短く書けて便利）
+
+    // rankが小さい順にソートする。
+    _cards.sort((a, b) => a.rank - b.rank);
+
+
+    /*
+    役が強い順に判定する
+    */
     // isRoyalStraightFlush
-    if (this.isRoyalStraightFlush(cards)) {
+    if (this.isRoyalStraightFlush(_cards)) {
       result = {
         strength: 9,
         rank: this.rank,
         hand: "ロイヤルストレートフラッシュ"
-      }
+      };
     }
 
-    if (this.isStraightFlush(cards)) {
-
+    if (this.isStraightFlush(_cards)) {
+      result = {
+        strength: 8,
+        rank: this.rank,
+        hand: "ストレートフラッシュ"
+      };
     }
 
-    if (this.isFourCardFlush(cards)) {
-
+    if (this.isFourCardFlush(_cards)) {
+      result = {
+        strength: 7,
+        rank: this.rank,
+        hand: "フォーカード"
+      };
     }
 
-    if (this.isFullHouse(cards)) {
-
+    if (this.isFullHouse(_cards)) {
+      result = {
+        strength: 6,
+        rank: this.rank,
+        hand: "フルハウス",
+      };
     }
 
-    if (this.isFlush(cards)) {
-
+    if (this.isFlush(_cards)) {
+      result = {
+        strength: 5,
+        rank: this.rank,
+        hand: "フラッシュ",
+      };
     }
 
-    if (this.isStraight(cards)) {
-
+    if (this.isStraight(_cards)) {
+      result = {
+        strength: 4,
+        rank: this.rank,
+        hand: "ストレート",
+      };
     }
 
-    if (this.isThreeCard(cards)) {
-
+    if (this.isThreeCard(_cards)) {
+      result = {
+        strength: 3,
+        rank: this.rank,
+        hand: "スリーカード",
+      };
     }
 
-    if (this.isTwoPair(cards)) {
-
+    if (this.isTwoPair(_cards)) {
+      result = {
+        strength: 2,
+        rank: this.rank,
+        hand: "ツーペア",
+      };
     }
 
-    if (this.isOnePair(cards)) {
-
+    if (this.isOnePair(_cards)) {
+      result = {
+        strength: 1,
+        rank: this.rank,
+        hand: "ワンペア",
+      };
     }
 
+    if (this.isOnePair(_cards)) {
+      result = {
+        strength: 0,
+        rank: 0,
+        hand: "役なし",
+      };
+    }
+    return result;
   };
 }
