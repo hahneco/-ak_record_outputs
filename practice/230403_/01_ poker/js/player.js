@@ -48,20 +48,49 @@ export default class Player {
   /*
   手札を描画する
   */
-  displayCard(){};
+  displayCard() {
+    // 手札のループ
+    this.cards.forEach((card, index) => {
+      // 表示する画像名
+      let name = String(card.index).padStart(2, "0") + ".png"; // 一桁のrankには数字の前に「0」をつける
+      // 裏面を表示する場合は画像を変更（カード交換前のPCの手札などに使用する）
+      if (!front) {
+        name = "red.png";
+      }
+      // カードの画像をセット
+      this.nodes[index].setAttribute("src", "images/" + name);
+    });
+  };
 
   /*
   新しいカードを手札に追加する
   */
-  addCard(){};
+  addCard(newCard) {
+    // 新しいカードを手札の最後尾に追加
+    this.cards.push(newCard);
+    // 最後尾のノードにカードのインデックス番号を書き込む
+    this.nodes[this.cards.length - 1].dataset.index = newCard.index;
+  };
 
   /*
   交換するカードを選択する
   */
-  selectedCard(){};
+  selectedCard(node) {
+    // 選択状態を表すCSSクラス名を切り替える
+    node.classList.toggle("selected");
+  };
 
   /*
   山札からカードを引いて交換する
   */
-  drawCard(){};
+  drawCard(newCard) {
+    // ループ
+    you.selectedNodes().forEach(() => {
+      // 山札の一番上から一枚取り出し、drawCardに渡す
+      const newCard = cards.pop();
+      const oldCard = you.drawCard(newCard);
+      // drawCardから返されたカードを、山札の一番下に戻す
+      cards.unshift(oldCard);
+    })
+  };
 }
