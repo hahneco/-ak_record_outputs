@@ -84,13 +84,30 @@ export default class Player {
   山札からカードを引いて交換する
   */
   drawCard(newCard) {
-    // ループ
-    you.selectedNodes().forEach(() => {
-      // 山札の一番上から一枚取り出し、drawCardに渡す
-      const newCard = cards.pop();
-      const oldCard = you.drawCard(newCard);
-      // drawCardから返されたカードを、山札の一番下に戻す
-      cards.unshift(oldCard);
-    })
+    // 選択しているノードを先頭から一つ取り出す。
+    const node = this.selectedNodes.shift();
+
+    // このノードに書き込まれたインデックス番号を返す
+    const index = parseInt(node.dataset.index);
+
+    // このコードに置かれた手札の位置を検索する
+    const pos = this.cards.findIndex((card) =>
+      card.index === index);
+
+    // この手札を複製して退避しておく
+    // nodeにおかれたカードが何番目にあるのかを表す位置が取得される。
+    const oldCard = this.slice(pos, pos + 1)[0];
+
+    // この手札を新しいカードで置き換える
+    this.cards[pos] = newCard;
+
+    // このノードに新しいカードのインデックス番号を書き込む
+    node.dataset.index = newCard.index;
+
+    // ノードを未選択の状態に戻す
+    node.classList.remove("selected");
+
+    // 退避したカードを返す
+    return oldCard;
   };
 }
