@@ -1,10 +1,19 @@
 'use strict';
 
 // アプリケーションを起動する制御モジュール
+import Game from "./main.js";
 
-// 定数・広域変数
+
+// 定数・広域変数 ==================
 const field = document.getElementById("field");
 
+
+// クラス ==================
+// ゲームのインスタンス作成
+const game = new Game();
+
+
+// イベント ==================
 onload = function () {
   console.log("onload!");
 
@@ -38,3 +47,6 @@ function tableSet(whose) {
     cardImg.className = "card " + whose;
   }
 }
+
+// ゲーム実行
+game.run();
