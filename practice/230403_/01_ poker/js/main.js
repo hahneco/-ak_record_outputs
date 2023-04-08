@@ -103,15 +103,44 @@ export default class Game {
   }
 
   #onClickCard(event) {
-    console.log("clicked!");
+    if (this.#isRunning) {
+      this.#you.selectCard(event.target);
+    }
   };
 
-  #onDraw(event) {
-    console.log("clicked!");
+  async #onDraw(event) {
+    // ① プレイヤーがカードを交換する
+    this.#you.selectedNodes.forEach(() => {
+      this.#cards.unshift(this.#you.drawCard(this.#cards.pop()));
+      // console.log(this.#cards)
+    })
+    // ② 画面の描画を更新
+    this.#updateView();
+    // ③ ゲーム実行状態を更新
+    this.#isRunning = false;
+    console.log(this.#isRunning)
+    // ④ 1秒待つ
+    await Util.sleep();
+    // ⑤ 相手が交換するカードを選ぶ
+    this.#com.selectCard();
+    // ⑥ 一秒待つ
+    await Util.sleep();
+    // ⑦ 相手がカードを交換する
+    this.#com.selectedNodes.forEach(() => {
+      this.#cards.unshift(this.#com.drawCard(this.#cards.pop()));
+    })
+    // ⑧ 画面の描画を更新する
+    this.#updateView();
+    // ⑨ 1秒待つ
+    await Util.sleep();
+    // ⑩ 勝敗を判定する
+    this.#judgement();
   };
 
   #onReplay(event) {
-    console.log("clicked!");
+    // console.log("clicked!");
+    // ゲーム初期化
+    this.#initialize();
   };
 
   /**
@@ -124,5 +153,27 @@ export default class Game {
     Util.addEventListener("#draw", "click", this.#onDraw.bind(this));
     // Replayボタンのクリックイベント
     Util.addEventListener("#replay", "click", this.#onReplay.bind(this));
+  }
+
+  #judgement() {
+    const youResult = Pair.judge(this.#you.cards);
+    const comResult = Pair.judge(this.#com.cards);
+
+    let message = `(YOU)${youResult.hand}vs(COM)${comResult.hand}\n`;
+
+    if (youResult.strength < comResult.strength) {
+      message += `あなたの負けです!`;
+    } else if (youResult.strength < comResult.strength) {
+      message += `あなたの勝ちです!`;
+    } else {
+      if (youResult.rank < comResult.rank) {
+        message += `あなたの負けです!`;
+      } else if (youResult.rank > comResult.rank) {
+        message += `あなたの勝ちです!`;
+      } else {
+        message += `引き分けです!`;
+      }
+    }
+    alert(message);
   }
 }

@@ -31,6 +31,7 @@ export default class Player {
   選択しているノード（list）
   */
   get selectedNodes() {
+    console.log(this.#nodes)
     return this.#nodes.filter((node) => { node.classList.contains("selected");
     })
   }
