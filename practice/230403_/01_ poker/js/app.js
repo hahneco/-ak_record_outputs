@@ -16,12 +16,12 @@ const game = new Game();
 // イベント ==================
 onload = function () {
   console.log("onload!");
+}
 
-  tableSet("com");
-  tableSet("you");
+tableSet("com");
+tableSet("you");
 
   field.style = "display: block; opacity: 1; transition-duration: 0.8s; transition: ease-in-out;";
-}
 
 // 初期画面カードをセット
 function tableSet(whose) {
@@ -33,11 +33,11 @@ function tableSet(whose) {
     let cardImg = document.createElement("img");
 
     if (whose == "com") {
-      cardImg.src = 'images/' + 'red' + '.svg'; // comの場合
+      cardImg.src = 'images/' + 'red' + '.png'; // comの場合
       cardImg.alt = 'COMのカード_赤'; // comの場合
       comTr.appendChild(td);
     } else if (whose == "you") {
-      cardImg.src = 'images/' + 'blue' + '.svg'; // youの場合
+      cardImg.src = 'images/' + 'blue' + '.png'; // youの場合
       cardImg.alt = 'youのカード_青'; // youの場合
       youTr.appendChild(td);
     }
