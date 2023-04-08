@@ -15,7 +15,6 @@ const game = new Game();
 
 // イベント ==================
 // onload = function () {
-//   console.log("onload!");
 // }
 
 // tableSet("com");

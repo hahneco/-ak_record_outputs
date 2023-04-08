@@ -56,7 +56,6 @@ export default class Game {
     });
     // ③ 山札のカードをシャッフル
     this.#shuffleCard();
-    console.log(this.#cards)
 
     // ④ 山札のカードを5枚ずつplayerに配る
     this.#dealCard(this.#you, 5);
@@ -112,13 +111,11 @@ export default class Game {
     // ① プレイヤーがカードを交換する
     this.#you.selectedNodes.forEach(() => {
       this.#cards.unshift(this.#you.drawCard(this.#cards.pop()));
-      // console.log(this.#cards)
     })
     // ② 画面の描画を更新
     this.#updateView();
     // ③ ゲーム実行状態を更新
     this.#isRunning = false;
-    console.log(this.#isRunning)
     // ④ 1秒待つ
     await Util.sleep();
     // ⑤ 相手が交換するカードを選ぶ
@@ -138,7 +135,6 @@ export default class Game {
   };
 
   #onReplay(event) {
-    // console.log("clicked!");
     // ゲーム初期化
     this.#initialize();
   };
