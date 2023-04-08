@@ -155,8 +155,8 @@ main {
   margin: auto;
   width: clamp(300px, 100%, 540px); /* 最は幅, 推奨幅, 最大幅 */
   border-spacing: 5px;
-  display: none;
-  opacity: 0;
+  /* display: none;
+  opacity: 0; */
   transition-duration: 0.8s;
   transition: ease-in-out;
   transition-property: opacity;
@@ -170,7 +170,7 @@ main {
 
 .card {
   transition: 0.3s linear;
-  width: 85%;
+  width: 11vw;
   max-width: 100%;
   position: relative;
   z-index: 1;
@@ -209,14 +209,14 @@ main {
 }
 
 .card.com.selected {
-  --shiftY: -20px;
+  --shiftY: -20%;
 }
 
 .card.you.selected {
   --shiftY: 20%;
 }
 
-.button-contianer {
+.button-container {
   margin: 2em 0;
 }
 
@@ -226,13 +226,6 @@ main {
   box-shadow: var(--drop-shadow);
 }
 
-.button+.button {
+.button + .button {
   margin-top: 5px;
 }
-
-/* .main-container {
-  width: 80%;
-  margin: 0 auto;
-  position: relative;
-} */
-/* ################################ */

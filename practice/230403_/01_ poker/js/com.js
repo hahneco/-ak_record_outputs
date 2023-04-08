@@ -21,7 +21,7 @@ export default class Com extends Player {
   /*
   交換するカードを選択する
   */
-  selectedCard() { // カード選択時にclickイベント等ないので、引数はなしでOK
+  selectCard() { // カード選択時にclickイベント等ないので、引数はなしでOK
     // 自動でカードを選択する
 
     // 交換する前せ成立している役の強さし調べる
@@ -44,7 +44,7 @@ export default class Com extends Player {
         const sameRankCards = this.cards.filter((e) => e.rank === card.rank);
         if (sameRankCards.length === 1) {
           // index番目のカードにはペアが存在しないので選択する
-          super.selectedCard(this.nodes[index]); // 手札の順番 = nodeの順番
+          super.selectCard(this.nodes[index]); // 手札の順番 = nodeの順番
         }
       });
     }

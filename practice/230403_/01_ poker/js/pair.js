@@ -28,11 +28,11 @@ export default class Pair {
       cards[0].suit === cards[2].suit && // 1,3枚目が同じsuit(絵柄)
       cards[0].suit === cards[3].suit && // 1,4枚目が同じsuit(絵柄)
       cards[0].suit === cards[4].suit && // 1,5枚目が同じsuit(絵柄)
-      cards[1].rank === 10 && // 1枚目のrankが10
+      cards[0].rank === 10 && // 1枚目のrankが10
       cards[1].rank === 11 && // 1枚目のrankが11
-      cards[1].rank === 12 && // 1枚目のrankが12
-      cards[1].rank === 13 && // 1枚目のrankが13
-      cards[1].rank === 14 // 1枚目のrankが14
+      cards[2].rank === 12 && // 1枚目のrankが12
+      cards[3].rank === 13 && // 1枚目のrankが13
+      cards[4].rank === 14 // 1枚目のrankが14
     ) {
       isPair = true;
 
@@ -55,6 +55,7 @@ export default class Pair {
       cards[0].suit === cards[2].suit && // 1,3枚目が同じsuit(絵柄)
       cards[0].suit === cards[3].suit && // 1,4枚目が同じsuit(絵柄)
       cards[0].suit === cards[4].suit && // 1,5枚目が同じsuit(絵柄)
+
       cards[0].rank + 1 === cards[1].rank && // 連続
       cards[1].rank + 1 === cards[2].rank && // 連続
       cards[2].rank + 1 === cards[3].rank && // 連続
@@ -71,7 +72,7 @@ export default class Pair {
   };
 
   // フォーカード の成否を判定する
-  static isFourCardFlush = (cards) => {
+  static isFourCard = (cards) => {
     // 役の判定フラグ(true:成立, false:不成立)
     let isPair = false;
 
@@ -80,8 +81,8 @@ export default class Pair {
     // 1-4枚目のrankが同じ
     if (
       cards[0].rank === cards[1].rank &&
-      cards[1].rank === cards[2].rank &&
-      cards[2].rank === cards[3].rank &&
+      cards[0].rank === cards[2].rank &&
+      cards[0].rank === cards[3].rank &&
 
       // 1,5枚目のrankが異なる
       cards[0].rank !== cards[4].rank
@@ -92,12 +93,11 @@ export default class Pair {
       this.#rank = Util.sum(cards[0].rank, cards[1].rank, cards[2].rank, cards[3].rank);
     } else if (
       // 2-5枚目のrankが同じ
-      cards[1].rank === cards[2].rank &&
-      cards[2].rank === cards[3].rank &&
-      cards[3].rank === cards[4].rank &&
-
-      // 1,2枚目のrankが異なる
-      cards[0].rank !== cards[1].rank
+      // 1,2枚目のランクが異なる
+      cards[0].rank !== cards[1].rank &&
+      cards[1].rank === cards[2].rank && // 2,3枚目が同じランク
+      cards[1].rank === cards[3].rank && // 2,4枚目が同じランク
+      cards[1].rank === cards[4].rank // 2,5枚目が同じランク
     ) {
       isPair = true;
 
@@ -151,10 +151,10 @@ export default class Pair {
     let isPair = false;
 
     if (
-      cards[0].suit === cards[1].suit &&
-      cards[1].suit === cards[2].suit &&
-      cards[2].suit === cards[3].suit &&
-      cards[3].suit === cards[4].suit
+      cards[0].suit === cards[1].suit && // 1,2枚目が同じ絵柄
+      cards[0].suit === cards[2].suit && // 1,3枚目が同じ絵柄
+      cards[0].suit === cards[3].suit && // 1,4枚目が同じ絵柄
+      cards[0].suit === cards[4].suit // 1,5枚目が同じ絵柄
     ) {
       isPair = true;
 
@@ -201,7 +201,9 @@ export default class Pair {
 
       // 1-3枚目のrankを合計する
       this.#rank = Util.sum(cards[0].rank, cards[1].rank, cards[2].rank);
-    } else if (
+    }
+    // 2～4枚目が同じランク
+    else if (
       cards[1].rank === cards[2].rank &&
       cards[1].rank === cards[3].rank
     ) {
@@ -209,7 +211,9 @@ export default class Pair {
 
       // 2-4枚目のrankを合計する
       this.#rank = Util.sum(cards[1].rank, cards[2].rank, cards[3].rank);
-    } else if (
+    }// 3～5枚目が同じランク
+     else if (
+      // 3～5枚目が同じランク
       cards[2].rank === cards[3].rank &&
       cards[2].rank === cards[4].rank
     ) {
@@ -235,7 +239,6 @@ export default class Pair {
       cards[2].rank === cards[3].rank
     ) {
       isPair = true;
-
       // 1-2,3-4枚目のrankを合計する
       this.#rank = Util.sum(cards[0].rank, cards[1].rank, cards[2].rank, cards[3].rank);
     } else if ( // [1-2, 4-5]
@@ -244,13 +247,16 @@ export default class Pair {
     ) {
       isPair = true;
 
-      // 2-3,4-5枚目のrankを合計する
-      this.#rank = Util.sum(cards[1].rank, cards[2].rank, cards[3].rank, cards[4].rank);
-    } else if ( // [2-3, 4-5]
-      cards[1].rank === cards[2].rank &&
-      cards[3].rank === cards[4].rank
+      // 1,2枚目と4,5枚目のランクを合計
+      this.#rank = Util.sum(cards[0].rank, cards[1].rank, cards[3].rank, cards[4].rank);
+    }
+    // 2,3枚目と4,5枚目が同じランク
+    else if (
+      cards[1].rank === cards[2].rank && // 2,3枚目が同じランク
+      cards[3].rank === cards[4].rank // 4,5枚目が同じランク
     ) {
-      // 1-2,4-5枚目のrankを合計する
+      isPair = true;
+      // 2,3枚目と4,5枚目のランクを合計
       this.#rank = Util.sum(cards[1].rank, cards[2].rank, cards[3].rank, cards[4].rank);
     }
 
@@ -263,37 +269,28 @@ export default class Pair {
   static isOnePair = (cards) => {
     // 役の判定フラグ(true:成立, false:不成立)
     let isPair = false;
-
-    if (
-      cards[0].ranks === cards[1].rank
-    ) {
+    // 1,2枚目が同じランク
+    if (cards[0].rank === cards[1].rank) {
       isPair = true;
-
       // 1-2枚目のrankを合計する
       this.#rank = Util.sum(cards[0].rank, cards[1].rank);
-    } else if (
-      cards[1].ranks === cards[2].rank
-    ) {
+    }
+    // 2,3枚目が同じランク
+    else if (cards[1].rank === cards[2].rank) {
       isPair = true;
-
       // 2-3枚目のrankを合計する
       this.#rank = Util.sum(cards[1].rank, cards[2].rank);
-    } else if (
-      cards[2].ranks === cards[3].rank
-    ) {
+    }
+    else if (cards[2].rank === cards[3].rank) {
       isPair = true;
-
       // 3-4枚目のrankを合計する
       this.#rank = Util.sum(cards[2].rank, cards[3].rank);
-    } else if (
-      cards[3].ranks === cards[4].rank
-    ) {
+    }
+    else if (cards[3].rank === cards[4].rank) {
       isPair = true;
-
       // 4-5枚目のrankを合計する
       this.#rank = Util.sum(cards[3].rank, cards[4].rank);
     }
-
     return isPair;
   };
 
@@ -318,76 +315,76 @@ export default class Pair {
     if (this.isRoyalStraightFlush(_cards)) {
       result = {
         strength: 9,
-        rank: this.rank,
-        hand: "ロイヤルストレートフラッシュ"
+        rank: this.#rank,
+        hand: "ロイヤルストレートフラッシュ",
       };
     }
 
-    if (this.isStraightFlush(_cards)) {
+    else if (this.isStraightFlush(_cards)) {
       result = {
         strength: 8,
-        rank: this.rank,
+        rank: this.#rank,
         hand: "ストレートフラッシュ"
       };
     }
 
-    if (this.isFourCardFlush(_cards)) {
+    else if (this.isFourCard(_cards)) {
       result = {
         strength: 7,
-        rank: this.rank,
+        rank: this.#rank,
         hand: "フォーカード"
       };
     }
 
-    if (this.isFullHouse(_cards)) {
+    else if (this.isFullHouse(_cards)) {
       result = {
         strength: 6,
-        rank: this.rank,
+        rank: this.#rank,
         hand: "フルハウス",
       };
     }
 
-    if (this.isFlush(_cards)) {
+    else if (this.isFlush(_cards)) {
       result = {
         strength: 5,
-        rank: this.rank,
+        rank: this.#rank,
         hand: "フラッシュ",
       };
     }
 
-    if (this.isStraight(_cards)) {
+    else if (this.isStraight(_cards)) {
       result = {
         strength: 4,
-        rank: this.rank,
+        rank: this.#rank,
         hand: "ストレート",
       };
     }
 
-    if (this.isThreeCard(_cards)) {
+    else if (this.isThreeCard(_cards)) {
       result = {
         strength: 3,
-        rank: this.rank,
+        rank: this.#rank,
         hand: "スリーカード",
       };
     }
 
-    if (this.isTwoPair(_cards)) {
+    else if (this.isTwoPair(_cards)) {
       result = {
         strength: 2,
-        rank: this.rank,
+        rank: this.#rank,
         hand: "ツーペア",
       };
     }
 
-    if (this.isOnePair(_cards)) {
+    else if (this.isOnePair(_cards)) {
       result = {
         strength: 1,
-        rank: this.rank,
+        rank: this.#rank,
         hand: "ワンペア",
       };
     }
 
-    if (this.isOnePair(_cards)) {
+    else {
       result = {
         strength: 0,
         rank: 0,

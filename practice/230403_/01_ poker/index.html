@@ -1,84 +1,63 @@
 <!DOCTYPE html>
-
 <html lang="ja">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Googleフォント *Yomogi* -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-  href="https://fonts.googleapis.com/css2?family=Delicious+Handrawn&family=DotGothic16&family=Hachi+Maru+Pop&family=Kaisei+HarunoUmi&family=Kaisei+Opti:wght@400;500;700&family=Yomogi&display=swap"
-  rel="stylesheet">
-  <!-- BootstrapのCSS読み込み -->
-  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
-  <script src="https://kit.fontawesome.com/87b9f80a9f.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/main.css">
-  <title>Document</title>
-  <style>
-  </style>
+  <title>Poker</title>
+  <link href="css/main.css" rel="stylesheet">
 </head>
-
 <body>
-  <!-- 画面を描画するモジュール -->
-
-  <main class="main-container">
-
-    <table id="field" class="field">
-      <tr id="comTr"></tr>
-
-      <tr>
-        <td class="cell" colspan="2"></td>
-        <td class="cell">
-          <div class="stock-container">
-            <img src="images/red.svg" class="card stock" alt="">
-            <img src="images/red.svg" class="card stock" alt="">
-            <img src="images/red.svg" class="card stock" alt="">
-          </div>
-        </td>
-        <td class="cell" colspan="2"></td>
-      </tr>
-
-      <tr id="youTr"></tr>
-
-      <tr>
-        <td class="cell" colspan="5">
-          <div class="button-container">
-            <button class="button" id="replay" disabled>Replay</button>
-            <button class="button" id="draw" disabled>Draw</button>
-          </div>
-        </td>
-      </tr>
-    </table>
-  </main>
-
-
-  <!-- <button class="Button-style mt-3 target" id="person">
-    <i class="fa-solid fa-hippo -white"></i>
-    &#9758; person
-  </button> -->
-
-  <!-- <button class="Button-style mt-3" onclick="">
-    <i class="fa-solid fa-hippo -white"></i>
-      STOP
-  </button> -->
-
-
-  <!-- <script type="" src="main.js"></script> -->
+  <table class="field">
+    <tr>
+      <td class="cell">
+        <img src="images/red.png" class="card com" alt="">
+      </td>
+      <td class="cell">
+        <img src="images/red.png" class="card com" alt="">
+      </td>
+      <td class="cell">
+        <img src="images/red.png" class="card com" alt="">
+      </td>
+      <td class="cell">
+        <img src="images/red.png" class="card com" alt="">
+      </td>
+      <td class="cell">
+        <img src="images/red.png" class="card com" alt="">
+      </td>
+    </tr>
+    <tr>
+      <td class="cell" colspan="2"></td>
+      <td class="cell">
+        <img src="images/red.png" class="card stock" alt="">
+        <img src="images/red.png" class="card stock" alt="">
+        <img src="images/red.png" class="card stock" alt="">
+      </td>
+      <td class="cell" colspan="2"></td>
+    </tr>
+    <tr>
+      <td class="cell">
+        <img src="images/blue.png" class="card you" alt="">
+      </td>
+      <td class="cell">
+        <img src="images/blue.png" class="card you" alt="">
+      </td>
+      <td class="cell">
+        <img src="images/blue.png" class="card you" alt="">
+      </td>
+      <td class="cell">
+        <img src="images/blue.png" class="card you" alt="">
+      </td>
+      <td class="cell">
+        <img src="images/blue.png" class="card you" alt="">
+      </td>
+    </tr>
+    <tr>
+      <td class="cell" colspan="5">
+        <button class="button" id="replay" disabled>Replay</button>
+        <button class="button" id="draw">Draw</button>
+      </td>
+    </tr>
+  </table>
   <script type="module" src="js/app.js"></script>
 </body>
-
 </html>

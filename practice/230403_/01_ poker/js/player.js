@@ -31,8 +31,7 @@ export default class Player {
   選択しているノード（list）
   */
   get selectedNodes() {
-    return this.#nodes.filter((node) => {
-      node.classList.contains("selected");
+    return this.#nodes.filter((node) => { node.classList.contains("selected");
     })
   }
 
@@ -48,7 +47,7 @@ export default class Player {
   /*
   手札を描画する
   */
-  displayCard() {
+  displayCard(front) {
     // 手札のループ
     this.cards.forEach((card, index) => {
       // 表示する画像名
@@ -60,7 +59,7 @@ export default class Player {
       // カードの画像をセット
       this.nodes[index].setAttribute("src", "images/" + name);
     });
-  };
+  }
 
   /*
   新しいカードを手札に追加する
@@ -70,15 +69,15 @@ export default class Player {
     this.cards.push(newCard);
     // 最後尾のノードにカードのインデックス番号を書き込む
     this.nodes[this.cards.length - 1].dataset.index = newCard.index;
-  };
+  }
 
   /*
   交換するカードを選択する
   */
-  selectedCard(node) {
+  selectCard(node) {
     // 選択状態を表すCSSクラス名を切り替える
     node.classList.toggle("selected");
-  };
+  }
 
   /*
   山札からカードを引いて交換する
@@ -86,28 +85,21 @@ export default class Player {
   drawCard(newCard) {
     // 選択しているノードを先頭から一つ取り出す。
     const node = this.selectedNodes.shift();
-
     // このノードに書き込まれたインデックス番号を返す
     const index = parseInt(node.dataset.index);
-
     // このコードに置かれた手札の位置を検索する
     const pos = this.cards.findIndex((card) =>
       card.index === index);
-
     // この手札を複製して退避しておく
     // nodeにおかれたカードが何番目にあるのかを表す位置が取得される。
     const oldCard = this.slice(pos, pos + 1)[0];
-
     // この手札を新しいカードで置き換える
     this.cards[pos] = newCard;
-
     // このノードに新しいカードのインデックス番号を書き込む
     node.dataset.index = newCard.index;
-
     // ノードを未選択の状態に戻す
     node.classList.remove("selected");
-
     // 退避したカードを返す
     return oldCard;
-  };
+  }
 }
