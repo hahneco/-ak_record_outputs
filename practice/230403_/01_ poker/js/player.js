@@ -74,7 +74,7 @@ export default class Player {
   /*
   交換するカードを選択する
   */
-  selectedCard(node) {
+  selectCard(node) {
     // 選択状態を表すCSSクラス名を切り替える
     node.classList.toggle("selected");
   }

@@ -3,7 +3,8 @@
 import Player from "./player.js";
 import Com from "./com.js";
 import Card from "./card.js";
-import Util from "./Util.js";
+import Pair from "./pair.js";
+import Util from "./util.js";
 
 
 
