@@ -4,54 +4,71 @@ import Rect from './Rect';
 import { Component } from 'react';
 
 class App extends Component {
-  data = []
-  area = {
-    width: "500px",
-    height: "500px",
-    border: "1px solid #A5DEE4"
-  }
+  data = [
+    "This is list sample",
+    "これはリストのサンプル!",
+    "配列をリストへ変換する!"
+  ]
 
   constructor(props) {
-    super()
+    super(props)
 
     this.state = {
       list: this.data
     }
-    this.doAction = this.doAction.bind(this)
+  }
+  render() {
+    return <div>
+      <h1 className='bg-blue text-white display-4'>React</h1>
+      <div className='container'>
+        <p className='subtitle'>show list.</p>
+        <List title="サンプル・リスト" data={this.data} />
+      </div>
+    </div>
+  }
+}
+
+class List extends Component {
+  number = 1
+
+  render() {
+    let data = this.props.data;
+    return (
+      <div>
+        <p className='h5 text-center'>{this.props.title}</p>
+        <ul className='list-group'>
+          {data.map((item, key) =>
+            <li className='list-group-item' key={key}>
+              <Item number={key + 1} value={item} />
+            </li>
+          )}
+        </ul>
+      </div>
+    )
+  }
+}
+
+class Item extends Component {
+  item = {
+    fontSize: "16px",
+    color: "#00f",
+    textDecoration: "underline",
+    textDecorationColor: "#ddf"
   }
 
-  doAction(e) {
-    let x = e.pageX
-    let y = e.pageY
-    this.data.push({ x: x, y: y })
-    this.setState({
-      list: this.data
-    })
-  }
-
-  draw(d) {
-    let s = {
-      position: "absolute",
-      left: (d.x -25) + "px",
-      top: (d.y - 25) + "px",
-      width: "50px",
-      height: "50px",
-      backgroundColor: "#dc9fb4"
-    }
-    return <div style={s}></div>
+  num = {
+    fontWeight: "bold",
+    color: "#A5DEE4"
   }
 
   render() {
     return (
-      <div>
-        <h1 className='bg-blue text-white display-4'>React</h1>
-        <div className='container'>
-          <p className='subtitle'>draw rectangle.</p>
-          <div style={this.area} onClick={this.doAction}>
-            {this.data.map((value) => this.draw(value))}
-          </div>
-        </div>
-      </div>
+      <p style={this.item}>
+        <span style={this.num}>
+          [{this.props.number}]&nbsp;
+        </span>
+        {this.props.value}
+      </p>
     )
   }
 }
