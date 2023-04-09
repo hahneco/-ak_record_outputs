@@ -5,54 +5,64 @@ import './App.css';
 
 
 function AlertMessage(props) {
-  const data = ["Hello!", "Welcome...", "Good-bye?"]
-
-  const actionAlert = () => {
-    const re = data[Math.floor(Math.random() * data.length)]
-    props.setAlert('message: ' +  re + '.')
-  }
+  const data = props.data
+  const msg = JSON.stringify(data)
 
   return <div className='alert alert-primary h5 text-primary'>
-    <h5>{props.alert}</h5>
-    <button onClick={actionAlert} className='btn btn-primary'>
-      Click me!!!
-    </button>
-  </div>
-}
-
-function CardMessage(props) {
-  const [count, setcount] = useState(0)
-
-  const actionCard = () => {
-    setcount(count + 1)
-    props.setCard('card counter: ' + count + ' count.')
-  }
-
-  return <div className='card p-3 border-dark text-center'>
-    <h5>{props.card}</h5>
-    <button onClick={actionCard} className='btn btn-secondary'>
-      Click me!!!
-    </button>
+    <h5>{props.msg}</h5>
+    <table className='table h6'>
+      <tbody>
+        <tr><th>Name<td>{data.name}</td></th></tr>
+        <tr><th>Mail<td>{data.mail}</td></th></tr>
+        <tr><th>Age<td>{data.age}</td></th></tr>
+      </tbody>
+    </table>
   </div>
 }
 
 
 function App() {
-  const [alert, setAlert] = useState("this is alert message!")
-  const [card, setCard] = useState("this is card message!")
+  const [name, setName] = useState("")
+  const [mail, setMail] = useState("")
+  const [age, setAge] = useState("")
+  const [form, setForm] = useState({
+    name: 'no name', mail: 'no mail', age: 0
+  })
+
+  const doChangeName = (event) => {
+    setName(event.target.value)
+  }
+  const doChangeMail = (event) => {
+    setMail(event.target.value)
+  }
+  const doChangeAge = (event) => {
+    setAge(event.target.value)
+  }
+
+  const doSubmit = (event) => {
+    setForm({ name: name, mail: mail, age: age })
+    event.preventDefault()
+  }
 
   return (
     <div>
       <h1 className='bg-blue text-white display-4'>React</h1>
       <div className='container'>
         <h4 className='my-3'>Hooks sample</h4>
-        <AlertMessage alert={alert} setAlert={setAlert} />
-        <CardMessage card={card} setCard={setCard} />
-        <hr />
-        <div className='text-right'>
-          <p>{alert}</p>
-          <p>{card}</p>
-        </div>
+        <AlertMessage data={form} setData={setForm} />
+        <form onSubmit={doSubmit}>
+          <label>Name:</label>
+          <input type="text" className='form-control' onChange={doChangeName} />
+          <div className='form-group'>
+            <label>Mail:</label>
+            <input type="text" className='form-control' onChange={doChangeMail} />
+          </div>
+          <div className='form-group'>
+            <label>Age:</label>
+            <input type="number" className='form-control' onChange={doChangeAge} />
+          </div>
+          <input type="submit" className='btn btn-primary' value="Click" />
+        </form>
       </div>
     </div>
   )
