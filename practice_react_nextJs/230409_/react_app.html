@@ -37,14 +37,24 @@
     <i class="tiger"></i>React<i class="tiger"></i>
   </h1>
 
-  <div id="root">wait...</div>
+  <div id="root" onclick="doCount();">wait...</div>
 
   <script>
+
+    let counter = 0;
     let dom = document.querySelector('#root');
-    let element = React.createElement(
-      'p', {}, 'Hello React!'
-    )
-    ReactDOM.render(element, dom); // rendering: プログラムのオブジェクトを具体的に目に見える形に変換する作業
+    doCount();
+
+    function doCount() {
+      counter++;
+      let element = React.createElement(
+        'p', "count", counter
+      )
+      // rendering: プログラムのオブジェクトを具体的に目に見える形に変換する作業
+      // 表示を更新したければ、エレメントを作ってレンダリングし直す。
+      ReactDOM.render(element, dom);
+    }
+
   </script>
 
 </body>
