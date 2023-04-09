@@ -15,8 +15,8 @@
     href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Hachi+Maru+Pop&family=Kaisei+Opti:wght@400;500;700&family=Yomogi&display=swap"
     rel="stylesheet">
   <!-- BootstrapのCSS読み込み -->
-  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/87b9f80a9f.js" crossorigin="anonymous"></script>
 
@@ -39,24 +39,7 @@
 
   <div id="root" onclick="doCount();">wait...</div>
 
-  <script>
-
-    let counter = 0;
-    let dom = document.querySelector('#root');
-    doCount();
-
-    function doCount() {
-      counter++;
-      let element = React.createElement(
-        'p', "count", counter
-      )
-      // rendering: プログラムのオブジェクトを具体的に目に見える形に変換する作業
-      // 表示を更新したければ、エレメントを作ってレンダリングし直す。
-      ReactDOM.render(element, dom);
-    }
-
-  </script>
-
+  <script src="script.js"></script>
 </body>
 
 </html>

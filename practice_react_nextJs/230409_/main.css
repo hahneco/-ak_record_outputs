@@ -134,9 +134,9 @@ dd {
 }
 
 /* ################################ */
-#root {
-  cursor: pointer;
-  font-size: 20pt;
-  background-color: #A5DEE4;
-  padding: 1px 20px;
+.main-container {
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
 }
+/* ################################ */
