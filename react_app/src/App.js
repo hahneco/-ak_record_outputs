@@ -10,22 +10,14 @@ class App extends Component {
     super(props)
     this.state = {
       title: 'input form',
-      message: 'type your name.'
+      message: 'type your name.',
+      max: 10 // ☆
     }
-    this.doChange = this.doChange.bind(this)
-    this.doSubmit = this.doSubmit.bind(this)
+    this.doCheck = this.doCheck.bind(this)
   }
 
-  doChange(event) {
-    this.input = event.target.value;
-  }
-
-  doSubmit(event) {
-    this.setState({
-      title: 'send form',
-      message: 'hello, ' + this.input + '!'
-    })
-    event.preventDefault()
+  doCheck(event) {
+    alert(event.target.value + "は長すぎます。(最大" + this.state.max + "文字)")
   }
 
   render() {
@@ -33,16 +25,7 @@ class App extends Component {
       <h1 className='bg-blue text-white display-4'>React</h1>
       <div className='container'>
         <h4>{this.state.title}</h4>
-        <p className='card h5 p-3'>{this.state.message}</p>
-        <div className='alert alert-primary mt-3'>
-          <form onSubmit={this.doSubmit}>
-            <div className='form-group'>
-              <label>Message:</label>
-              <input type="text" className='form-control' onChange={this.doChange} required pattern='[A-Za-z _,.]+' />
-            </div>
-            <input type="submit" className='btn btn-primary' value="Click" />
-          </form>
-        </div>
+        <Message maxlength={this.state.max} onCheck={this.doCheck} />
       </div>
     </div>
   }
@@ -55,24 +38,23 @@ class Message extends Component {
     color: "#A5DEE4"
   }
 
-  render() {
-    let content = this.props.children
-    let arr = content.split('。')
-    let arr2 = [];
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i].trim() != '') {
-        arr2.push(arr[i]);
-      }
+  constructor(props) {
+    super(props)
+    this.doChange = this.doChange.bind(this)
+  }
+
+  doChange(e) {
+    if (e.target.value.length > this.props.maxlength) {
+      this.props.onCheck(e)
+      e.target.value = e.target.value.substr(0, this.props.maxlength)
     }
-    let list = arr2.map((value, key) => (
-      <li className='list-group-item' style={this.li} key={key}>{key + 1}. {value} .</li>
-    ))
-    return (
-      <div>
-        <h2>{this.props.title}</h2>
-        <ol className='list-group'>{list}</ol>
-      </div>
-    )
+  }
+
+  render() {
+    return <div className='form-group'>
+      <label>input:</label>
+      <input type="text" className='form-control' onChange={this.doChange} />
+    </div>
   }
 }
 
