@@ -10,8 +10,15 @@ class App extends Component {
     this.title = props.title
     this.message = props.message
     this.state = {
-      msg: 'Hello Component!!!!'
+      msg: 'Hello Component!!!!',
+      count: 0
     }
+    let timer = setInterval(() => {
+      this.setState({
+        count: this.state.count + 1,
+        msg: "[count: " + this.state.count + "]"
+      })
+    }, 1000);
   }
 
   render() {
@@ -23,7 +30,7 @@ class App extends Component {
           <p>{this.message}</p>
           <p>簡単なmessageを表示します</p>
           <hr></hr>
-          <p className='subtitle'>Show message.</p>
+          <p className='subtitle'>Count number!!</p>
           <p className='alert alert-warning'>{this.state.msg}</p>
           <p className='alert alert-dark'>{this.props.msg}</p>
           <hr></hr>
