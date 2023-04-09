@@ -36,3 +36,65 @@
     transform: rotate(360deg);
   }
 }
+
+/*
+#FEDFE1;
+#D7C4BB;
+#DC9FB4;
+#FFFFFF;
+#A5DEE4; // 瓶除き
+#9E7A7A;
+#F3F9FF;
+
+// font系カラー
+#9E7A7A;
+*/
+
+:root {
+  --main-text-color: #9E7A7A;
+  --main-text-color2: #DC9FB4;
+  --main-bg-color: #FEDFE1;
+  --main-color-blue-middle: #A5DEE4;
+  /* --main-font-family: Yomogi; */
+  /* --main-font-family: 'DotGothic16'; */
+  --main-font-family: 'Hachi Maru Pop';
+}
+
+.bg-blue {
+  background-color: var(--main-color-blue-middle);
+}
+
+h1::before,
+h1::after {
+  content: '';
+  display: inline-block;
+  width: 2.5em;
+  height: 0.6em;
+  background-image: url(../public/tiger-2.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+}
+
+body {
+  background-color: var(--main-bg-color);
+  font-family: var(--main-font-family);
+  color: var(--main-text-color);
+}
+
+h1 {
+  text-align: center;
+  padding: 0px 50px 10px 50px;
+  margin: 0px 0px 10px 0px;
+}
+
+.subtitle {
+  margin: 20px 0px;
+  font-weight: bolder;
+  font-size: 24px;
+}
+
+p {
+  margin: 5px 0px;
+  font-size: 16pt;
+}
