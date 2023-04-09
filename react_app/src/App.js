@@ -4,56 +4,67 @@ import './App.css';
 // import Rect from './Rect';
 
 
-let data = {title: 'React-Context',
-  message: 'this is sample message'
+let theme = {
+  light: {
+    styles: {
+      backgroundColor: "#f0f9ff",
+      color: "#00f",
+    },
+    head: "bg-blue text-white display-4 mb-4",
+    alert: "alert alert-primary",
+    text: "text-primary m-3",
+    foot: "py-4",
+  },
+  dark: {
+    styles: {
+      backgroundColor: "#336",
+      color: "#eef",
+    },
+    head: "bg-secondary text-white display-4 mb-4",
+    alert: "alert alert-dark my-3",
+    text: "text-light m-3",
+    foot: "py-4",
+  }
 }
 
-const SampleContext = React.createContext(data)
+const ThemeContext = React.createContext(theme.light) // ☆
 
 class App extends Component {
-  newdata = {
-    title: '新しいタイトル',
-    message: 'これは新しいメッセージです!'
-  }
+  static contextType = ThemeContext
 
   render() {
-    return <div>
-      <h1 className='bg-blue text-white display-4'>React</h1>
+    return <div style={this.context.styles}>
+      <h1 className={this.context.head}>React</h1>
       <div className='container'>
-        <Title />
-        <Message />
+        <Title value="Content page" />
+        <Message value="This is Content sample." />
+        <Message value="※これはテーマのサンプルです" />
         <hr />
-        <SampleContext.Provider value={this.newdata}>
-          <Title />
-          <Message />
-        </SampleContext.Provider>
-        <hr />
-        <Title />
-        <Message />
+        <div className={this.context.foot}></div>
       </div>
     </div>
   }
 }
 
 class Title extends Component {
-  static contextType = SampleContext
+  static contextType = ThemeContext
 
   render() {
     return (
-      <div className='card p-2 my-3'>
-        <h2>{this.context.title}</h2>
+      <div className={this.context.alert}>
+        <h2 style={this.context.styles}>{this.props.value}</h2>
       </div>
     )
   }
 }
 
 class Message extends Component {
-  static contextType = SampleContext
+  static contextType = ThemeContext
 
   render() {
     return (
-      <div className='alert alert-primary'>
-        <p>{this.context.message}</p>
+      <div style={this.context.styles}>
+        <p className={this.context.text}>{this.props.value}</p>
       </div>
     )
   }
