@@ -10,15 +10,19 @@ class App extends Component {
     this.title = props.title
     this.message = props.message
     this.state = {
-      msg: 'Hello Component!!!!',
-      count: 0
+      msg: 'Count start〜!',
+      counter: 0,
+      flg: true
     }
-    let timer = setInterval(() => {
-      this.setState({
-        count: this.state.count + 1,
-        msg: "[count: " + this.state.count + "]"
-      })
-    }, 1000);
+    this.doAction = this.doAction.bind(this); // コンポーネントクラスのdoActionが束縛される
+  }
+
+  doAction(event) {
+    this.setState({
+      counter: this.state.counter + 1,
+      msg: this.state.counter,
+      flg: !this.state.flg
+    })
   }
 
   render() {
@@ -31,14 +35,17 @@ class App extends Component {
           <p>簡単なmessageを表示します</p>
           <hr></hr>
           <p className='subtitle'>Count number!!</p>
-          <p className='alert alert-warning'>{this.state.msg}</p>
-          <p className='alert alert-dark'>{this.props.msg}</p>
-          <hr></hr>
-
-          <div className='container'>
-            <Rect x="200" y="200" w="200" h="200" c="#F3F9FF" r="25" />
-            <Rect x="300" y="300" w="300" h="300" c="#DC9FB4" r="75" />
-            <Rect x="400" y="400" w="400" h="400" c="#A5DEE4" r="200" />
+          {this.state.flg ?
+            <div className='alert primary text-right'>
+              <p className='h5'>count: {this.state.msg}</p>
+            </div>
+          :
+            <div className='alert primary text-left'>
+              <p className='h5'>{this.state.msg}です。</p>
+            </div>
+          }
+          <div className='text-center'>
+            <button className='btn btn-primary' onClick={this.doAction}>Click!</button>
           </div>
         </div>
       </div>
