@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* <App title="App" message="This is App Component!" /> */}
-    <App />
+    <App msg="Hello App" />
   </React.StrictMode>
 );
 

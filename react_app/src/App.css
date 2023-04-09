@@ -100,3 +100,7 @@ p {
   font-size: 16pt;
   color: var(--main-text-color2);
 }
+
+.container {
+  position: relative;
+}
