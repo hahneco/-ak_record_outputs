@@ -1,34 +1,29 @@
 let dom = document.querySelector("#root");
 
 let title = "React page."
-let message = "メッセージを表示します"
-let counter = 0
+let message = "お名前をどうぞ"
+let in_val = '';
+
+let doChange = (event) => {
+  in_val = event.target.value
+  message = `こんにちは!, ` + in_val + `さん!!`
+}
+
 let doAction = (event) => {
-  counter++
   let el = (
     <div>
       <h4>{title}</h4>
-      <h4>{message}</h4>
-      <h5 className="alert alert-primary cursor-pointer" onClick={doAction}>
-        count: {counter}.
-      </h5>
+      <h6>{message}</h6>
+      <div className="alert alert-primary">
+        <div className="form-group">
+          <label>Input:</label>
+          <input type="text" className="form-control" id="input" onChange={doChange} />
+        </div>
+        <button onClick={doAction} className="btn btn-primary">Click</button>
+      </div>
     </div>
   )
-  ReactDOM.render(el, dom);
+  ReactDOM.render(el, dom)
 }
 
 doAction();
-
-// setInterval(() => {
-//   counter++
-//   let el = (
-//     <div>
-//       <h4>{title}</h4>
-//       <h4>{message}</h4>
-//       <h5 className="alert alert-primary">
-//         count: {counter};
-//       </h5>
-//     </div>
-//   )
-//   ReactDOM.render(el, dom);
-// }, 1000);
