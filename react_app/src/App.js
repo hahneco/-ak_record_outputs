@@ -1,73 +1,34 @@
 // import logo from './logo.svg';
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './App.css';
-// import Rect from './Rect';
 
 
-let theme = {
-  light: {
-    styles: {
-      backgroundColor: "#f0f9ff",
-      color: "#00f",
-    },
-    head: "bg-blue text-white display-4 mb-4",
-    alert: "alert alert-primary",
-    text: "text-primary m-3",
-    foot: "py-4",
-  },
-  dark: {
-    styles: {
-      backgroundColor: "#336",
-      color: "#eef",
-    },
-    head: "bg-secondary text-white display-4 mb-4",
-    alert: "alert alert-dark my-3",
-    text: "text-light m-3",
-    foot: "py-4",
-  }
+function AlertMessage(props) {
+  return <div className='alert alert-primary h5 text-primary'>
+    {props.message}
+  </div>
 }
 
-const ThemeContext = React.createContext(theme.light) // ☆
+function CardMessage(props) {
+  return <div className='card p-3 h5 border-primary text-center'>
+    {props.message}
+  </div>
+}
 
-class App extends Component {
-  static contextType = ThemeContext
+function App() {
+  const [msg] = useState("This is sample message!")
 
-  render() {
-    return <div style={this.context.styles}>
-      <h1 className={this.context.head}>React</h1>
+  return (
+    <div>
+      <h1 className='bg-blue text-white display-4'>React</h1>
       <div className='container'>
-        <Title value="Content page" />
-        <Message value="This is Content sample." />
-        <Message value="※これはテーマのサンプルです" />
-        <hr />
-        <div className={this.context.foot}></div>
+        <h4 className='my-3'>Hooks sample</h4>
+        <AlertMessage message={msg} />
+        <CardMessage message={msg} />
       </div>
     </div>
-  }
-}
-
-class Title extends Component {
-  static contextType = ThemeContext
-
-  render() {
-    return (
-      <div className={this.context.alert}>
-        <h2 style={this.context.styles}>{this.props.value}</h2>
-      </div>
-    )
-  }
-}
-
-class Message extends Component {
-  static contextType = ThemeContext
-
-  render() {
-    return (
-      <div style={this.context.styles}>
-        <p className={this.context.text}>{this.props.value}</p>
-      </div>
-    )
-  }
+  )
 }
 
 export default App
