@@ -1,11 +1,8 @@
-// import logo from './logo.svg';
-// import React, { Component } from 'react';
-import React, { useState } from 'react';
-// import './App.css';
+import React, { useState } from 'react'
 
 
 function usePersist(ky, initVal) {
-  const key = "hooks: " + ky
+  const key = "hooks:" + ky
   const value = () => {
     try {
       const item = window.localStorage.getItem(key)
@@ -24,7 +21,6 @@ function usePersist(ky, initVal) {
       console.log(err)
     }
   }
-
   const [savedValue, setSavedValue] = useState(value)
   return [savedValue, setValue]
 }
