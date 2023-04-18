@@ -39,15 +39,32 @@ function Square(props) { // 自分のstateを持っていないので関数コ�
 
 class Board extends React.Component {
   renderSquare(i) {
-    return (
-      <Square
-        // value={this.props.squares[i]}
-        value={
-          i === 3 ? "Black" : this.props.squares[i]
-        }
-        onClick={() => this.props.onClick(i)}
-      />
-    );
+    if (i === 27 || i === 36) {
+      return (
+        <Square
+          value={
+            BLACK
+          }
+          onClick={() => this.props.onClick(i)}
+        />
+      );
+    } else if (i === 28 || i === 35) {
+      return (
+        <Square
+          value={
+            WHITE
+          }
+          onClick={() => this.props.onClick(i)}
+        />
+      );
+    } else {
+      return (
+        <Square
+          value={this.props.squares[i]}
+          onClick={() => this.props.onClick(i)}
+        />
+      );
+    }
   }
 
   render() {
