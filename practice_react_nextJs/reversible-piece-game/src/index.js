@@ -377,8 +377,10 @@ class Game extends React.Component {
       for (let y = 0; y < 8; y++) {
         // 座標(x,y)に石を置いた時に反転する数を求める
         let flipped = this.getFlipCells(x, y, color);
-        console.log(x)
-        console.log(y)
+        // console.log(x)
+        // console.log(y)
+        console.log(flipped)
+        console.log(flipped.length)
         if (flipped.length > 0) {
           return true;
         }
@@ -399,7 +401,10 @@ class Game extends React.Component {
     // const column = i.slice(1, 2);
 
     // console.log(data) // 盤データ(0:なし、1:黒、2:白)
-    if (squares[i][j] === BLACK || squares[i][j] === WHITE) { // すでに石がある場合(配列す数字が1または2の時)関数から抜ける
+    console.log("getFlipCellsの「i」は、" + i)
+    console.log("getFlipCellsの「j」は、" + j)
+    console.log("getFlipCellsの「color」は、" + color)
+    if (current.squares[i][j] == BLACK || current.squares[i][j] == WHITE) { // すでに石がある場合(配列す数字が1または2の時)関数から抜ける
       // console.log(data)
       return [];
     }
@@ -416,8 +421,10 @@ class Game extends React.Component {
       [1, 1], // 右下
     ];
     let result = [];
+    console.log("resultは、" + result)
     for (let p = 0; p < dirs.length; p++) {
       let flipped = this.getFlipCellsOneDir(i, j, dirs[p][0], dirs[p][1], color);
+      console.log("flippedは"+ flipped)
       result = result.concat(flipped); // 別の配列と結合する処理
     }
     return result;
@@ -434,13 +441,18 @@ class Game extends React.Component {
     let flipped = []; // 挟まれた石の配列
     // console.log(i + "," + j)
 
+    console.log(i)
+    console.log(j)
+    console.log(dx)
+    console.log(dy)
+
     if (
       x < 0 || // 盤の外(その行の左にマス目がない)
       y < 0 || // 盤の外(その行の上にマス目がない)
       x > 7 || // 盤の外(その行の右にマス目がない)
       y > 7 || // 盤の外(その行の下にマス目がない)
-      squares[i][j] == color || // 同じ色
-      squares[i][j] == 0 // 石がない
+      current.squares[i][j] == color || // 同じ色
+      current.squares[i][j] == 0 // 石がない
     ) {
       return []; // 盤外、同色、空ならfalse(挟めない)ので関数を抜ける
     }
@@ -448,10 +460,10 @@ class Game extends React.Component {
     while (true) {
       x += dx;
       y += dy;
-      if (x < 0 || y < 0 || x > 7 || y > 7 || squares[i][j] == 0) {
+      if (x < 0 || y < 0 || x > 7 || y > 7 || current.squares[i][j] == 0) {
         return []; // 盤外、空ならfalse(挟めない)
       }
-      if (squares[i][j] == color) {
+      if (current.squares[i][j] == color) {
         return flipped;
       } else {
         flipped.push([x, y]);
