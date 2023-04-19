@@ -23,11 +23,12 @@ const WeightData = [ // 盤面ごとの優先度
 ]; // 重みづけデータ
 const BLACK = 1; // 自分
 const WHITE = 2; // PC
-let data = []; // 盤データ(0:なし、1:黒、2:白)
+// let data = []; // 盤データ(0:なし、1:黒、2:白) // squaresで代用
 let myTurn = false; // 自分ば番かどうか
 
 
 function Square(props) { // 自分のstateを持っていないので関数コンポーネントで定義
+  // console.log(props)
   return (
     <button
       className="square" onClick={props.onClick}>
@@ -38,117 +39,100 @@ function Square(props) { // 自分のstateを持っていないので関数コ�
 
 
 class Board extends React.Component {
-  renderSquare(i) {
-    if (i === 27 || i === 36) {
-      return (
-        <Square
-          value={
-            BLACK
-          }
-          onClick={() => this.props.onClick(i)}
-        />
-      );
-    } else if (i === 28 || i === 35) {
-      return (
-        <Square
-          value={
-            WHITE
-          }
-          onClick={() => this.props.onClick(i)}
-        />
-      );
-    } else {
-      return (
-        <Square
-          value={this.props.squares[i]}
-          onClick={() => this.props.onClick(i)}
-        />
-      );
-    }
+  renderSquare(i, j) {
+    const idNum = String(i) + String(j);
+
+    return (
+      <Square
+        value={this.props.squares[i][j]}
+        squareId={idNum}
+        onClick={() => this.props.onClick(idNum)}
+      />
+    );
   }
 
   render() {
     return (
       <div>
         <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
+          {this.renderSquare(0, 0)}
+          {this.renderSquare(0, 1)}
+          {this.renderSquare(0, 2)}
+          {this.renderSquare(0, 3)}
+          {this.renderSquare(0, 4)}
+          {this.renderSquare(0, 5)}
+          {this.renderSquare(0, 6)}
+          {this.renderSquare(0, 7)}
         </div>
         <div className="board-row">
-          {this.renderSquare(8)}
-          {this.renderSquare(9)}
-          {this.renderSquare(10)}
-          {this.renderSquare(11)}
-          {this.renderSquare(12)}
-          {this.renderSquare(13)}
-          {this.renderSquare(14)}
-          {this.renderSquare(15)}
+          {this.renderSquare(1, 0)}
+          {this.renderSquare(1, 1)}
+          {this.renderSquare(1, 2)}
+          {this.renderSquare(1, 3)}
+          {this.renderSquare(1, 4)}
+          {this.renderSquare(1, 5)}
+          {this.renderSquare(1, 6)}
+          {this.renderSquare(1, 7)}
         </div>
         <div className="board-row">
-          {this.renderSquare(16)}
-          {this.renderSquare(17)}
-          {this.renderSquare(18)}
-          {this.renderSquare(19)}
-          {this.renderSquare(20)}
-          {this.renderSquare(21)}
-          {this.renderSquare(22)}
-          {this.renderSquare(23)}
+          {this.renderSquare(2, 0)}
+          {this.renderSquare(2, 1)}
+          {this.renderSquare(2, 2)}
+          {this.renderSquare(2, 3)}
+          {this.renderSquare(2, 4)}
+          {this.renderSquare(2, 5)}
+          {this.renderSquare(2, 6)}
+          {this.renderSquare(2, 7)}
         </div>
         <div className="board-row">
-          {this.renderSquare(24)}
-          {this.renderSquare(25)}
-          {this.renderSquare(26)}
-          {this.renderSquare(27)}
-          {this.renderSquare(28)}
-          {this.renderSquare(29)}
-          {this.renderSquare(30)}
-          {this.renderSquare(31)}
+          {this.renderSquare(3, 0)}
+          {this.renderSquare(3, 1)}
+          {this.renderSquare(3, 2)}
+          {this.renderSquare(3, 3)}
+          {this.renderSquare(3, 4)}
+          {this.renderSquare(3, 5)}
+          {this.renderSquare(3, 6)}
+          {this.renderSquare(3, 7)}
         </div>
         <div className="board-row">
-          {this.renderSquare(32)}
-          {this.renderSquare(33)}
-          {this.renderSquare(34)}
-          {this.renderSquare(35)}
-          {this.renderSquare(36)}
-          {this.renderSquare(37)}
-          {this.renderSquare(38)}
-          {this.renderSquare(39)}
+          {this.renderSquare(4, 0)}
+          {this.renderSquare(4, 1)}
+          {this.renderSquare(4, 2)}
+          {this.renderSquare(4, 3)}
+          {this.renderSquare(4, 4)}
+          {this.renderSquare(4, 5)}
+          {this.renderSquare(4, 6)}
+          {this.renderSquare(4, 7)}
         </div>
         <div className="board-row">
-          {this.renderSquare(40)}
-          {this.renderSquare(41)}
-          {this.renderSquare(42)}
-          {this.renderSquare(43)}
-          {this.renderSquare(44)}
-          {this.renderSquare(45)}
-          {this.renderSquare(46)}
-          {this.renderSquare(47)}
+          {this.renderSquare(5, 0)}
+          {this.renderSquare(5, 1)}
+          {this.renderSquare(5, 2)}
+          {this.renderSquare(5, 3)}
+          {this.renderSquare(5, 4)}
+          {this.renderSquare(5, 5)}
+          {this.renderSquare(5, 6)}
+          {this.renderSquare(5, 7)}
         </div>
         <div className="board-row">
-          {this.renderSquare(48)}
-          {this.renderSquare(49)}
-          {this.renderSquare(50)}
-          {this.renderSquare(51)}
-          {this.renderSquare(52)}
-          {this.renderSquare(53)}
-          {this.renderSquare(54)}
-          {this.renderSquare(55)}
+          {this.renderSquare(6, 0)}
+          {this.renderSquare(6, 1)}
+          {this.renderSquare(6, 2)}
+          {this.renderSquare(6, 3)}
+          {this.renderSquare(6, 4)}
+          {this.renderSquare(6, 5)}
+          {this.renderSquare(6, 6)}
+          {this.renderSquare(6, 7)}
         </div>
         <div className="board-row">
-          {this.renderSquare(56)}
-          {this.renderSquare(57)}
-          {this.renderSquare(58)}
-          {this.renderSquare(59)}
-          {this.renderSquare(60)}
-          {this.renderSquare(61)}
-          {this.renderSquare(62)}
-          {this.renderSquare(63)}
+          {this.renderSquare(7, 0)}
+          {this.renderSquare(7, 1)}
+          {this.renderSquare(7, 2)}
+          {this.renderSquare(7, 3)}
+          {this.renderSquare(7, 4)}
+          {this.renderSquare(7, 5)}
+          {this.renderSquare(7, 6)}
+          {this.renderSquare(7, 7)}
         </div>
       </div>
     );
@@ -160,17 +144,26 @@ class Game extends React.Component {
     super(props);
     this.state = {
       history: [{
-        squares: Array(64).fill(null),
+        // squares: Array(64).fill("null"), // 64個の数字が入った1つの配列ver
+        squares: Array.from(new Array(8), () => new Array(8).fill(0).map(() => {return null})) // 8*8個の配列
       }],
       stepNumber: 0,
       xIsNext: true,
     }
+    this.state.history[0].squares[3][3] = BLACK;
+    this.state.history[0].squares[4][4] = BLACK;
+    this.state.history[0].squares[3][4] = WHITE;
+    this.state.history[0].squares[4][3] = WHITE;
   }
 
   handleClick(i) {
+    console.log(this.state.history[0].squares);
+    console.log(i);
+
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
+
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
