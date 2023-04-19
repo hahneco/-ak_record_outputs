@@ -157,17 +157,24 @@ class Game extends React.Component {
   }
 
   handleClick(i) {
-    console.log(this.state.history[0].squares);
+    // console.log(this.state.history[0].squares);
     console.log(i);
 
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
-    if (calculateWinner(squares) || squares[i]) {
+    const line = i.slice(0, 1);
+    const column = i.slice(1, 2);
+
+    // console.log(line)
+    // console.log(column)
+    console.log(squares)
+
+    if (calculateWinner(squares) || squares[line][column]) {
       return;
     }
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    squares[line][column] = this.state.xIsNext ? BLACK : WHITE;
     this.setState({
       history: history.concat([{
         squares: squares,
@@ -205,8 +212,44 @@ class Game extends React.Component {
     if (winner) {
       status = 'Winner: ' + winner;
     } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+      status = 'Next player: ' + (this.state.xIsNext ? BLACK : WHITE);
     }
+
+    let numBlack = 0;
+    let numWhite = 0;
+
+    for (let x = 0; x < 8; x++) {
+      for (let y = 0; y < 8; y++) {
+        if (current.squares[x][y] == WHITE) {
+          numWhite++;
+        }
+        if (current.squares[x][y] == BLACK) {
+          numBlack++;
+        }
+      }
+    }
+
+    let blackFlip = canFlip(BLACK); // 黒反転できるか否か
+    let whiteFlip = canFlip(WHITE); // 白反転できるか否か
+
+    // canFlip関数:盤面に引数の色の石を置けるかをブーリアンで返す。
+    canFlip(i) { // 挟める石があるか？
+      for (let x = 0; x < 8; x++) {
+        for (let y = 0; y < 8; y++) {
+          // 座標(x,y)に石を置いた時に反転する数を求める
+          let flipped = getFlipCells(x, y, i);
+          // console.log(x)
+          // console.log(y)
+          if (flipped.length > 0) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    getFlipCells()
+
 
     return (
       <div className="game">
@@ -217,7 +260,9 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
+          <div>メッセージ:&nbsp;{status}</div>
+          <div>黒（あなた）:&nbsp;{numBlack}枚</div>
+          <div>白（PC）:&nbsp;{numWhite}枚</div>
           <ol>{moves}</ol>
         </div>
       </div>
