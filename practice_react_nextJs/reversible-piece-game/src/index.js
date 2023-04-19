@@ -300,8 +300,8 @@ class Game extends React.Component {
     let c = squares[i][j];
     console.log(c)
     c.value = BLACK;
-    c.className = "cell " + (color === BLACK ? "black" : "white");
-    squares[i][j] = color;
+    c.className = "cell " + (color == BLACK ? "black" : "white");
+    current.squares[i][j] = color;
   }
 
   // think関数(コンピューター思考関数)
@@ -340,7 +340,7 @@ class Game extends React.Component {
       this.put(px, py, WHITE);
     }
 
-    // this.update();
+    this.update();
   }
 
   calcWeightData(tmpData) {
@@ -364,7 +364,7 @@ class Game extends React.Component {
     for (let x = 0; x < 8; x++) {
       tmpData[x] = [];
       for (let y = 0; y < 8; y++) {
-        tmpData[x][y] = squares[x][y];
+        tmpData[x][y] = current.squares[x][y];
       }
     }
     return tmpData;
@@ -440,11 +440,10 @@ class Game extends React.Component {
     let y = j + dy; // dy方向に順番に見ていくときの座標
     let flipped = []; // 挟まれた石の配列
     // console.log(i + "," + j)
-
-    console.log(i)
-    console.log(j)
-    console.log(dx)
-    console.log(dy)
+    // console.log(i)
+    // console.log(j)
+    // console.log(dx)
+    // console.log(dy)
 
     if (
       x < 0 || // 盤の外(その行の左にマス目がない)
@@ -453,10 +452,13 @@ class Game extends React.Component {
       y > 7 || // 盤の外(その行の下にマス目がない)
       current.squares[i][j] == color || // 同じ色
       current.squares[i][j] == 0 // 石がない
-    ) {
+      ) {
+      console.log("color同じ")
       return []; // 盤外、同色、空ならfalse(挟めない)ので関数を抜ける
     }
     flipped.push([x, y]);
+    console.log("flipped " + flipped)
+
     while (true) {
       x += dx;
       y += dy;
@@ -467,6 +469,7 @@ class Game extends React.Component {
         return flipped;
       } else {
         flipped.push([x, y]);
+        console.log("flipped " + flipped)
       }
     }
   }
