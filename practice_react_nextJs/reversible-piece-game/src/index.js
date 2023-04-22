@@ -23,7 +23,6 @@ const WeightData = [ // 盤面ごとの優先度
 ]; // 重みづけデータ
 const BLACK = 1; // 自分
 const WHITE = 2; // PC
-// let data = []; // 盤データ(0:なし、1:黒、2:白) // squaresで代用
 let isMyTurn = false; // 自分の番かどうか
 
 
@@ -52,7 +51,7 @@ class Board extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="squares">
         <div className="board-row">
           {this.renderSquare(0, 0)}
           {this.renderSquare(0, 1)}
@@ -413,7 +412,7 @@ class Game extends React.Component {
     // console.log("getFlipCellsの「color」は、" + color)
     // console.log("current.squares[i][j]: " + current.squares[i][j]);
 
-    if (current.squares[i][j] == BLACK || current.squares[i][j] == WHITE) { // すでに石がある場合(配列の数字が1または2の時)関数から抜ける
+    if (current.squares[i][j] === BLACK || current.squares[i][j] === WHITE) { // すでに石がある場合(配列の数字が1または2の時)関数から抜ける
       // console.log(data)
       return [];
     }
@@ -459,8 +458,8 @@ class Game extends React.Component {
       y < 0 || // 盤の外(その行の上にマス目がない)
       x > 7 || // 盤の外(その行の右にマス目がない)
       y > 7 || // 盤の外(その行の下にマス目がない)
-      current.squares[x][y] == color || // 同じ色
-      current.squares[x][y] == null // 石がない
+      current.squares[x][y] === color || // 同じ色
+      current.squares[x][y] === null // 石がない
       ) {
       // console.log("color同じ")
       return []; // 盤外、同色、空ならfalse(挟めない)ので関数を抜ける
@@ -472,10 +471,10 @@ class Game extends React.Component {
     while (true) {
       x += dx;
       y += dy;
-      if (x < 0 || y < 0 || x > 7 || y > 7 || current.squares[x][y] == null) {
+      if (x < 0 || y < 0 || x > 7 || y > 7 || current.squares[x][y] === null) {
         return []; // 盤外、空ならfalse(挟めない)
       }
-      if (current.squares[x][y] == color) {
+      if (current.squares[x][y] === color) {
         return flipped;
       } else {
         flipped.push([x, y]);
@@ -542,26 +541,6 @@ class Game extends React.Component {
     );
   }
 }
-
-// function calculateWinner(squares) {
-//   const lines = [ // 縦・横・斜め
-//     [0, 1, 2],
-//     [3, 4, 5],
-//     [6, 7, 8],
-//     [0, 3, 6],
-//     [1, 4, 7],
-//     [2, 5, 8],
-//     [0, 4, 8],
-//     [2, 4, 6],
-//   ];
-//   for (let i = 0; i < lines.length; i++) {
-//     const [a, b, c] = lines[i];
-//     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-//       return squares[a];
-//     }
-//   }
-//   return null;
-// }
 
 // ========================================
 
