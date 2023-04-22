@@ -156,9 +156,9 @@ class Game extends React.Component {
     this.state.history[0].squares[3][4] = WHITE;
     this.state.history[0].squares[4][3] = WHITE;
 
-    this.handleClick = this.handleClick.bind(this);
-    this.update = this.update.bind(this);
-    this.jumpTo = this.jumpTo.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
+    // this.update = this.update.bind(this);
+    // this.jumpTo = this.jumpTo.bind(this);
 
     this.update();
   }
@@ -175,10 +175,10 @@ class Game extends React.Component {
 
     for (let x = 0; x < 8; x++) {
       for (let y = 0; y < 8; y++) {
-        if (current.squares[x][y] === WHITE) {
+        if (squares[x][y] === WHITE) {
           numWhite++;
         }
-        if (current.squares[x][y] === BLACK) {
+        if (squares[x][y] === BLACK) {
           numBlack++;
         }
       }
@@ -290,10 +290,6 @@ class Game extends React.Component {
       this.put(line, column, BLACK); // clickしたマスに黒を置く
       this.update();
     }
-
-    // if (calculateWinner(squares) || squares[line][column]) {
-    //   return;
-    // }
     // squares[line][column] = this.state.isMyTurn ? BLACK : WHITE;
 
     this.setState({
@@ -306,8 +302,6 @@ class Game extends React.Component {
   }
 
   jumpTo(step) {
-    console.log("jump")
-    console.log(step)
     this.setState({
       stepNumber: step,
       isMyTurn: (step % 2) === 0,
@@ -334,7 +328,7 @@ class Game extends React.Component {
     // c.className = "cell " + (color === BLACK ? "black" : "white");
     console.log("i + j + color: "+ i + j + color)
     this.audio();
-    current.squares[i][j] = color;
+    squares[i][j] = color;
   }
 
   audio() {
@@ -416,7 +410,7 @@ class Game extends React.Component {
     for (let x = 0; x < 8; x++) {
       tmpData[x] = [];
       for (let y = 0; y < 8; y++) {
-        tmpData[x][y] = current.squares[x][y];
+        tmpData[x][y] = squares[x][y];
       }
     }
     return tmpData;
@@ -461,7 +455,7 @@ class Game extends React.Component {
     // console.log("getFlipCellsの「color」は、" + color)
     // console.log("current.squares[i][j]: " + current.squares[i][j]);
 
-    if (current.squares[i][j] === BLACK || current.squares[i][j] === WHITE) { // すでに石がある場合(配列の数字が1または2の時)関数から抜ける
+    if (squares[i][j] === BLACK || squares[i][j] === WHITE) { // すでに石がある場合(配列の数字が1または2の時)関数から抜ける
       return [];
     }
 
@@ -506,8 +500,8 @@ class Game extends React.Component {
       y < 0 || // 盤の外(その行の上にマス目がない)
       x > 7 || // 盤の外(その行の右にマス目がない)
       y > 7 || // 盤の外(その行の下にマス目がない)
-      current.squares[x][y] === color || // 同じ色
-      current.squares[x][y] === null // 石がない
+      squares[x][y] === color || // 同じ色
+      squares[x][y] === null // 石がない
       ) {
       // console.log("color同じ")
       return []; // 盤外、同色、空ならfalse(挟めない)ので関数を抜ける
@@ -519,10 +513,10 @@ class Game extends React.Component {
     while (true) {
       x += dx;
       y += dy;
-      if (x < 0 || y < 0 || x > 7 || y > 7 || current.squares[x][y] === null) {
+      if (x < 0 || y < 0 || x > 7 || y > 7 || squares[x][y] === null) {
         return []; // 盤外、空ならfalse(挟めない)
       }
-      if (current.squares[x][y] === color) {
+      if (squares[x][y] === color) {
         return flipped;
       } else {
         flipped.push([x, y]);
@@ -577,7 +571,7 @@ class Game extends React.Component {
         <div className="game-board">
           <Board
             squares={current.squares}
-            onClick={(i) => this.handleClick(i)}
+            onClick={i => this.handleClick(i)}
           />
         </div>
         <div className="game-info">

@@ -115,6 +115,11 @@ ul {
   margin-bottom: 0.7em;
 }
 
+.game-info > ol {
+  max-height: 52%;
+  overflow-y: auto;
+}
+
 .border-row:nth-of-type(3n) {
   border-bottom: 3px solid #000;
 }
