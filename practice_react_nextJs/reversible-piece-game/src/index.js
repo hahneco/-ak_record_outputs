@@ -272,13 +272,14 @@ class Game extends React.Component {
     //   return;
     // }
     // squares[line][column] = this.state.isMyTurn ? BLACK : WHITE;
-    // this.setState({
-    //   history: history.concat([{
-    //     squares: squares,
-    //   }]),
-    //   stepNumber: history.length,
-    //   isMyTurn: !this.state.isMyTurn,
-    // });
+
+    this.setState({
+      history: history.concat([{
+        squares: squares,
+      }]),
+      stepNumber: history.length,
+      isMyTurn: !this.state.isMyTurn,
+    });
   }
 
   jumpTo(step) {
@@ -393,6 +394,7 @@ class Game extends React.Component {
         // console.log(y)
         // console.log(flipped)
         if (flipped.length > 0) {
+          console.log("flipped.length: " + flipped.length)
           return true;
         }
         console.log("flipped.length: " + flipped.length)
@@ -453,8 +455,8 @@ class Game extends React.Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
-    let x = i + dx; // dx方向に順番に見ていくときの座標
-    let y = j + dy; // dy方向に順番に見ていくときの座標
+    let x = Number(i) + Number(dx); // dx方向に順番に見ていくときの座標
+    let y = Number(j) + Number(dy); // dy方向に順番に見ていくときの座標
     let flipped = []; // 挟まれた石の配列
 
     // console.log("getFlipCellsOneDir" + i + ", " + j + ", " + dx + ", " + dy + ", " + color);
@@ -474,6 +476,7 @@ class Game extends React.Component {
     }
     flipped.push([x, y]);
     // console.log("flipped " + flipped)
+    // console.log("flipped.length: " + flipped.length);
 
     while (true) {
       x += dx;
@@ -487,6 +490,7 @@ class Game extends React.Component {
         flipped.push([x, y]);
         // console.log("flipped " + flipped)
       }
+      // console.log("flipped.length: " + flipped.length);
     }
   }
 
