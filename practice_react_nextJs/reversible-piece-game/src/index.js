@@ -145,7 +145,7 @@ class Game extends React.Component {
     this.state = {
       history: [{
         // squares: Array(64).fill("null"), // 64個の数字が入った1つの配列ver
-        squares: Array.from(new Array(8), () => new Array(8).fill(0).map(() => {return 0})) // 8*8個の配列
+        squares: Array.from(new Array(8), () => new Array(8).fill(0).map(() => {return null})) // 8*8個の配列
       }],
       stepNumber: 0,
       // isMyTurn: false,
@@ -235,9 +235,7 @@ class Game extends React.Component {
     // 自分のターンでなければPC関数処理
     if (!isMyTurn) {
       // setTimeout(this.think, 1000); // 1秒間考える時間
-      // this.think()
-      this.hello("よっ!!")
-      // setTimeout(this.hello("やあ"), 2000); // 1秒間考える時間
+      this.think()
     }
   }
 
@@ -289,10 +287,6 @@ class Game extends React.Component {
     });
   }
 
-  hello(greeting) {
-    console.log(greeting);
-  }
-
   // showMessage関数
   showMessage(str) { // メッセージを2秒間表示
     // document.getElementById("message").textContent = str;
@@ -306,8 +300,6 @@ class Game extends React.Component {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
-
-    console.log("石をputした")
 
     // let c = document.getElementById("cell" + i + j);
     // current.squares[i][j] = BLACK;
@@ -469,7 +461,7 @@ class Game extends React.Component {
       x > 7 || // 盤の外(その行の右にマス目がない)
       y > 7 || // 盤の外(その行の下にマス目がない)
       current.squares[x][y] == color || // 同じ色
-      current.squares[x][y] == 0 // 石がない
+      current.squares[x][y] == null // 石がない
       ) {
       // console.log("color同じ")
       return []; // 盤外、同色、空ならfalse(挟めない)ので関数を抜ける
@@ -481,7 +473,7 @@ class Game extends React.Component {
     while (true) {
       x += dx;
       y += dy;
-      if (x < 0 || y < 0 || x > 7 || y > 7 || current.squares[x][y] == 0) {
+      if (x < 0 || y < 0 || x > 7 || y > 7 || current.squares[x][y] == null) {
         return []; // 盤外、空ならfalse(挟めない)
       }
       if (current.squares[x][y] == color) {
