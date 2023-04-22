@@ -9,6 +9,7 @@ import './index.css';
 // reportWebVitals'の機能
 import reportWebVitals from './reportWebVitals';
 import './App.css'
+import sound from './piece.mp3'
 
 
 const WeightData = [ // 盤面ごとの優先度
@@ -303,8 +304,16 @@ class Game extends React.Component {
     // current.squares[i][j] = BLACK;
     // c.className = "cell " + (color === BLACK ? "black" : "white");
     console.log("i + j + color: "+ i + j + color)
-
+    this.audio();
     current.squares[i][j] = color;
+  }
+
+  audio() {
+    const audio = new Audio(sound);
+    audio.volume = 0.2;
+    audio.currentTime = 0; //連続クリックに対応
+    audio.play(); //クリックしたら音を再生
+    console.log("audio")
   }
 
   // think関数(コンピューター思考関数)
@@ -413,7 +422,6 @@ class Game extends React.Component {
     // console.log("current.squares[i][j]: " + current.squares[i][j]);
 
     if (current.squares[i][j] === BLACK || current.squares[i][j] === WHITE) { // すでに石がある場合(配列の数字が1または2の時)関数から抜ける
-      // console.log(data)
       return [];
     }
 
