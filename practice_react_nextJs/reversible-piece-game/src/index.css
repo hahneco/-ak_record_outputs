@@ -1,10 +1,35 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/*
+#FEDFE1;
+#D7C4BB;
+#DC9FB4;
+#FFFFFF;
+#A5DEE4; // 瓶除き
+#9E7A7A;
+#F3F9FF;
+
+// font系カラー
+#9E7A7A;
+*/
+
+:root {
+  --main-text-color: #9E7A7A;
+  --main-text-color2: #dc9fb4;
+  --main-bg-color: #FEDFE1;
+  --main-color-blue-middle: #A5DEE4;
+  --main-font-family-jp:
+    'Kaisei Tokumin',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Roboto',
+    'Oxygen',
+    'Ubuntu',
+    'Cantarell',
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;;
+  --text-shadow: 2px 3px 0px rgba(220, 150, 180, 0.3);
 }
 
 code {
@@ -13,7 +38,11 @@ code {
 }
 
 body {
-  font: 14px "Century Gothic", Futura, sans-serif;
+  font-family: var(--main-font-family-jp);
+  font-weight: 800;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   margin: 20px;
 }
 
@@ -34,7 +63,7 @@ ul {
 
 .square {
   background: #fff;
-  border: 1px solid #999;
+  border: 1px solid #546c40;
   float: left;
   font-size: 24px;
   font-weight: bold;
@@ -62,4 +91,46 @@ ul {
 
 .game-info {
   margin-left: 20px;
+}
+
+.square {
+  /* position: relative; */
+  /* background: url(./img/square_bg.png) no-repeat; */
+  /* background-size: cover; */
+}
+
+/* .square::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: url(./img/square_bg.png) no-repeat;
+  background-size: cover;
+} */
+
+.border-row:nth-of-type(3n) {
+  border-bottom: 3px solid #000;
+}
+
+.square {
+  color: transparent;
+}
+
+.square.cellnull {
+  background: url(./img/square_bg.png) no-repeat;
+  background-size: cover;
+}
+
+.square.cell1 {
+  background: url(./img/piece_black.svg), url(./img/square_bg.png) no-repeat;
+  background-size: cover;
+}
+
+.square.cell2 {
+  background: url(./img/piece_white.svg), url(./img/square_bg.png) no-repeat;
+  background-size: cover;
 }

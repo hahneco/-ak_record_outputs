@@ -28,15 +28,13 @@ let isMyTurn = false; // 自分の番かどうか
 
 
 function Square(props) { // 自分のstateを持っていないので関数コンポーネントで定義
-  // console.log(props)
   return (
     <button
-      className="square" onClick={props.onClick}>
+      className={`square ${props.className}`} onClick={props.onClick}>
       {props.value}
     </button>
   );
 }
-
 
 class Board extends React.Component {
   renderSquare(i, j) {
@@ -47,6 +45,7 @@ class Board extends React.Component {
         value={this.props.squares[i][j]}
         squareId={idNum}
         onClick={() => this.props.onClick(idNum)}
+        className={"cell" + this.props.squares[i][j]}
       />
     );
   }
