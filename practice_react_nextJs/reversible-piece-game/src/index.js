@@ -24,7 +24,7 @@ const WeightData = [ // 盤面ごとの優先度
 const BLACK = 1; // 自分
 const WHITE = 2; // PC
 // let data = []; // 盤データ(0:なし、1:黒、2:白) // squaresで代用
-// let isMyTurn = false; // 自分の番かどうか
+let isMyTurn = false; // 自分の番かどうか
 
 
 function Square(props) { // 自分のstateを持っていないので関数コンポーネントで定義
@@ -145,10 +145,10 @@ class Game extends React.Component {
     this.state = {
       history: [{
         // squares: Array(64).fill("null"), // 64個の数字が入った1つの配列ver
-        squares: Array.from(new Array(8), () => new Array(8).fill(0).map(() => {return null})) // 8*8個の配列
+        squares: Array.from(new Array(8), () => new Array(8).fill(0).map(() => {return 0})) // 8*8個の配列
       }],
       stepNumber: 0,
-      isMyTurn: false,
+      // isMyTurn: false,
     }
     this.state.history[0].squares[3][3] = BLACK;
     this.state.history[0].squares[4][4] = BLACK;
@@ -183,8 +183,8 @@ class Game extends React.Component {
     // document.getElementById("numBlack").textContent = numBlack;
     // document.getElementById("numWhite").textContent = numWhite;
 
-    let blackFlip = this.canFlip(BLACK); // 黒反転できるか否か
-    let whiteFlip = this.canFlip(WHITE); // 白反転できるか否か
+    let blackFlip = this.canFlip(BLACK); // 黒反転できるか否か // canFlip関数:盤面に引数の色の石を置けるかをbooleanで返す。
+    let whiteFlip = this.canFlip(WHITE); // 白反転できるか否か // canFlip関数:盤面に引数の色の石を置けるかをbooleanで返す。
     const sumWhiteandBlack = numBlack + numWhite;
 
     console.log("blackFlip: " + blackFlip)
@@ -203,38 +203,40 @@ class Game extends React.Component {
       return
     }
 
+    console.log("isMyTurnは、" + isMyTurn)
+
     // 石を置く順番を判定する処理
     if (!blackFlip) {
       this.showMessage("黒スキップ");
       console.log("黒スキップ")
-      // this.state.isMyTurn = false;
-      this.setState({ // 変更したstateせセットする
-        isMyTurn: false,
-      });
+      isMyTurn = false;
+      // this.setState({ // 変更したstateをセットする
+      //   isMyTurn: false,
+      // });
 
     } else if (!whiteFlip) {
       this.showMessage("白スキップ");
       console.log("白スキップ")
-      // this.state.isMyTurn = true;
-      this.setState({ // 変更したstateせセットする
+      isMyTurn = true;
+      this.setState({ // 変更したstateをセットする
         isMyTurn: true,
       });
 
     } else {
       // 順番交代。this.state.isMyTurnが true → false → true → false になる。
-      // this.state.isMyTurn = !this.state.isMyTurn;
+      isMyTurn = !isMyTurn;
       console.log("白スキップ黒スキップ以外")
-      this.setState({ // 変更したstateせセットする
-        isMyTurn: !this.state.isMyTurn,
-      });
+      // this.setState({ // 変更したstateをセットする
+      //   isMyTurn: !this.state.isMyTurn,
+      // });
     }
-    console.log("this.state.isMyTurnは、" + this.state.isMyTurn)
+    console.log("isMyTurnは、" + isMyTurn)
 
     // 自分のターンでなければPC関数処理
-    if (!this.state.isMyTurn) {
+    if (!isMyTurn) {
       // setTimeout(this.think, 1000); // 1秒間考える時間
-      this.think()
-      // this.hello("よっ!!")
+      // this.think()
+      this.hello("よっ!!")
       // setTimeout(this.hello("やあ"), 2000); // 1秒間考える時間
     }
   }
@@ -247,9 +249,9 @@ class Game extends React.Component {
     const column = i.slice(1, 2);
 
     console.log("clickした!! squareID: " + i + ", valueは" + squares[line][column])
-    console.log("isMyTurn: " + this.state.isMyTurn)
+    console.log("isMyTurn: " + isMyTurn)
 
-    if (!this.state.isMyTurn) {
+    if (!isMyTurn) {
       return;
     }
     let flipped = this.getFlipCells(line, column, BLACK); // 黒に反転する配列
@@ -304,7 +306,7 @@ class Game extends React.Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
-    console.log("hey")
+    console.log("石をputした")
 
     // let c = document.getElementById("cell" + i + j);
     // current.squares[i][j] = BLACK;
@@ -382,7 +384,7 @@ class Game extends React.Component {
 
   // canFlip関数:盤面に引数の色の石を置けるかをbooleanで返す。
   canFlip(color) { // 挟める石があるか？
-    console.log("colorは"+color);
+    // console.log("colorは"+color);
     for (let x = 0; x < 8; x++) {
       for (let y = 0; y < 8; y++) {
         // 座標(x,y)に石を置いた時に反転する数を求める
@@ -390,17 +392,17 @@ class Game extends React.Component {
         // console.log(x)
         // console.log(y)
         // console.log(flipped)
-        // console.log(flipped.length)
         if (flipped.length > 0) {
           return true;
         }
+        console.log("flipped.length: " + flipped.length)
       }
     }
     return false;
   }
 
 
-  // getFlipCellか関数:(i,j)座標にcolorの石を置いた時に反転する石の配列を返す。
+  // getFlipCell関数: (i,j)座標にcolorの石を置いた時に反転する石の配列を返す。
   // 各方向を配列dirsに格納。for文で方向ごとに石を挟めるか判定する。
   getFlipCells(i, j, color) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
@@ -416,7 +418,9 @@ class Game extends React.Component {
     // console.log("getFlipCellsの「i」は、" + i)
     // console.log("getFlipCellsの「j」は、" + j)
     // console.log("getFlipCellsの「color」は、" + color)
-    if (current.squares[i][j] === BLACK || current.squares[i][j] === WHITE) { // すでに石がある場合(配列す数字が1または2の時)関数から抜ける
+    // console.log("current.squares[i][j]: " + current.squares[i][j]);
+
+    if (current.squares[i][j] == BLACK || current.squares[i][j] == WHITE) { // すでに石がある場合(配列の数字が1または2の時)関数から抜ける
       // console.log(data)
       return [];
     }
@@ -452,21 +456,20 @@ class Game extends React.Component {
     let x = i + dx; // dx方向に順番に見ていくときの座標
     let y = j + dy; // dy方向に順番に見ていくときの座標
     let flipped = []; // 挟まれた石の配列
-    // console.log(i + "," + j)
-    // console.log(i)
-    // console.log(j)
-    // console.log(dx)
-    // console.log(dy)
+
+    // console.log("getFlipCellsOneDir" + i + ", " + j + ", " + dx + ", " + dy + ", " + color);
+    // console.log(x);
+    // console.log(y);
 
     if (
       x < 0 || // 盤の外(その行の左にマス目がない)
       y < 0 || // 盤の外(その行の上にマス目がない)
       x > 7 || // 盤の外(その行の右にマス目がない)
       y > 7 || // 盤の外(その行の下にマス目がない)
-      current.squares[i][j] === color || // 同じ色
-      current.squares[i][j] === 0 // 石がない
+      current.squares[x][y] == color || // 同じ色
+      current.squares[x][y] == 0 // 石がない
       ) {
-      console.log("color同じ")
+      // console.log("color同じ")
       return []; // 盤外、同色、空ならfalse(挟めない)ので関数を抜ける
     }
     flipped.push([x, y]);
@@ -475,10 +478,10 @@ class Game extends React.Component {
     while (true) {
       x += dx;
       y += dy;
-      if (x < 0 || y < 0 || x > 7 || y > 7 || current.squares[i][j] === 0) {
+      if (x < 0 || y < 0 || x > 7 || y > 7 || current.squares[x][y] == 0) {
         return []; // 盤外、空ならfalse(挟めない)
       }
-      if (current.squares[i][j] === color) {
+      if (current.squares[x][y] == color) {
         return flipped;
       } else {
         flipped.push([x, y]);
