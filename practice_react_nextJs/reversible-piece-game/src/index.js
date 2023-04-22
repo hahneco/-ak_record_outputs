@@ -157,7 +157,7 @@ class Game extends React.Component {
     this.update();
   }
 
-  update() { // 白/黒の数を数えて表示する
+  async update() { // 白/黒の数を数えて表示する
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
@@ -233,10 +233,28 @@ class Game extends React.Component {
 
     // 自分のターンでなければPC関数処理
     if (!isMyTurn) {
+      await this.sleep(2000);
       // setTimeout(this.think, 1000); // 1秒間考える時間
       this.think()
     }
+
+    this.setState({
+      history: history.concat([{
+        squares: squares,
+      }]),
+      stepNumber: history.length,
+      isMyTurn: !this.state.isMyTurn,
+    });
   }
+
+  // 1000ms待つ処理
+  sleep = (wait = 1000) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(); // waitミリ秒後にresolveを呼び起こす
+      }, wait);
+    });
+  };
 
   handleClick(i) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
