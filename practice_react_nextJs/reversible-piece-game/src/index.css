@@ -86,30 +86,6 @@ ul {
   margin-bottom: 10px;
 }
 
-.square {
-  background: #fff;
-  border: 1px solid #546c40;
-  float: left;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
-  width: 34px;
-  color: transparent;
-}
-
-.square:focus {
-  outline: none;
-}
-
-.kbd-navigation .square:focus {
-  background: #ddd;
-}
-
 .game {
   display: flex;
   flex-direction: row;
@@ -121,6 +97,8 @@ ul {
   margin-left: 20px;
   right: 15%;
   top: 0;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .border-row:nth-of-type(3n) {
@@ -147,9 +125,38 @@ ul {
   pointer-events: none;
 }
 
+.square {
+  background: #fff;
+  border: 1px solid #546c40;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 9vh;
+  height: 9vh;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 9vh;
+  color: transparent;
+}
+
+.square:focus {
+  outline: none;
+}
+
+.kbd-navigation .square:focus {
+  background: #ddd;
+}
+
 .square.cellnull {
   background: url(./img/square_bg.png) no-repeat;
   background-size: cover;
+}
+
+.square.cellnull:hover {
+  border: 3px solid yellow;
+  transition: .3s;
 }
 
 .square.cell1 {
@@ -160,4 +167,5 @@ ul {
 .square.cell2 {
   background: url(./img/piece_white.svg), url(./img/square_bg.png) no-repeat;
   background-size: cover;
+  pointer-events: none;
 }

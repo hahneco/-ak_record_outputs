@@ -144,15 +144,18 @@ class Game extends React.Component {
     this.state = {
       history: [{
         // squares: Array(64).fill("null"), // 64個の数字が入った1つの配列ver
-        squares: Array.from(new Array(8), () => new Array(8).fill(0).map(() => {return null})) // 8*8個の配列
+        squares: Array.from(new Array(8), () => new Array(8).fill(0).map(() => { return null })) // 8*8個の配列
       }],
       stepNumber: 0,
       // isMyTurn: false,
-    }
+    };
     this.state.history[0].squares[3][3] = BLACK;
     this.state.history[0].squares[4][4] = BLACK;
     this.state.history[0].squares[3][4] = WHITE;
     this.state.history[0].squares[4][3] = WHITE;
+
+    this.handleClick = this.handleClick.bind(this);
+    this.update = this.update.bind(this);
 
     this.update();
   }
@@ -234,17 +237,18 @@ class Game extends React.Component {
     // 自分のターンでなければPC関数処理
     if (!isMyTurn) {
       await this.sleep(2000);
-      // setTimeout(this.think, 1000); // 1秒間考える時間
       this.think()
+
+      await this.sleep();
     }
 
-    this.setState({
-      history: history.concat([{
-        squares: squares,
-      }]),
-      stepNumber: history.length,
-      isMyTurn: !this.state.isMyTurn,
-    });
+    // this.setState({
+    //   history: history.concat([{
+    //     squares: squares,
+    //   }]),
+    //   // stepNumber: history.length,
+    //   // isMyTurn: !this.state.isMyTurn,
+    // });
   }
 
   // 1000ms待つ処理
@@ -336,6 +340,10 @@ class Game extends React.Component {
 
   // think関数(コンピューター思考関数)
   think() {
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    const current = history[history.length - 1];
+    const squares = current.squares.slice();
+
     let highScore = -1000;
     let px = -1;
     let py = -1;
@@ -369,6 +377,14 @@ class Game extends React.Component {
       }
       this.put(px, py, WHITE);
     }
+
+    this.setState({
+      history: history.concat([{
+        squares: squares,
+      }]),
+      stepNumber: history.length,
+      // isMyTurn: !this.state.isMyTurn,
+    });
 
     this.update();
   }
