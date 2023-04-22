@@ -25,6 +25,7 @@ const WeightData = [ // 盤面ごとの優先度
 const BLACK = 1; // 自分
 const WHITE = 2; // PC
 let isMyTurn = false; // 自分の番かどうか
+let winner = undefined;
 
 
 function Square(props) { // 自分のstateを持っていないので関数コンポーネントで定義
@@ -156,6 +157,7 @@ class Game extends React.Component {
 
     this.handleClick = this.handleClick.bind(this);
     this.update = this.update.bind(this);
+    this.jumpTo = this.jumpTo.bind(this);
 
     this.update();
   }
@@ -197,10 +199,13 @@ class Game extends React.Component {
       console.log("finish")
       if (numWhite > numBlack) {
         // document.getElementById("message").textContent = "白の勝ち";
+        winner = "白の勝ち";
       } else if (numWhite < numBlack) {
         // document.getElementById("message").textContent = "黒の勝ち";
+        winner = "黒の勝ち";
       } else {
         // document.getElementById("message").textContent = "引き分け";
+        winner = "引き分け";
       }
       return
     }
@@ -241,14 +246,6 @@ class Game extends React.Component {
 
       await this.sleep();
     }
-
-    // this.setState({
-    //   history: history.concat([{
-    //     squares: squares,
-    //   }]),
-    //   // stepNumber: history.length,
-    //   // isMyTurn: !this.state.isMyTurn,
-    // });
   }
 
   // 1000ms待つ処理
@@ -302,10 +299,13 @@ class Game extends React.Component {
   }
 
   jumpTo(step) {
+    console.log("jump")
+    console.log(step)
     this.setState({
       stepNumber: step,
       isMyTurn: (step % 2) === 0,
     });
+    this.update();
   }
 
   // showMessage関数
@@ -361,7 +361,6 @@ class Game extends React.Component {
           let score = this.calcWeightData(tmpData);
           if (score > highScore) {
             highScore = score;
-            // (px = x), (py = y);
             (px = x);
             (py = y);
           }
@@ -577,6 +576,7 @@ class Game extends React.Component {
           <div id={"message"}>メッセージ:&nbsp;{status}</div>
           <div>黒（あなた）:&nbsp;{numBlack}枚</div>
           <div>白（PC）:&nbsp;{numWhite}枚</div>
+          <div>対戦中</div>
           <ol>{moves}</ol>
         </div>
       </div>

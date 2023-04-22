@@ -43,7 +43,7 @@ body {
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin: 20px;
+  /* margin: 20px; */
   background: url(./img/bg.jpg) no-repeat;
   background-size: cover;
   background-position: center;
@@ -87,18 +87,32 @@ ul {
 }
 
 .game {
+  position: relative;
   display: flex;
   flex-direction: row;
-  position: relative;
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 4vh;
+  display: flex;
+  justify-content: space-around;
 }
 
 .game-info {
-  position: absolute;
-  margin-left: 20px;
-  right: 15%;
-  top: 0;
   max-height: 80vh;
   overflow-y: auto;
+  width: 32%;
+  background-image: url(./img/frame.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5em 1em;
+}
+
+.game-info > div {
+  margin-bottom: 0.7em;
 }
 
 .border-row:nth-of-type(3n) {
