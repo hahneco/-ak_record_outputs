@@ -9,6 +9,7 @@ import './index.css';
 // reportWebVitals'の機能
 import reportWebVitals from './reportWebVitals';
 import './App.css'
+import sound from './piece.mp3'
 
 
 const WeightData = [ // 盤面ごとの優先度
@@ -23,20 +24,17 @@ const WeightData = [ // 盤面ごとの優先度
 ]; // 重みづけデータ
 const BLACK = 1; // 自分
 const WHITE = 2; // PC
-// let data = []; // 盤データ(0:なし、1:黒、2:白) // squaresで代用
-let xIsNext = false; // 自分の番かどうか
+let isMyTurn = false; // 自分の番かどうか
 
 
 function Square(props) { // 自分のstateを持っていないので関数コンポーネントで定義
-  // console.log(props)
   return (
     <button
-      className="square" onClick={props.onClick}>
+      className={`square ${props.className}`} onClick={props.onClick}>
       {props.value}
     </button>
   );
 }
-
 
 class Board extends React.Component {
   renderSquare(i, j) {
@@ -47,13 +45,14 @@ class Board extends React.Component {
         value={this.props.squares[i][j]}
         squareId={idNum}
         onClick={() => this.props.onClick(idNum)}
+        className={"cell" + this.props.squares[i][j]}
       />
     );
   }
 
   render() {
     return (
-      <div>
+      <div className="squares">
         <div className="board-row">
           {this.renderSquare(0, 0)}
           {this.renderSquare(0, 1)}
@@ -145,53 +144,56 @@ class Game extends React.Component {
     this.state = {
       history: [{
         // squares: Array(64).fill("null"), // 64個の数字が入った1つの配列ver
-        squares: Array.from(new Array(8), () => new Array(8).fill(0).map(() => {return null})) // 8*8個の配列
+        squares: Array.from(new Array(8), () => new Array(8).fill(0).map(() => { return null })) // 8*8個の配列
       }],
       stepNumber: 0,
-      xIsNext: false,
-    }
+      // isMyTurn: false,
+    };
     this.state.history[0].squares[3][3] = BLACK;
     this.state.history[0].squares[4][4] = BLACK;
     this.state.history[0].squares[3][4] = WHITE;
     this.state.history[0].squares[4][3] = WHITE;
 
+    this.handleClick = this.handleClick.bind(this);
+    this.update = this.update.bind(this);
+
     this.update();
   }
 
-  update() { // 白/黒の数を数えて表示する
+  async update() { // 白/黒の数を数えて表示する
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
-    let numWhite = 0;
-    let numBlack = 0;
+    let numWhite = 0; // あとでBoardに持たせる
+    let numBlack = 0; // あとでBoardに持たせる
 
     console.log(current.squares)
-    // console.log("current.squares[3][3]は、" + current.squares[3][3])
-    // console.log("current.squares[3][4]は、" + current.squares[3][4])
+
     for (let x = 0; x < 8; x++) {
       for (let y = 0; y < 8; y++) {
-        if (current.squares[x][y] == WHITE) {
+        if (current.squares[x][y] === WHITE) {
           numWhite++;
-          console.log("numWhiteは、" + numWhite + "枚")
         }
-        if (current.squares[x][y] == BLACK) {
+        if (current.squares[x][y] === BLACK) {
           numBlack++;
-          console.log("numBlackは、" + numBlack + "枚")
         }
       }
     }
+    console.log("numWhiteは、" + numWhite + "枚")
+    console.log("numBlackは、" + numBlack + "枚")
     // document.getElementById("numBlack").textContent = numBlack;
     // document.getElementById("numWhite").textContent = numWhite;
 
-    let blackFlip = this.canFlip(BLACK); // 黒反転できるか否か
-    let whiteFlip = this.canFlip(WHITE); // 白反転できるか否か
-    const finish = numBlack + numWhite;
+    let blackFlip = this.canFlip(BLACK); // 黒反転できるか否か // canFlip関数:盤面に引数の色の石を置けるかをbooleanで返す。
+    let whiteFlip = this.canFlip(WHITE); // 白反転できるか否か // canFlip関数:盤面に引数の色の石を置けるかをbooleanで返す。
+    const sumWhiteandBlack = numBlack + numWhite;
 
     console.log("blackFlip: " + blackFlip)
     console.log("whiteFlip: " + whiteFlip)
-    console.log("finish: " + finish)
-    if (finish === 64 || (!blackFlip && !whiteFlip)) { // 64手すべて打ち終わったときに
+    console.log("sumWhiteandBlack: " + sumWhiteandBlack)
+
+    if (sumWhiteandBlack === 64 || (!blackFlip && !whiteFlip)) { // 64手すべて打ち終わったときに
       console.log("finish")
       if (numWhite > numBlack) {
         // document.getElementById("message").textContent = "白の勝ち";
@@ -203,36 +205,60 @@ class Game extends React.Component {
       return
     }
 
+    console.log("isMyTurnは、" + isMyTurn)
+
     // 石を置く順番を判定する処理
     if (!blackFlip) {
       this.showMessage("黒スキップ");
-      xIsNext = false;
+      console.log("黒スキップ")
+      isMyTurn = false;
+      // this.setState({ // 変更したstateをセットする
+      //   isMyTurn: false,
+      // });
+
     } else if (!whiteFlip) {
       this.showMessage("白スキップ");
-      xIsNext = true;
+      console.log("白スキップ")
+      isMyTurn = true;
+      this.setState({ // 変更したstateをセットする
+        isMyTurn: true,
+      });
+
     } else {
-      // 順番交代。xIsNextが true → false → true → false になる。
-      xIsNext = !xIsNext;
+      // 順番交代。this.state.isMyTurnが true → false → true → false になる。
+      isMyTurn = !isMyTurn;
+      console.log("白スキップ黒スキップ以外")
+      // this.setState({ // 変更したstateをセットする
+      //   isMyTurn: !this.state.isMyTurn,
+      // });
     }
-    console.log("xIsNextは、" + xIsNext)
+    console.log("isMyTurnは、" + isMyTurn)
 
     // 自分のターンでなければPC関数処理
-    if (!xIsNext) {
-      // setTimeout(this.think, 1000); // 1秒間考える時間
+    if (!isMyTurn) {
+      await this.sleep(2000);
       this.think()
-      // this.hello("よっ!!")
-      // setTimeout(this.hello("やあ"), 2000); // 1秒間考える時間
+
+      await this.sleep();
     }
 
-    this.setState({ // 変更したstateせセットする
-      history: history.concat([{
-        squares: squares,
-      }]),
-      stepNumber: history.length,
-      // xIsNext: !this.state.xIsNext,
-      xIsNext: this.state.xIsNext,
-    });
+    // this.setState({
+    //   history: history.concat([{
+    //     squares: squares,
+    //   }]),
+    //   // stepNumber: history.length,
+    //   // isMyTurn: !this.state.isMyTurn,
+    // });
   }
+
+  // 1000ms待つ処理
+  sleep = (wait = 1000) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(); // waitミリ秒後にresolveを呼び起こす
+      }, wait);
+    });
+  };
 
   handleClick(i) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
@@ -241,14 +267,10 @@ class Game extends React.Component {
     const line = i.slice(0, 1);
     const column = i.slice(1, 2);
 
-    // console.log(this.state.history[0].squares);
-    console.log("i: "+i);
-    console.log("line: "+line)
-    console.log("column: "+column)
-    // console.log(squares)
+    console.log("clickした!! squareID: " + i + ", valueは" + squares[line][column])
+    console.log("isMyTurn: " + isMyTurn)
 
-    console.log("xIsNext: " + xIsNext)
-    if (!xIsNext) {
+    if (!isMyTurn) {
       return;
     }
     let flipped = this.getFlipCells(line, column, BLACK); // 黒に反転する配列
@@ -268,32 +290,29 @@ class Game extends React.Component {
     // if (calculateWinner(squares) || squares[line][column]) {
     //   return;
     // }
-    // squares[line][column] = this.state.xIsNext ? BLACK : WHITE;
-    // this.setState({
-    //   history: history.concat([{
-    //     squares: squares,
-    //   }]),
-    //   stepNumber: history.length,
-    //   xIsNext: !this.state.xIsNext,
-    // });
+    // squares[line][column] = this.state.isMyTurn ? BLACK : WHITE;
+
+    this.setState({
+      history: history.concat([{
+        squares: squares,
+      }]),
+      stepNumber: history.length,
+      isMyTurn: !this.state.isMyTurn,
+    });
   }
 
   jumpTo(step) {
     this.setState({
       stepNumber: step,
-      xIsNext: (step % 2) === 0,
+      isMyTurn: (step % 2) === 0,
     });
-  }
-
-  hello(greeting) {
-    console.log(greeting);
   }
 
   // showMessage関数
   showMessage(str) { // メッセージを2秒間表示
-    document.getElementById("message").textContent = str;
+    // document.getElementById("message").textContent = str;
     setTimeout(function () {
-      document.getElementById("message").textContent = "";
+      // document.getElementById("message").textContent = "";
     }, 2000); // メッセージ(str)を２秒間表示する
   }
 
@@ -303,25 +322,28 @@ class Game extends React.Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
-    console.log("hey")
-
     // let c = document.getElementById("cell" + i + j);
     // current.squares[i][j] = BLACK;
-    // c.className = "cell " + (color == BLACK ? "black" : "white");
+    // c.className = "cell " + (color === BLACK ? "black" : "white");
     console.log("i + j + color: "+ i + j + color)
-
+    this.audio();
     current.squares[i][j] = color;
-    // this.setState({ // 変更したstateせセットする
-    //   history: history.concat([{
-    //     squares: squares,
-    //   }]),
-    //   stepNumber: history.length,
-    //   xIsNext: !this.state.xIsNext,
-    // });
+  }
+
+  audio() {
+    const audio = new Audio(sound);
+    audio.volume = 0.2;
+    audio.currentTime = 0; //連続クリックに対応
+    audio.play(); //クリックしたら音を再生
+    console.log("audio")
   }
 
   // think関数(コンピューター思考関数)
   think() {
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    const current = history[history.length - 1];
+    const squares = current.squares.slice();
+
     let highScore = -1000;
     let px = -1;
     let py = -1;
@@ -356,6 +378,14 @@ class Game extends React.Component {
       this.put(px, py, WHITE);
     }
 
+    this.setState({
+      history: history.concat([{
+        squares: squares,
+      }]),
+      stepNumber: history.length,
+      // isMyTurn: !this.state.isMyTurn,
+    });
+
     this.update();
   }
 
@@ -363,7 +393,7 @@ class Game extends React.Component {
     let score = 0;
     for (let x = 0; x < 8; x++) {
       for (let y = 0; y < 8; y++) {
-        if (tmpData[x][y] == WHITE) {
+        if (tmpData[x][y] === WHITE) {
           score += WeightData[x][y];
         }
       }
@@ -388,7 +418,7 @@ class Game extends React.Component {
 
   // canFlip関数:盤面に引数の色の石を置けるかをbooleanで返す。
   canFlip(color) { // 挟める石があるか？
-    console.log("colorは"+color);
+    // console.log("colorは"+color);
     for (let x = 0; x < 8; x++) {
       for (let y = 0; y < 8; y++) {
         // 座標(x,y)に石を置いた時に反転する数を求める
@@ -396,17 +426,18 @@ class Game extends React.Component {
         // console.log(x)
         // console.log(y)
         // console.log(flipped)
-        // console.log(flipped.length)
         if (flipped.length > 0) {
+          console.log("flipped.length: " + flipped.length)
           return true;
         }
+        console.log("flipped.length: " + flipped.length)
       }
     }
     return false;
   }
 
 
-  // getFlipCellか関数:(i,j)座標にcolorの石を置いた時に反転する石の配列を返す。
+  // getFlipCell関数: (i,j)座標にcolorの石を置いた時に反転する石の配列を返す。
   // 各方向を配列dirsに格納。for文で方向ごとに石を挟めるか判定する。
   getFlipCells(i, j, color) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
@@ -422,8 +453,9 @@ class Game extends React.Component {
     // console.log("getFlipCellsの「i」は、" + i)
     // console.log("getFlipCellsの「j」は、" + j)
     // console.log("getFlipCellsの「color」は、" + color)
-    if (current.squares[i][j] == BLACK || current.squares[i][j] == WHITE) { // すでに石がある場合(配列す数字が1または2の時)関数から抜ける
-      // console.log(data)
+    // console.log("current.squares[i][j]: " + current.squares[i][j]);
+
+    if (current.squares[i][j] === BLACK || current.squares[i][j] === WHITE) { // すでに石がある場合(配列の数字が1または2の時)関数から抜ける
       return [];
     }
 
@@ -455,41 +487,42 @@ class Game extends React.Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
-    let x = i + dx; // dx方向に順番に見ていくときの座標
-    let y = j + dy; // dy方向に順番に見ていくときの座標
+    let x = Number(i) + Number(dx); // dx方向に順番に見ていくときの座標
+    let y = Number(j) + Number(dy); // dy方向に順番に見ていくときの座標
     let flipped = []; // 挟まれた石の配列
-    // console.log(i + "," + j)
-    // console.log(i)
-    // console.log(j)
-    // console.log(dx)
-    // console.log(dy)
+
+    // console.log("getFlipCellsOneDir" + i + ", " + j + ", " + dx + ", " + dy + ", " + color);
+    // console.log(x);
+    // console.log(y);
 
     if (
       x < 0 || // 盤の外(その行の左にマス目がない)
       y < 0 || // 盤の外(その行の上にマス目がない)
       x > 7 || // 盤の外(その行の右にマス目がない)
       y > 7 || // 盤の外(その行の下にマス目がない)
-      current.squares[i][j] == color || // 同じ色
-      current.squares[i][j] == 0 // 石がない
+      current.squares[x][y] === color || // 同じ色
+      current.squares[x][y] === null // 石がない
       ) {
-      console.log("color同じ")
+      // console.log("color同じ")
       return []; // 盤外、同色、空ならfalse(挟めない)ので関数を抜ける
     }
     flipped.push([x, y]);
     // console.log("flipped " + flipped)
+    // console.log("flipped.length: " + flipped.length);
 
     while (true) {
       x += dx;
       y += dy;
-      if (x < 0 || y < 0 || x > 7 || y > 7 || current.squares[i][j] == 0) {
+      if (x < 0 || y < 0 || x > 7 || y > 7 || current.squares[x][y] === null) {
         return []; // 盤外、空ならfalse(挟めない)
       }
-      if (current.squares[i][j] == color) {
+      if (current.squares[x][y] === color) {
         return flipped;
       } else {
         flipped.push([x, y]);
         // console.log("flipped " + flipped)
       }
+      // console.log("flipped.length: " + flipped.length);
     }
   }
 
@@ -514,7 +547,7 @@ class Game extends React.Component {
     // if (winner) {
     //   status = 'Winner: ' + winner;
     // } else {
-    //   status = 'Next player: ' + (this.state.xIsNext ? BLACK : WHITE);
+    //   status = 'Next player: ' + (this.state.isMyTurn ? BLACK : WHITE);
     // }
 
     let numBlack = 0;
@@ -522,10 +555,10 @@ class Game extends React.Component {
 
     for (let x = 0; x < 8; x++) {
       for (let y = 0; y < 8; y++) {
-        if (current.squares[x][y] == WHITE) {
+        if (current.squares[x][y] === WHITE) {
           numWhite++;
         }
-        if (current.squares[x][y] == BLACK) {
+        if (current.squares[x][y] === BLACK) {
           numBlack++;
         }
       }
@@ -550,26 +583,6 @@ class Game extends React.Component {
     );
   }
 }
-
-// function calculateWinner(squares) {
-//   const lines = [ // 縦・横・斜め
-//     [0, 1, 2],
-//     [3, 4, 5],
-//     [6, 7, 8],
-//     [0, 3, 6],
-//     [1, 4, 7],
-//     [2, 5, 8],
-//     [0, 4, 8],
-//     [2, 4, 6],
-//   ];
-//   for (let i = 0; i < lines.length; i++) {
-//     const [a, b, c] = lines[i];
-//     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-//       return squares[a];
-//     }
-//   }
-//   return null;
-// }
 
 // ========================================
 

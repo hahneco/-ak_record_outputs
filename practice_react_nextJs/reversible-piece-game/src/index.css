@@ -1,10 +1,35 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/*
+#FEDFE1;
+#D7C4BB;
+#DC9FB4;
+#FFFFFF;
+#A5DEE4; // 瓶除き
+#9E7A7A;
+#F3F9FF;
+
+// font系カラー
+#9E7A7A;
+*/
+
+:root {
+  --main-text-color: #9E7A7A;
+  --main-text-color2: #dc9fb4;
+  --main-bg-color: #FEDFE1;
+  --main-color-blue-middle: #A5DEE4;
+  --main-font-family-jp:
+    'Kaisei Tokumin',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Roboto',
+    'Oxygen',
+    'Ubuntu',
+    'Cantarell',
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;;
+  --text-shadow: 2px 3px 0px rgba(220, 150, 180, 0.3);
 }
 
 code {
@@ -13,13 +38,42 @@ code {
 }
 
 body {
-  font: 14px "Century Gothic", Futura, sans-serif;
+  font-family: var(--main-font-family-jp);
+  font-weight: 800;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   margin: 20px;
+  background: url(./img/bg.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
 }
 
 ol,
 ul {
   padding-left: 30px;
+}
+
+.game-board {
+  padding: 10px;
+  border-radius: 2px;
+  border: 4px solid #705622;
+    border-image: linear-gradient(to top left, #705622 0%, #2d2716 100%);
+    border-image-slice: 1;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2), 0 -4px 5px -2px #2f2515 inset;
+  background:
+      repeating-radial-gradient(circle at -1000% 0%,
+        rgba(116, 77, 48, 0.7),
+        #573216 7.5%,
+        rgba(116, 77, 48, 0.9) 10%),
+      repeating-radial-gradient(circle at -1000% 0%,
+        #573216,
+        #573216 0.1%,
+        #744d30 0.4%,
+        #744d30 0.5%);
 }
 
 .board-row:after {
@@ -32,19 +86,59 @@ ul {
   margin-bottom: 10px;
 }
 
+.game {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.game-info {
+  position: absolute;
+  margin-left: 20px;
+  right: 15%;
+  top: 0;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.border-row:nth-of-type(3n) {
+  border-bottom: 3px solid #000;
+}
+
+.squares {
+  position: relative;
+  box-shadow: 2px 2px 4px black;
+}
+
+.squares::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-image: radial-gradient(circle, rgba(33, 255, 13, 0) 10%, rgba(35, 163, 6, 0.29) 40%, rgba(19, 131, 5, 0.65) 68%, rgba(3, 74, 33, 0.75) 90%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
 .square {
   background: #fff;
-  border: 1px solid #999;
+  border: 1px solid #546c40;
   float: left;
   font-size: 24px;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
+  line-height: 9vh;
+  height: 9vh;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 9vh;
+  color: transparent;
 }
 
 .square:focus {
@@ -55,11 +149,23 @@ ul {
   background: #ddd;
 }
 
-.game {
-  display: flex;
-  flex-direction: row;
+.square.cellnull {
+  background: url(./img/square_bg.png) no-repeat;
+  background-size: cover;
 }
 
-.game-info {
-  margin-left: 20px;
+.square.cellnull:hover {
+  border: 3px solid yellow;
+  transition: .3s;
+}
+
+.square.cell1 {
+  background: url(./img/piece_black.svg), url(./img/square_bg.png) no-repeat;
+  background-size: cover;
+}
+
+.square.cell2 {
+  background: url(./img/piece_white.svg), url(./img/square_bg.png) no-repeat;
+  background-size: cover;
+  pointer-events: none;
 }
