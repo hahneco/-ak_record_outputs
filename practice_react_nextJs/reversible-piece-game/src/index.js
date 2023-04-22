@@ -25,7 +25,7 @@ const WeightData = [ // 盤面ごとの優先度
 const BLACK = 1; // 自分
 const WHITE = 2; // PC
 let isMyTurn = false; // 自分の番かどうか
-let winner = undefined;
+// let winner = undefined;
 
 
 function Square(props) { // 自分のstateを持っていないので関数コンポーネントで定義
@@ -148,6 +148,7 @@ class Game extends React.Component {
         squares: Array.from(new Array(8), () => new Array(8).fill(0).map(() => { return null })) // 8*8個の配列
       }],
       stepNumber: 0,
+      winner: "対戦中",
       // isMyTurn: false,
     };
     this.state.history[0].squares[3][3] = BLACK;
@@ -199,13 +200,19 @@ class Game extends React.Component {
       console.log("finish")
       if (numWhite > numBlack) {
         // document.getElementById("message").textContent = "白の勝ち";
-        winner = "白の勝ち";
+        this.setState({
+          winner: "白の勝ち"
+        })
       } else if (numWhite < numBlack) {
         // document.getElementById("message").textContent = "黒の勝ち";
-        winner = "黒の勝ち";
+        this.setState({
+          winner: "黒の勝ち"
+        })
       } else {
         // document.getElementById("message").textContent = "引き分け";
-        winner = "引き分け";
+        this.setState({
+          winner: "引き分け"
+        })
       }
       return
     }
@@ -543,6 +550,7 @@ class Game extends React.Component {
     })
 
     let status;
+    status = this.state.winner;
     // if (winner) {
     //   status = 'Winner: ' + winner;
     // } else {
@@ -573,10 +581,10 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div id={"message"}>メッセージ:&nbsp;{status}</div>
+          <div id={"message"}>メッセージ</div>
           <div>黒（あなた）:&nbsp;{numBlack}枚</div>
           <div>白（PC）:&nbsp;{numWhite}枚</div>
-          <div>対戦中</div>
+          <div>戦況:&nbsp;{status}</div>
           <ol>{moves}</ol>
         </div>
       </div>
