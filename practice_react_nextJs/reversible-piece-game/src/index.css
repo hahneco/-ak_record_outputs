@@ -1,21 +1,4 @@
-/*
-#FEDFE1;
-#D7C4BB;
-#DC9FB4;
-#FFFFFF;
-#A5DEE4; // 瓶除き
-#9E7A7A;
-#F3F9FF;
-
-// font系カラー
-#9E7A7A;
-*/
-
 :root {
-  --main-text-color: #9E7A7A;
-  --main-text-color2: #dc9fb4;
-  --main-bg-color: #FEDFE1;
-  --main-color-blue-middle: #A5DEE4;
   --main-font-family-jp:
     'Kaisei Tokumin',
     -apple-system,
@@ -118,6 +101,10 @@ ul {
 .game-info > ol {
   max-height: 52%;
   overflow-y: auto;
+}
+
+.your-info {
+  color: yellow;
 }
 
 .border-row:nth-of-type(3n) {

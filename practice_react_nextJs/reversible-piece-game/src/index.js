@@ -156,9 +156,8 @@ class Game extends React.Component {
     this.state.history[0].squares[3][4] = WHITE;
     this.state.history[0].squares[4][3] = WHITE;
 
-    // this.handleClick = this.handleClick.bind(this);
-    // this.update = this.update.bind(this);
-    // this.jumpTo = this.jumpTo.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.think = this.think.bind(this);
 
     this.update();
   }
@@ -290,7 +289,6 @@ class Game extends React.Component {
       this.put(line, column, BLACK); // clickしたマスに黒を置く
       this.update();
     }
-    // squares[line][column] = this.state.isMyTurn ? BLACK : WHITE;
 
     this.setState({
       history: history.concat([{
@@ -306,7 +304,7 @@ class Game extends React.Component {
       stepNumber: step,
       isMyTurn: (step % 2) === 0,
     });
-    this.update();
+    // this.update();
   }
 
   // showMessage関数
@@ -323,9 +321,6 @@ class Game extends React.Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
-    // let c = document.getElementById("cell" + i + j);
-    // current.squares[i][j] = BLACK;
-    // c.className = "cell " + (color === BLACK ? "black" : "white");
     console.log("i + j + color: "+ i + j + color)
     this.audio();
     squares[i][j] = color;
@@ -545,11 +540,6 @@ class Game extends React.Component {
 
     let status;
     status = this.state.winner;
-    // if (winner) {
-    //   status = 'Winner: ' + winner;
-    // } else {
-    //   status = 'Next player: ' + (this.state.isMyTurn ? BLACK : WHITE);
-    // }
 
     let numBlack = 0;
     let numWhite = 0;
@@ -576,8 +566,8 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div id={"message"}>メッセージ</div>
-          <div>黒（あなた）:&nbsp;{numBlack}枚</div>
-          <div>白（PC）:&nbsp;{numWhite}枚</div>
+          <div className="your-info">黒（あなた）:&nbsp;{numBlack}枚</div>
+          <div className="pc-info">白（PC）:&nbsp;{numWhite}枚</div>
           <div>戦況:&nbsp;{status}</div>
           <ol>{moves}</ol>
         </div>
