@@ -25,6 +25,7 @@ const WeightData = [ // 盤面ごとの優先度
 const BLACK = 1; // 自分
 const WHITE = 2; // PC
 let isMyTurn = false; // 自分の番かどうか
+// let winner = undefined;
 
 
 function Square(props) { // 自分のstateを持っていないので関数コンポーネントで定義
@@ -147,6 +148,7 @@ class Game extends React.Component {
         squares: Array.from(new Array(8), () => new Array(8).fill(0).map(() => { return null })) // 8*8個の配列
       }],
       stepNumber: 0,
+      winner: "対戦中",
       // isMyTurn: false,
     };
     this.state.history[0].squares[3][3] = BLACK;
@@ -155,7 +157,7 @@ class Game extends React.Component {
     this.state.history[0].squares[4][3] = WHITE;
 
     this.handleClick = this.handleClick.bind(this);
-    this.update = this.update.bind(this);
+    this.think = this.think.bind(this);
 
     this.update();
   }
@@ -168,14 +170,16 @@ class Game extends React.Component {
     let numWhite = 0; // あとでBoardに持たせる
     let numBlack = 0; // あとでBoardに持たせる
 
+    console.log("this.state.stepNumber" + this.state.stepNumber)
+    console.log("this.state.history[0].squares" + this.state.history[0].squares)
     console.log(current.squares)
 
     for (let x = 0; x < 8; x++) {
       for (let y = 0; y < 8; y++) {
-        if (current.squares[x][y] === WHITE) {
+        if (squares[x][y] === WHITE) {
           numWhite++;
         }
-        if (current.squares[x][y] === BLACK) {
+        if (squares[x][y] === BLACK) {
           numBlack++;
         }
       }
@@ -197,10 +201,19 @@ class Game extends React.Component {
       console.log("finish")
       if (numWhite > numBlack) {
         // document.getElementById("message").textContent = "白の勝ち";
+        this.setState({
+          winner: "白の勝ち"
+        })
       } else if (numWhite < numBlack) {
         // document.getElementById("message").textContent = "黒の勝ち";
+        this.setState({
+          winner: "黒の勝ち"
+        })
       } else {
         // document.getElementById("message").textContent = "引き分け";
+        this.setState({
+          winner: "引き分け"
+        })
       }
       return
     }
@@ -241,14 +254,6 @@ class Game extends React.Component {
 
       await this.sleep();
     }
-
-    // this.setState({
-    //   history: history.concat([{
-    //     squares: squares,
-    //   }]),
-    //   // stepNumber: history.length,
-    //   // isMyTurn: !this.state.isMyTurn,
-    // });
   }
 
   // 1000ms待つ処理
@@ -287,11 +292,6 @@ class Game extends React.Component {
       this.update();
     }
 
-    // if (calculateWinner(squares) || squares[line][column]) {
-    //   return;
-    // }
-    // squares[line][column] = this.state.isMyTurn ? BLACK : WHITE;
-
     this.setState({
       history: history.concat([{
         squares: squares,
@@ -306,6 +306,7 @@ class Game extends React.Component {
       stepNumber: step,
       isMyTurn: (step % 2) === 0,
     });
+    // this.update();
   }
 
   // showMessage関数
@@ -322,12 +323,9 @@ class Game extends React.Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
-    // let c = document.getElementById("cell" + i + j);
-    // current.squares[i][j] = BLACK;
-    // c.className = "cell " + (color === BLACK ? "black" : "white");
     console.log("i + j + color: "+ i + j + color)
     this.audio();
-    current.squares[i][j] = color;
+    squares[i][j] = color;
   }
 
   audio() {
@@ -361,7 +359,6 @@ class Game extends React.Component {
           let score = this.calcWeightData(tmpData);
           if (score > highScore) {
             highScore = score;
-            // (px = x), (py = y);
             (px = x);
             (py = y);
           }
@@ -410,7 +407,7 @@ class Game extends React.Component {
     for (let x = 0; x < 8; x++) {
       tmpData[x] = [];
       for (let y = 0; y < 8; y++) {
-        tmpData[x][y] = current.squares[x][y];
+        tmpData[x][y] = squares[x][y];
       }
     }
     return tmpData;
@@ -455,7 +452,7 @@ class Game extends React.Component {
     // console.log("getFlipCellsの「color」は、" + color)
     // console.log("current.squares[i][j]: " + current.squares[i][j]);
 
-    if (current.squares[i][j] === BLACK || current.squares[i][j] === WHITE) { // すでに石がある場合(配列の数字が1または2の時)関数から抜ける
+    if (squares[i][j] === BLACK || squares[i][j] === WHITE) { // すでに石がある場合(配列の数字が1または2の時)関数から抜ける
       return [];
     }
 
@@ -500,8 +497,8 @@ class Game extends React.Component {
       y < 0 || // 盤の外(その行の上にマス目がない)
       x > 7 || // 盤の外(その行の右にマス目がない)
       y > 7 || // 盤の外(その行の下にマス目がない)
-      current.squares[x][y] === color || // 同じ色
-      current.squares[x][y] === null // 石がない
+      squares[x][y] === color || // 同じ色
+      squares[x][y] === null // 石がない
       ) {
       // console.log("color同じ")
       return []; // 盤外、同色、空ならfalse(挟めない)ので関数を抜ける
@@ -513,10 +510,10 @@ class Game extends React.Component {
     while (true) {
       x += dx;
       y += dy;
-      if (x < 0 || y < 0 || x > 7 || y > 7 || current.squares[x][y] === null) {
+      if (x < 0 || y < 0 || x > 7 || y > 7 || squares[x][y] === null) {
         return []; // 盤外、空ならfalse(挟めない)
       }
-      if (current.squares[x][y] === color) {
+      if (squares[x][y] === color) {
         return flipped;
       } else {
         flipped.push([x, y]);
@@ -544,11 +541,7 @@ class Game extends React.Component {
     })
 
     let status;
-    // if (winner) {
-    //   status = 'Winner: ' + winner;
-    // } else {
-    //   status = 'Next player: ' + (this.state.isMyTurn ? BLACK : WHITE);
-    // }
+    status = this.state.winner;
 
     let numBlack = 0;
     let numWhite = 0;
@@ -570,13 +563,14 @@ class Game extends React.Component {
         <div className="game-board">
           <Board
             squares={current.squares}
-            onClick={(i) => this.handleClick(i)}
+            onClick={i => this.handleClick(i)}
           />
         </div>
         <div className="game-info">
-          <div id={"message"}>メッセージ:&nbsp;{status}</div>
-          <div>黒（あなた）:&nbsp;{numBlack}枚</div>
-          <div>白（PC）:&nbsp;{numWhite}枚</div>
+          <div id={"message"}>メッセージ</div>
+          <div className="your-info">黒（あなた）:&nbsp;{numBlack}枚</div>
+          <div className="pc-info">白（PC）:&nbsp;{numWhite}枚</div>
+          <div>戦況:&nbsp;{status}</div>
           <ol>{moves}</ol>
         </div>
       </div>

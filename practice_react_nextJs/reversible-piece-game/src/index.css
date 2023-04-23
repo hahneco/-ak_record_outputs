@@ -1,21 +1,4 @@
-/*
-#FEDFE1;
-#D7C4BB;
-#DC9FB4;
-#FFFFFF;
-#A5DEE4; // 瓶除き
-#9E7A7A;
-#F3F9FF;
-
-// font系カラー
-#9E7A7A;
-*/
-
 :root {
-  --main-text-color: #9E7A7A;
-  --main-text-color2: #dc9fb4;
-  --main-bg-color: #FEDFE1;
-  --main-color-blue-middle: #A5DEE4;
   --main-font-family-jp:
     'Kaisei Tokumin',
     -apple-system,
@@ -43,7 +26,7 @@ body {
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin: 20px;
+  /* margin: 20px; */
   background: url(./img/bg.jpg) no-repeat;
   background-size: cover;
   background-position: center;
@@ -87,18 +70,42 @@ ul {
 }
 
 .game {
+  position: relative;
   display: flex;
   flex-direction: row;
-  position: relative;
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 4vh;
+  display: flex;
+  justify-content: space-around;
 }
 
 .game-info {
-  position: absolute;
-  margin-left: 20px;
-  right: 15%;
-  top: 0;
-  max-height: 80vh;
+  max-height: 64vh;
   overflow-y: auto;
+  width: 32%;
+  background-image: url(./img/frame.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5em 1em;
+}
+
+.game-info > div {
+  margin-bottom: 0.7em;
+}
+
+.game-info > ol {
+  max-height: 52%;
+  overflow-y: auto;
+}
+
+.your-info {
+  color: yellow;
 }
 
 .border-row:nth-of-type(3n) {
@@ -131,13 +138,13 @@ ul {
   float: left;
   font-size: 24px;
   font-weight: bold;
-  line-height: 9vh;
-  height: 9vh;
+  line-height: 5vw;
+  height: 5vw;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 9vh;
+  width: 5vw;
   color: transparent;
 }
 
