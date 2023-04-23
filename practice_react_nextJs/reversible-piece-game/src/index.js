@@ -170,6 +170,8 @@ class Game extends React.Component {
     let numWhite = 0; // あとでBoardに持たせる
     let numBlack = 0; // あとでBoardに持たせる
 
+    console.log("this.state.stepNumber" + this.state.stepNumber)
+    console.log("this.state.history[0].squares" + this.state.history[0].squares)
     console.log(current.squares)
 
     for (let x = 0; x < 8; x++) {

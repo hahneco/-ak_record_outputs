@@ -86,6 +86,7 @@ ul {
   width: 32%;
   background-image: url(./img/frame.svg);
   background-repeat: no-repeat;
+  background-position: center;
   background-size: contain;
   color: white;
   display: flex;
