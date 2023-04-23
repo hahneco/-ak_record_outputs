@@ -81,7 +81,7 @@ ul {
 }
 
 .game-info {
-  max-height: 80vh;
+  max-height: 64vh;
   overflow-y: auto;
   width: 32%;
   background-image: url(./img/frame.svg);
