@@ -16,16 +16,10 @@ export const DATA = {
 }
 
 export const PIECE = {
-  BLACK: 1, // 自分
-  WHITE: 2, // PC
+  black: 1, // 自分
+  white: 2, // PC
 }
 
-export const turn = {
+export let gameSystem = {
   isMyTurn: false, // 自分の番かどうか
 }
-
-// const BLACK = 1; // 自分
-// const WHITE = 2; // PC
-// let isMyTurn = false; // 自分の番かどうか
-
-// export const DataContext = React.createContext(data);
