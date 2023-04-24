@@ -1,6 +1,6 @@
 import React from "react";
 
-// 定数
+// 定数・広域変数
 
 export const DATA = {
   weightData: [ // 盤面ごとの優先度

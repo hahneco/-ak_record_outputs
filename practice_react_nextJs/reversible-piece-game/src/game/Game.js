@@ -1,6 +1,5 @@
 import React, { useState, Component } from 'react';
 import { DATA, PIECE, gameSystem } from "./constants.js";
-import sound from './piece.mp3'
 import Util from "./Util.js";
 import Board from '../index.js';
 
@@ -13,7 +12,6 @@ export default class Game extends React.Component {
       }],
       stepNumber: 0,
       situation: "対戦中",
-      // gameSystem.isMyTurn: false,
     };
     this.state.history[0].squares[3][3] = PIECE.black;
     this.state.history[0].squares[4][4] = PIECE.black;
@@ -173,17 +171,8 @@ export default class Game extends React.Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
-    console.log("i + j + color: "+ i + j + color)
-    this.audio();
+    Util.audio();
     squares[i][j] = color;
-  }
-
-  audio() {
-    const audio = new Audio(sound);
-    audio.volume = 0.2;
-    audio.currentTime = 0; //連続クリックに対応
-    audio.play(); //クリックしたら音を再生
-    console.log("audio")
   }
 
   // think関数(コンピューター思考関数)

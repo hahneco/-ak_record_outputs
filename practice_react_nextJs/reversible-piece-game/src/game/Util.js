@@ -1,3 +1,5 @@
+import sound from './piece.mp3'
+
 // Util クラス
 
 export default class Utill {
@@ -9,4 +11,12 @@ export default class Utill {
       }, wait);
     });
   };
+
+  static audio() {
+  const audio = new Audio(sound);
+  audio.volume = 0.2;
+  audio.currentTime = 0; //連続クリックに対応
+  audio.play(); //クリックしたら音を再生
+  console.log("audio")
+}
 }
