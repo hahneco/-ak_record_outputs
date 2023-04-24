@@ -1,5 +1,5 @@
 // Reactオブジェクト
-import React from 'react';
+import React, { useState, Component } from 'react';
 // ReactDOMオブジェクト
 import ReactDOM from 'react-dom/client';
 // index.cssによるstyleクラス
@@ -10,22 +10,14 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import './App.css'
 import sound from './piece.mp3'
+import { DataContext } from "./game/context.js";
+import Util from "./game/Util.js";
 
 
-const WeightData = [ // 盤面ごとの優先度
-  [30, -12, 0, -1, -1, 0, -12, 30],
-  [-12, -15, -3, -3, -3, -3, -15, -12],
-  [0, -3, 0, -1, -1, 0, -3, 0],
-  [-1, -3, -1, -1, -1, -1, -3, -1],
-  [-1, -3, -1, -1, -1, -1, -3, -1],
-  [0, -3, 0, -1, -1, 0, -3, 0],
-  [-12, -15, -3, -3, -3, -3, -15, -12],
-  [30, -12, 0, -1, -1, 0, -12, 30],
-]; // 重みづけデータ
+
 const BLACK = 1; // 自分
 const WHITE = 2; // PC
 let isMyTurn = false; // 自分の番かどうか
-// let winner = undefined;
 
 
 function Square(props) { // 自分のstateを持っていないので関数コンポーネントで定義
@@ -139,16 +131,17 @@ class Board extends React.Component {
   }
 }
 
-class Game extends React.Component {
+export default class Game extends React.Component {
+  static contextType = DataContext;
+
   constructor(props) {
     super(props);
     this.state = {
       history: [{
-        // squares: Array(64).fill("null"), // 64個の数字が入った1つの配列ver
         squares: Array.from(new Array(8), () => new Array(8).fill(0).map(() => { return null })) // 8*8個の配列
       }],
       stepNumber: 0,
-      winner: "対戦中",
+      situation: "対戦中",
       // isMyTurn: false,
     };
     this.state.history[0].squares[3][3] = BLACK;
@@ -157,7 +150,7 @@ class Game extends React.Component {
     this.state.history[0].squares[4][3] = WHITE;
 
     this.handleClick = this.handleClick.bind(this);
-    this.think = this.think.bind(this);
+    // this.think = this.think.bind(this);
 
     this.update();
   }
@@ -186,8 +179,6 @@ class Game extends React.Component {
     }
     console.log("numWhiteは、" + numWhite + "枚")
     console.log("numBlackは、" + numBlack + "枚")
-    // document.getElementById("numBlack").textContent = numBlack;
-    // document.getElementById("numWhite").textContent = numWhite;
 
     let blackFlip = this.canFlip(BLACK); // 黒反転できるか否か // canFlip関数:盤面に引数の色の石を置けるかをbooleanで返す。
     let whiteFlip = this.canFlip(WHITE); // 白反転できるか否か // canFlip関数:盤面に引数の色の石を置けるかをbooleanで返す。
@@ -200,19 +191,16 @@ class Game extends React.Component {
     if (sumWhiteandBlack === 64 || (!blackFlip && !whiteFlip)) { // 64手すべて打ち終わったときに
       console.log("finish")
       if (numWhite > numBlack) {
-        // document.getElementById("message").textContent = "白の勝ち";
         this.setState({
-          winner: "白の勝ち"
+          situation: "白の勝ち"
         })
       } else if (numWhite < numBlack) {
-        // document.getElementById("message").textContent = "黒の勝ち";
         this.setState({
-          winner: "黒の勝ち"
+          situation: "黒の勝ち"
         })
       } else {
-        // document.getElementById("message").textContent = "引き分け";
         this.setState({
-          winner: "引き分け"
+          situation: "引き分け"
         })
       }
       return
@@ -223,7 +211,6 @@ class Game extends React.Component {
     // 石を置く順番を判定する処理
     if (!blackFlip) {
       this.showMessage("黒スキップ");
-      console.log("黒スキップ")
       isMyTurn = false;
       // this.setState({ // 変更したstateをセットする
       //   isMyTurn: false,
@@ -231,39 +218,28 @@ class Game extends React.Component {
 
     } else if (!whiteFlip) {
       this.showMessage("白スキップ");
-      console.log("白スキップ")
       isMyTurn = true;
-      this.setState({ // 変更したstateをセットする
-        isMyTurn: true,
-      });
+      // this.setState({ // 変更したstateをセットする
+      //   isMyTurn: true,
+      // });
 
     } else {
       // 順番交代。this.state.isMyTurnが true → false → true → false になる。
       isMyTurn = !isMyTurn;
-      console.log("白スキップ黒スキップ以外")
       // this.setState({ // 変更したstateをセットする
       //   isMyTurn: !this.state.isMyTurn,
       // });
     }
-    console.log("isMyTurnは、" + isMyTurn)
+    // console.log("isMyTurnは、" + this.state.isMyTurn)
 
     // 自分のターンでなければPC関数処理
     if (!isMyTurn) {
-      await this.sleep(2000);
+      await Util.sleep(2000);
       this.think()
 
-      await this.sleep();
+      await Util.sleep();
     }
   }
-
-  // 1000ms待つ処理
-  sleep = (wait = 1000) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(); // waitミリ秒後にresolveを呼び起こす
-      }, wait);
-    });
-  };
 
   handleClick(i) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
@@ -297,15 +273,18 @@ class Game extends React.Component {
         squares: squares,
       }]),
       stepNumber: history.length,
-      isMyTurn: !this.state.isMyTurn,
+      // isMyTurn: !this.state.isMyTurn,
     });
   }
 
   jumpTo(step) {
     this.setState({
       stepNumber: step,
-      isMyTurn: (step % 2) === 0,
+      // isMyTurn: (step % 2) === 0,
     });
+    if (!isMyTurn === step % 2) {
+      isMyTurn = true;
+    }
     // this.update();
   }
 
@@ -391,7 +370,7 @@ class Game extends React.Component {
     for (let x = 0; x < 8; x++) {
       for (let y = 0; y < 8; y++) {
         if (tmpData[x][y] === WHITE) {
-          score += WeightData[x][y];
+          score += this.context.weightData[x][y];
         }
       }
     }
@@ -420,9 +399,6 @@ class Game extends React.Component {
       for (let y = 0; y < 8; y++) {
         // 座標(x,y)に石を置いた時に反転する数を求める
         let flipped = this.getFlipCells(x, y, color);
-        // console.log(x)
-        // console.log(y)
-        // console.log(flipped)
         if (flipped.length > 0) {
           console.log("flipped.length: " + flipped.length)
           return true;
@@ -440,17 +416,6 @@ class Game extends React.Component {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
-
-    // console.log(i + ":" + j + ":" + color)
-
-    // const line = i.slice(0, 1);
-    // const column = i.slice(1, 2);
-
-    // console.log(data) // 盤データ(0:なし、1:黒、2:白)
-    // console.log("getFlipCellsの「i」は、" + i)
-    // console.log("getFlipCellsの「j」は、" + j)
-    // console.log("getFlipCellsの「color」は、" + color)
-    // console.log("current.squares[i][j]: " + current.squares[i][j]);
 
     if (squares[i][j] === BLACK || squares[i][j] === WHITE) { // すでに石がある場合(配列の数字が1または2の時)関数から抜ける
       return [];
@@ -471,10 +436,8 @@ class Game extends React.Component {
 
     for (let p = 0; p < dirs.length; p++) {
       let flipped = this.getFlipCellsOneDir(i, j, dirs[p][0], dirs[p][1], color);
-      // console.log("flippedは"+ flipped)
       result = result.concat(flipped); // 別の配列と結合する処理
     }
-    // console.log("resultは、" + result)
     return result;
   }
 
@@ -488,10 +451,6 @@ class Game extends React.Component {
     let y = Number(j) + Number(dy); // dy方向に順番に見ていくときの座標
     let flipped = []; // 挟まれた石の配列
 
-    // console.log("getFlipCellsOneDir" + i + ", " + j + ", " + dx + ", " + dy + ", " + color);
-    // console.log(x);
-    // console.log(y);
-
     if (
       x < 0 || // 盤の外(その行の左にマス目がない)
       y < 0 || // 盤の外(その行の上にマス目がない)
@@ -500,12 +459,9 @@ class Game extends React.Component {
       squares[x][y] === color || // 同じ色
       squares[x][y] === null // 石がない
       ) {
-      // console.log("color同じ")
       return []; // 盤外、同色、空ならfalse(挟めない)ので関数を抜ける
     }
     flipped.push([x, y]);
-    // console.log("flipped " + flipped)
-    // console.log("flipped.length: " + flipped.length);
 
     while (true) {
       x += dx;
@@ -517,16 +473,13 @@ class Game extends React.Component {
         return flipped;
       } else {
         flipped.push([x, y]);
-        // console.log("flipped " + flipped)
       }
-      // console.log("flipped.length: " + flipped.length);
     }
   }
 
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
-    // const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
       const desc = move ?
@@ -541,7 +494,7 @@ class Game extends React.Component {
     })
 
     let status;
-    status = this.state.winner;
+    status = this.state.situation;
 
     let numBlack = 0;
     let numWhite = 0;
