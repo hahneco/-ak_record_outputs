@@ -13,10 +13,10 @@ export default class Utill {
   };
 
   static audio() {
-  const audio = new Audio(sound);
-  audio.volume = 0.2;
-  audio.currentTime = 0; //連続クリックに対応
-  audio.play(); //クリックしたら音を再生
-  console.log("audio")
-}
+    const audio = new Audio(sound);
+    audio.volume = 0.2;
+    audio.currentTime = 0; //連続クリックに対応
+    audio.play(); //クリックしたら音を再生
+    console.log("audio")
+  }
 }
